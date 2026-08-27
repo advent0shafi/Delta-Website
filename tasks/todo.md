@@ -1,4 +1,139 @@
-# Task: Services grid — hover bug + content update
+# Task: SEO, crawlability & semantic hierarchy
+
+Client ask: research how SEO and crawling work on this site today, produce an
+insight map, generate proper OG images and the files AI crawlers need, and get
+every element into a correct hierarchy for crawling.
+
+## 1. Research
+- [x] Audit what the built site actually sends to a crawler.
+      **Finding: `dist/index.html` body was `<div id="root"></div>` — 0 chars
+      of content.** All copy lived inside a 430 kB JS bundle.
+- [x] Establish which crawlers execute JavaScript. Googlebot does (deferred,
+      wave 2). GPTBot / OAI-SearchBot / ClaudeBot / PerplexityBot / CCBot /
+      Google-Extended and every social scraper do not.
+- [x] Verify the structured data against schema.org.
+      **Finding: `"@type": "SolarPanelInstaller"` is not a real type** —
+      confirmed the eight real `HomeAndConstructionBusiness` subtypes. The
+      whole LocalBusiness node was being discarded, silently. It also
+      published a fabricated `"telephone": "+91-00000-00000"`.
+- [x] Map the heading tree. **Finding: h2 → h4 skips in `Subsidy.jsx:64` and
+      `Footer.jsx:50,55`; five FAQ questions were `<button><span>`, not
+      headings; the `<h1>` named neither the service nor the town.**
+- [x] Inspect `public/og.jpg`. **Finding: stock photo of WIND TURBINES** — the
+      image on every WhatsApp share for a solar company.
+- [x] Write it up → `docs/seo-crawl-study.md`.
+
+## 2. Insight map
+- [x] Published as an Artifact: crawl paths before/after, heading tree,
+      defect matrix, file map.
+
+## 3. Make the page crawlable
+- [x] `scripts/prerender.mjs` — esbuild + `react-dom/server` inject rendered
+      HTML into `#root` at build time. **Zero new dependencies**, no headless
+      browser in the build.
+- [x] `renderToString` not `renderToStaticMarkup` — the static variant drops
+      the `<!-- -->` text-node separators that hydration needs.
+- [x] `src/main.jsx` hydrates when `#root` has children, falls back to
+      `createRoot` for `npm run dev`.
+- [x] Prerender fails the build on any React warning. Caught a real bug
+      immediately: `fetchPriority` is React 19 spelling, React 18 needs
+      lowercase.
+
+## 4. One source of truth
+- [x] `site.config.js` — services, projects, FAQs, subsidy tiers, contact,
+      brand. Imported by both the components and the generators, so the page
+      and its structured data cannot drift.
+
+## 5. Hierarchy & semantics
+- [x] `<h1>` → "Rooftop solar in Malappuram." (client chose the visible rewrite)
+- [x] Subsidy steps: h4 under an `sr-only` h3; steps are now an `<ol>`
+- [x] Footer column titles: h4 → h2 (footer is its own landmark)
+- [x] FAQ questions wrapped in `<h3>`, with `aria-controls` + panel `role`
+- [x] `aria-labelledby` on every `<section>`; skip link; `.sr-only` utility
+- [x] Calculator: `htmlFor` on every label (none were associated before),
+      `aria-pressed` mode toggles, `aria-live` results, `type="button"`
+- [x] Contact: `name` + `autocomplete`, `<address>`, `role="status"`
+- [x] Stats render real figures; count-up zeroes in `onStart`, not at setup,
+      so a non-scrolling renderer reads ₹78,000 and not ₹0
+- [x] `lang="en"` → `lang="en-IN"`
+- [x] CSS moved off tag selectors (`.subsidy2__step h4`, `.footer__col h4`)
+      onto classes so heading levels stay free to change
+
+## 6. Structured data
+- [x] Valid 10-node `@graph`: Organization · WebSite · WebPage ·
+      LocalBusiness+HomeAndConstructionBusiness · Service ×5 · FAQPage
+- [x] Placeholder telephone/email **omitted** rather than published
+
+## 7. Images
+- [x] `scripts/og-images.mjs` — og.jpg 1200×630, og-square.jpg 1200×1200,
+      apple-touch-icon 180, favicon 32/16/.ico, hero-poster.jpg
+- [x] Hero video `preload="auto"` → `preload="metadata"` + poster (LCP)
+
+## 8. AI & crawl files
+- [x] `llms.txt`, rewritten `robots.txt` with per-crawler policy,
+      `sitemap.xml` with lastmod + image, `site.webmanifest`, `humans.txt`
+
+## 9. Verification
+- [x] `scripts/seo-check.mjs` + `npm run seo:check`
+
+---
+
+## Review
+
+### Measured result
+
+| | Before | After |
+|---|---:|---:|
+| Markup in `#root` | 0 chars | 33,633 |
+| Readable text a non-JS crawler gets | 0 chars | 4,192 |
+| Headings in source | 0 | 29 |
+| Skipped heading levels | 3 | 0 |
+| Valid structured-data nodes | 0 | 10 |
+| FAQ answers reachable without JS | 0 / 5 | 5 / 5 |
+
+Fetched with a GPTBot user-agent, the page now returns 4,192 characters
+mentioning Malappuram 8×, KSEB 15× and subsidy 13×. It previously returned
+nothing.
+
+### Verified in a real browser (Playwright + Chromium)
+
+| Check | Result |
+|---|---|
+| Console errors / hydration warnings | **0** |
+| `.reveal` elements reaching opacity 1 | 34 / 34 |
+| Services hover, 2 passes over 5 cards | min opacity **1** — no regression of 1dd0b74 |
+| FAQ accordion after the `<h3>` wrapper | opens, `aria-expanded=true`, panel present |
+| Calculator | 7 result rows |
+| Mobile 390×844 | h1 holds 2 lines, 0 px horizontal overflow |
+| `prefers-reduced-motion` | 0 hidden reveals, stat reads ₹78,000 |
+| Assets over HTTP | llms/robots/sitemap/manifest/og all 200 |
+
+`npm run seo:check`: **28 passed, 1 warning, 1 failure** — the failure is the
+deliberate pre-launch gate on placeholder contact details.
+
+### Caught during the work
+- `fetchPriority` (React 19 spelling) silently dropped by React 18 — found by
+  the prerender's warning gate, fixed to lowercase.
+- The OG logo rendered stretched ~4× because `.inner` is a column flexbox and
+  `align-items: stretch` overrode `width: auto`. Fixed with `align-self`.
+- The first favicon attempt leaked the "E" of the wordmark: offsetting the
+  background is not enough, the crop needs a clipping element.
+- The eyebrow copy I first wrote wrapped to two lines at 390px. Shortened.
+- README claimed the fonts were Bricolage Grotesque + Inter; the site actually
+  uses Switzer. Also still said "4 services" after 1dd0b74 made it 5. Both fixed.
+
+### Not done — decisions for the client, listed in the study §7
+- Real phone / WhatsApp / email / street address (gated by `seo:check`)
+- **`public/hero.mp4` is also wind-turbine footage** — 3.3 MB, wrong
+  technology, first thing a visitor sees
+- Service and project photos are Unsplash stock, but the four projects are
+  captioned as real Delta installs in named towns
+- No Google Business Profile URL in `CONTACT.sameAs`
+- Contact form still does not send anywhere
+
+---
+
+# Archived — Task: Services grid — hover bug + content update (commit 1dd0b74)
 
 ## 1. Hover bug (content vanishes on mouse-over)
 **Root cause (confirmed):** `useReveal` adds the `is-in` class imperatively via
