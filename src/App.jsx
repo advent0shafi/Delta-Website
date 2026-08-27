@@ -16,8 +16,11 @@ export default function App() {
   useSmoothScroll()
   return (
     <>
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
       <Nav />
-      <main>
+      <main id="main">
         <Hero />
         <Stats />
         <Services />

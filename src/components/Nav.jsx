@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from './common'
+import { SITE } from '../../site.config'
 
 const LINKS = [
   ['Services', '#services'],
@@ -28,9 +29,25 @@ export default function Nav() {
   return (
     <header className={`nav ${solid ? 'nav--solid' : ''}`}>
       <div className="nav__inner container">
-        <a href="#top" className="nav__logo" aria-label="Delta Energy Solutions home">
-          <img src="/brand/delta-white.png" alt="Delta Energy Solutions" className="nav__logo-w" />
-          <img src="/brand/delta-color.png" alt="" aria-hidden="true" className="nav__logo-c" />
+        <a href="#top" className="nav__logo" aria-label={`${SITE.name} — back to top`}>
+          {/* Two stacked marks, swapped by CSS as the bar goes solid. The <a>
+              carries the accessible name, so both images stay decorative. */}
+          <img
+            src="/brand/delta-white.png"
+            alt=""
+            className="nav__logo-w"
+            width="3354"
+            height="866"
+            fetchpriority="high"
+          />
+          <img
+            src="/brand/delta-color.png"
+            alt=""
+            aria-hidden="true"
+            className="nav__logo-c"
+            width="3354"
+            height="866"
+          />
         </a>
 
         <nav className="nav__links" aria-label="Primary">
@@ -49,19 +66,23 @@ export default function Nav() {
 
         <button
           className="nav__burger"
-          aria-label="Menu"
+          type="button"
+          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="nav-sheet"
           onClick={() => setOpen((o) => !o)}
         >
-          <span className={open ? 'x' : ''} />
-          <span className={open ? 'x' : ''} />
+          <span className={open ? 'x' : ''} aria-hidden="true" />
+          <span className={open ? 'x' : ''} aria-hidden="true" />
         </button>
       </div>
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <motion.nav
             className="nav__sheet"
+            id="nav-sheet"
+            aria-label="Primary"
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
@@ -75,7 +96,7 @@ export default function Nav() {
             <Button href="#contact" variant="green" arrow onClick={() => setOpen(false)}>
               Get Free Quote
             </Button>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </header>

@@ -1,29 +1,23 @@
 import React from 'react'
 import { SectionHeading } from './common'
 import { useReveal } from '../lib/useReveal'
-
-const TIERS = [
-  { kw: '1 kW', amount: '₹30,000', label: 'For 1 kW systems' },
-  { kw: '2 kW', amount: '₹60,000', label: 'For 2 kW systems' },
-  { kw: '3 kW+', amount: '₹78,000', label: 'Maximum subsidy — most popular', hot: true },
-]
-
-const STEPS = [
-  ['Free consultation', 'Share your KSEB bill. We assess your roof and usage, then file your PM Surya Ghar application.'],
-  ['We install', 'A clean, certified install by our team. KSEB inspects and fits your net meter.'],
-  ['You get paid', 'Savings start from day one and the subsidy reaches your bank within 30–60 days.'],
-]
+import { SUBSIDY_TIERS as TIERS, STEPS } from '../../site.config'
 
 export default function Subsidy() {
   const scope = useReveal()
   return (
-    <section id="subsidy" className="section subsidy2" ref={scope}>
+    <section
+      id="subsidy"
+      className="section subsidy2"
+      ref={scope}
+      aria-labelledby="subsidy-title"
+    >
       {/* Two-column: copy left, tier pills right */}
       <div className="container">
         <div className="subsidy2__grid">
           {/* Left */}
           <div className="subsidy2__copy reveal" data-delay="0">
-            <SectionHeading eyebrow="Government subsidy">
+            <SectionHeading eyebrow="Government subsidy" id="subsidy-title">
               The govt pays you <span className="soft">to go solar.</span>
             </SectionHeading>
             <p className="lead">
@@ -56,17 +50,22 @@ export default function Subsidy() {
       {/* Steps — cream bg band */}
       <div className="subsidy2__steps-wrap">
         <div className="container">
-          <div className="subsidy2__steps">
+          <h3 className="sr-only" id="subsidy-steps-title">
+            How going solar with Delta works, in three steps
+          </h3>
+          <ol className="subsidy2__steps" aria-labelledby="subsidy-steps-title">
             {STEPS.map(([t, b], i) => (
-              <div className="subsidy2__step reveal" data-delay={0.06 + i * 0.08} key={i}>
-                <span className="subsidy2__step-n">{String(i + 1).padStart(2, '0')}</span>
+              <li className="subsidy2__step reveal" data-delay={0.06 + i * 0.08} key={t}>
+                <span className="subsidy2__step-n" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 <div>
-                  <h4>{t}</h4>
+                  <h4 className="subsidy2__step-title">{t}</h4>
                   <p>{b}</p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
     </section>

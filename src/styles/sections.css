@@ -757,6 +757,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 22px;
+  list-style: none;
 }
 .subsidy2__step {
   display: flex;
@@ -771,7 +772,7 @@
   flex: none;
   line-height: 1;
 }
-.subsidy2__step h4 {
+.subsidy2__step-title {
   font-family: var(--display);
   font-weight: 600;
   font-size: 1.05rem;
@@ -1050,6 +1051,12 @@
 .faq__item {
   border-bottom: 1px solid var(--line);
 }
+/* Structural wrapper only: each question is a heading, but the button inside
+   carries every visual property. */
+.faq__q-h {
+  font: inherit;
+  margin: 0;
+}
 .faq__q {
   width: 100%;
   display: flex;
@@ -1178,6 +1185,9 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+}
+.contact__address {
+  font-style: normal;
 }
 .contact__details {
   list-style: none;
@@ -1328,7 +1338,10 @@
   padding: 6px 11px;
   border-radius: 999px;
 }
-.footer__col h4 {
+.footer__address {
+  font-style: normal;
+}
+.footer__col-title {
   color: #fff;
   font-size: 12.5px;
   letter-spacing: 0.1em;

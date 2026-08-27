@@ -75,10 +75,15 @@ export default function Calculator() {
   ]
 
   return (
-    <section id="calculator" className="section section--paper-2 calc" ref={scope}>
+    <section
+      id="calculator"
+      className="section section--paper-2 calc"
+      ref={scope}
+      aria-labelledby="calculator-title"
+    >
       <div className="container">
         <div className="sec-head">
-          <SectionHeading eyebrow="Savings calculator">
+          <SectionHeading eyebrow="Savings calculator" id="calculator-title">
             Go solar, <span className="soft">save big.</span>
           </SectionHeading>
           <p className="lead reveal" data-delay="0.1">
@@ -92,27 +97,32 @@ export default function Calculator() {
               <span className="calc__step-n">01</span>
               <span className="calc__step-q">What would you like to use?</span>
             </div>
-            <div className="calc__modes">
+            <div className="calc__modes" role="group" aria-label="What would you like to use?">
               {MODES.map((m) => (
                 <button
                   key={m.id}
+                  type="button"
                   className={`calc__mode ${mode === m.id ? 'on' : ''}`}
+                  aria-pressed={mode === m.id}
                   onClick={() => setMode(m.id)}
                 >
-                  <span className="calc__mode-sym">{m.sym}</span>
+                  <span className="calc__mode-sym" aria-hidden="true">{m.sym}</span>
                   {m.label}
                 </button>
               ))}
             </div>
 
             <div className="calc__field">
-              <label>
+              <label htmlFor="calc-value">
                 {MODES.find((m) => m.id === mode).label}
                 <span> · {MODES.find((m) => m.id === mode).hint}</span>
               </label>
               <input
+                id="calc-value"
+                name="calc-value"
                 type="number"
                 min="0"
+                inputMode="numeric"
                 value={value}
                 onChange={(e) => setValue(Math.max(0, +e.target.value || 0))}
               />
@@ -124,14 +134,21 @@ export default function Calculator() {
             </div>
             <div className="calc__row2">
               <div className="calc__field">
-                <label>State / UT</label>
-                <select disabled value="Kerala">
+                <label htmlFor="calc-state">State / UT</label>
+                {/* defaultValue, not value: a disabled controlled select with no
+                    onChange is a React warning, and this one never changes. */}
+                <select id="calc-state" name="calc-state" disabled defaultValue="Kerala">
                   <option>Kerala</option>
                 </select>
               </div>
               <div className="calc__field">
-                <label>Category</label>
-                <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                <label htmlFor="calc-category">Category</label>
+                <select
+                  id="calc-category"
+                  name="calc-category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
                   <option>Residential</option>
                   <option>Commercial</option>
                   <option>Industrial</option>
@@ -144,17 +161,23 @@ export default function Calculator() {
               <span className="calc__step-q">Electricity unit cost</span>
             </div>
             <div className="calc__field">
+              <label className="sr-only" htmlFor="calc-rate">
+                Electricity unit cost in rupees per kWh
+              </label>
               <div className="calc__rate">
-                <span>₹1</span>
+                <span aria-hidden="true">₹1</span>
                 <input
+                  id="calc-rate"
+                  name="calc-rate"
                   type="range"
                   min="1"
                   max="15"
                   step="0.5"
                   value={rate}
+                  aria-valuetext={`₹${rate.toFixed(2)} per kWh`}
                   onChange={(e) => setRate(+e.target.value)}
                 />
-                <span>₹15</span>
+                <span aria-hidden="true">₹15</span>
               </div>
               <div className="calc__rate-val">
                 <b>₹{rate.toFixed(2)}</b> / kWh
@@ -162,12 +185,12 @@ export default function Calculator() {
               </div>
             </div>
 
-            <Button as="button" variant="green" arrow onClick={() => setShow(true)}>
+            <Button as="button" type="button" variant="green" arrow onClick={() => setShow(true)}>
               Calculate my solar savings
             </Button>
           </div>
 
-          <div className="calc__result">
+          <div className="calc__result" aria-live="polite">
             <AnimatePresence mode="wait">
               {show ? (
                 <motion.div

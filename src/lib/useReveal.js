@@ -44,22 +44,35 @@ export function useReveal(deps = []) {
   return scope
 }
 
-/* Count-up numbers when they scroll into view. */
+/* Count-up numbers when they scroll into view.
+
+   The element is rendered with its TRUE final value in the markup, so the
+   prerendered HTML says "₹78,000" rather than "₹0".
+
+   The reset to zero happens in onStart, not at setup: that way the real
+   figure stays on screen until the moment the animation actually begins.
+   A crawler that renders JavaScript but never scrolls this into view — which
+   is how Googlebot usually behaves — reads the true number instead of a
+   zero left behind by an animation that was waiting for a scroll. */
 export function countUp(el, to, { prefix = '', suffix = '', decimals = 0 } = {}) {
   const obj = { v: 0 }
+  const fmt = (v) =>
+    prefix +
+    v.toLocaleString('en-IN', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }) +
+    suffix
   return gsap.to(obj, {
     v: to,
     duration: 1.6,
     ease: 'power2.out',
     scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+    onStart: () => {
+      el.textContent = fmt(0)
+    },
     onUpdate: () => {
-      el.textContent =
-        prefix +
-        obj.v.toLocaleString('en-IN', {
-          minimumFractionDigits: decimals,
-          maximumFractionDigits: decimals,
-        }) +
-        suffix
+      el.textContent = fmt(obj.v)
     },
   })
 }

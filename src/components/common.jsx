@@ -1,8 +1,12 @@
 import React from 'react'
 
 /* Two-tone section heading echoing the reference: lead word(s) in ink,
-   trailing phrase in muted grey (or green when accent). */
-export function SectionHeading({ eyebrow, children, className = '' }) {
+   trailing phrase in muted grey (or green when accent).
+
+   `id` is given to the <h2> so the owning <section> can point at it with
+   aria-labelledby — that is what turns an anonymous region into a named
+   landmark for screen readers and for the document outline a crawler builds. */
+export function SectionHeading({ eyebrow, children, className = '', id }) {
   return (
     <div className={`sh ${className}`}>
       {eyebrow && (
@@ -10,7 +14,7 @@ export function SectionHeading({ eyebrow, children, className = '' }) {
           {eyebrow}
         </span>
       )}
-      <h2 className="headline reveal" data-delay="0.05">
+      <h2 className="headline reveal" data-delay="0.05" id={id}>
         {children}
       </h2>
     </div>

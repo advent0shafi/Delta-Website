@@ -65,11 +65,20 @@ function FeatureArt() {
   )
 }
 
+/* The value as it should read when the count-up has finished — this is what
+   goes into the markup, so a crawler (and anyone with JS off) sees the real
+   figure instead of the "0" the animation used to start from. */
+const finalText = (s) =>
+  (s.prefix || '') + s.to.toLocaleString('en-IN') + (s.suffix || '')
+
 export default function Stats() {
   const scope = useReveal()
   const numRefs = useRef([])
 
   useEffect(() => {
+    /* Reduced motion: leave the true figures alone rather than animating them. */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const tweens = numRefs.current.map((el, i) =>
       el
         ? countUp(el, STATS[i].to, {
@@ -82,7 +91,7 @@ export default function Stats() {
   }, [])
 
   return (
-    <section id="stats" className="stats2" ref={scope}>
+    <section id="stats" className="stats2" ref={scope} aria-labelledby="stats-title">
       <div className="container">
         <div className="stats2__layout">
           {/* Left: feature card */}
@@ -91,7 +100,7 @@ export default function Stats() {
               <FeatureArt />
             </div>
             <p className="stats2__brand">Delta</p>
-            <h2 className="stats2__ftitle">
+            <h2 className="stats2__ftitle" id="stats-title">
               Energy in a few<br />numbers.
             </h2>
             <a href="#contact" className="stats2__learn">
@@ -105,14 +114,12 @@ export default function Stats() {
               const Ico = ICONS[s.ico]
               return (
                 <div className="stats2__card reveal" data-delay={0.06 + i * 0.06} key={i}>
-                  <span className="stats2__ico">
+                  <span className="stats2__ico" aria-hidden="true">
                     <Ico />
                   </span>
                   <div className="stats2__num">
                     {s.pre && <span className="stats2__pre">{s.pre}</span>}
-                    <span ref={(el) => (numRefs.current[i] = el)}>
-                      {s.prefix || ''}0{s.suffix || ''}
-                    </span>
+                    <span ref={(el) => (numRefs.current[i] = el)}>{finalText(s)}</span>
                   </div>
                   <p className="stats2__label">{s.label}</p>
                 </div>

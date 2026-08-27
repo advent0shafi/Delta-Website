@@ -26,33 +26,37 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="top" className="hero" ref={root}>
+    <section id="top" className="hero" ref={root} aria-labelledby="hero-title">
+      {/* poster + preload="metadata" so the 3.3 MB video no longer blocks LCP:
+          the browser paints the poster frame immediately and streams the rest. */}
       <video
         ref={videoRef}
         className="hero__video"
         src="/hero.mp4"
+        poster="/hero-poster.jpg"
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
+        tabIndex={-1}
       />
       <div className="hero__scrim" aria-hidden="true" />
 
       <div className="container hero__inner">
         <span className="eyebrow hero__eyebrow hero__rise">
-          Rooftop Solar · Malappuram, Kerala
+          On-grid solar · Since 2018
         </span>
 
-        <h1 className="hero__title">
-          <span className="hero__line"><span>Solar power,</span></span>
-          <span className="hero__line"><span className="hero__soft">done right.</span></span>
+        <h1 className="hero__title" id="hero-title">
+          <span className="hero__line"><span>Rooftop solar</span></span>
+          <span className="hero__line"><span className="hero__soft">in Malappuram.</span></span>
         </h1>
 
         <p className="hero__sub hero__rise">
-          On-grid rooftop solar for Kerala homes and businesses — we handle every
-          KSEB form and the subsidy for you.
+          On-grid rooftop solar for Kerala homes and businesses — done right,
+          with every KSEB form and the ₹78,000 subsidy handled for you.
         </p>
 
         <div className="hero__actions hero__rise">
