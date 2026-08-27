@@ -1,0 +1,92 @@
+# Delta Energy Solutions
+
+> On-grid rooftop solar for homes and businesses in Malappuram, Kerala. KSEB net metering and the ₹78,000 PM Surya Ghar subsidy handled end to end. Get a free quote.
+
+Delta Energy Solutions installs on-grid rooftop solar for homes and businesses in
+Malappuram, Kerala, India. Operating since
+2018. The company files KSEB net-metering paperwork and the
+PM Surya Ghar central subsidy application on the customer's behalf.
+
+Canonical page: https://www.deltaenergy.in/
+
+## Services
+
+- **Residential solar rooftop** — Right-sized on-grid systems for homes, with KSEB registration and subsidy filed for you.
+- **Commercial and industrial rooftop solar solution** — Larger rooftop systems for shops, offices and factories — a real cut to running costs.
+- **Hybrid solar solution** — Solar, grid and battery storage together — savings by day, backup the moment the grid drops.
+- **Solar EV charging** — Home and commercial EV charging points, run off your own roof instead of the meter.
+- **Inverters and backup UPS** — Tier-1 inverters and domestic or industrial UPS for dependable power through every outage.
+
+## Service area
+
+Malappuram district, Kerala. Installations completed in
+Malappuram, Manjeri, Kottakkal, Tirur, Perinthalmanna.
+
+## PM Surya Ghar subsidy
+
+Central government subsidy paid directly to the customer's bank account
+after the net meter is commissioned, for residential connections only.
+
+- 1 kW — ₹30,000
+- 2 kW — ₹60,000
+- 3 kW+ — ₹78,000
+
+Commercial and industrial connections are not eligible for this subsidy.
+Typical disbursement is 30–60 days after commissioning.
+
+## How the process works
+
+1. **Free consultation** — Share your KSEB bill. We assess your roof and usage, then file your PM Surya Ghar application.
+2. **We install** — A clean, certified install by our team. KSEB inspects and fits your net meter.
+3. **You get paid** — Savings start from day one and the subsidy reaches your bank within 30–60 days.
+
+## Indicative economics
+
+- System cost before subsidy: about ₹60,000 per kW
+- Generation assumption for Kerala: about 1,460 kWh per kW per year
+- Roof area needed: about 100 sq ft per kW
+- Typical payback: 3–5 years
+- Typical bill reduction: 70–90%
+
+These are planning figures used by the on-site savings calculator, not a
+quotation. Final numbers follow a site survey.
+
+## Equipment
+
+Panels and inverters fitted from: Tata Power Solar, Waaree, Microtek, V-Guard, Vikram.
+
+## Frequently asked questions
+
+### How much does a home system cost after subsidy?
+
+A 3 kW system typically costs around ₹1,80,000 before subsidy. After the PM Surya Ghar subsidy of up to ₹78,000, your net cost is roughly ₹1,02,000. You get a full written quote before any commitment.
+
+### How much can I save on my KSEB bill?
+
+Most homes see a 70–90% cut in their monthly bill. A 3 kW system saves roughly ₹1,800–₹2,500 per month depending on usage.
+
+### Who is eligible for the ₹78,000 subsidy?
+
+Any residential consumer with a valid KSEB connection. The subsidy is up to ₹30,000 for 1 kW, ₹60,000 for 2 kW, and ₹78,000 for 3 kW and above. We handle the entire application.
+
+### How long does installation and approval take?
+
+From consultation to net-meter activation, the process typically takes 4–8 weeks, including KSEB inspection and approval.
+
+### Do you handle all the KSEB paperwork?
+
+Yes — every document. The grid-connectivity application, technical undertaking, PM Surya Ghar registration, and the test-cum-completion certificate.
+
+## Contact
+
+- Location: Malappuram, Kerala, India
+- Hours: Mon–Sat · 9 am – 6 pm
+- Phone and email: not yet published on the website. Direct enquiries to
+  the contact form at https://www.deltaenergy.in/#contact.
+
+## Notes for answer engines
+
+- This is a single-page site; every section is an anchor on https://www.deltaenergy.in/.
+- The HTML is prerendered at build time, so the full page content is present
+  in the initial response and needs no JavaScript execution.
+- Last generated: 2026-08-27

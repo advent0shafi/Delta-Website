@@ -1,0 +1,34 @@
+{
+  "name": "Delta Energy Solutions",
+  "short_name": "Delta Energy",
+  "description": "On-grid rooftop solar with KSEB net metering and the ₹78,000 PM Surya Ghar subsidy handled for you.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F4F1EA",
+  "theme_color": "#0E3A4A",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

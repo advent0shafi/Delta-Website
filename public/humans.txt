@@ -1,0 +1,10 @@
+/* TEAM */
+  Delta Energy Solutions
+  Location: Malappuram, Kerala, India
+  Since: 2018
+
+/* SITE */
+  Standards: HTML5, CSS3, ECMAScript 2022
+  Components: React, Vite, GSAP, Framer Motion, Lenis
+  Rendering: prerendered at build time, hydrated in the browser
+  Last updated: 2026-08-27
