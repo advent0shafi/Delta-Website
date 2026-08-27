@@ -6,26 +6,32 @@ import { useReveal } from '../lib/useReveal'
 const SERVICES = [
   {
     icon: 'home',
-    title: ['Residential ', 'rooftop solar.'],
+    title: ['Residential ', 'solar rooftop.'],
     body: 'Right-sized on-grid systems for homes, with KSEB registration and subsidy filed for you.',
     img: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1000&q=70',
   },
   {
     icon: 'factory',
-    title: ['Commercial & ', 'industrial.'],
-    body: 'Larger systems for shops, offices and factories — a real cut to running costs.',
+    title: ['Commercial and industrial ', 'rooftop solar solution.'],
+    body: 'Larger rooftop systems for shops, offices and factories — a real cut to running costs.',
     img: 'https://images.unsplash.com/photo-1566093097221-ac2335b09e70?auto=format&fit=crop&w=1000&q=70',
   },
   {
-    icon: 'grid',
-    title: ['Net metering & ', 'KSEB approvals.'],
-    body: 'Grid-tied metering and every approval handled — export by day, pay the difference.',
+    icon: 'hybrid',
+    title: ['Hybrid ', 'solar solution.'],
+    body: 'Solar, grid and battery storage together — savings by day, backup the moment the grid drops.',
     img: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1000&q=70',
   },
   {
+    icon: 'ev',
+    title: ['Solar ', 'EV charging.'],
+    body: 'Home and commercial EV charging points, run off your own roof instead of the meter.',
+    img: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1000&q=70',
+  },
+  {
     icon: 'battery',
-    title: ['Inverters & ', 'backup.'],
-    body: 'Tier-1 inverters and home UPS for dependable power when the grid drops.',
+    title: ['Inverters and ', 'backup UPS.'],
+    body: 'Tier-1 inverters and domestic or industrial UPS for dependable power through every outage.',
     img: 'https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=1000&q=70',
   },
 ]

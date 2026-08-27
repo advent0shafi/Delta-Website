@@ -494,13 +494,16 @@
   overflow: hidden;
   cursor: default;
   outline: none;
-  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  /* Lift uses `translate`, not `transform`: `.reveal` owns this element's
+     `transform`, and two rules setting the same property would cancel the
+     lift out. `translate` is an independent property and composes with it. */
+  transition: translate 0.5s var(--ease), box-shadow 0.5s var(--ease);
 }
 .svc:focus-visible {
   box-shadow: 0 0 0 3px var(--green-300);
 }
 .svc.is-hover {
-  transform: translateY(-4px);
+  translate: 0 -4px;
   box-shadow: var(--shadow-md);
 }
 .svc__media {
@@ -577,10 +580,19 @@
     margin-inline: 0;
     padding-inline: 0;
     grid-auto-flow: row;
-    grid-template-columns: repeat(4, 1fr);
+    /* Six tracks so five cards split 3 + 2 with no dangling empty cell:
+       row 1 = three cards spanning 2, row 2 = two cards spanning 3. */
+    grid-template-columns: repeat(6, 1fr);
     gap: 18px;
   }
-  .svc { min-height: 380px; }
+  .svc {
+    grid-column: span 2;
+    min-height: 380px;
+  }
+  .svc:nth-child(4),
+  .svc:nth-child(5) {
+    grid-column: span 3;
+  }
 }
 
 /* ---------------- PROJECTS ---------------- */

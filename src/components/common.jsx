@@ -60,6 +60,26 @@ export const Icons = {
       <path d="M7 21v-3M12 21v-3M17 21v-3" {...S} />
     </svg>
   ),
+  /* Hybrid = generation (sun) stacked over storage (battery). */
+  hybrid: (p) => (
+    <svg viewBox="0 0 24 24" {...p}>
+      <circle cx="12" cy="6.8" r="3" {...S} />
+      <path
+        d="M12 1.4v1.4M12 10.8v1.4M6.6 6.8h1.4M16 6.8h1.4M8.2 3l1 1M14.8 9.6l1 1M15.8 3l-1 1M9.2 9.6l-1 1"
+        {...S}
+      />
+      <rect x="3.2" y="15.4" width="15" height="6" rx="1.9" {...S} />
+      <path d="M20.6 17.4v2" {...S} />
+    </svg>
+  ),
+  ev: (p) => (
+    <svg viewBox="0 0 24 24" {...p}>
+      <path d="M3 17V9.5L4.8 5h8.4L15 9.5V17a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1-1v-1h-6v1a1 1 0 0 1-1 1H3.5a1 1 0 0 1-.5-1z" {...S} />
+      <path d="M3.4 9.5h11.2M6 13h.01M12 13h.01" {...S} />
+      <path d="M18 20v-6.6a2 2 0 0 1 2-2 1.6 1.6 0 0 0 1.6-1.6V9.4" {...S} />
+      <path d="M20.8 2.8l-1.6 2.5h2.2l-1.6 2.5" {...S} />
+    </svg>
+  ),
   battery: (p) => (
     <svg viewBox="0 0 24 24" {...p}>
       <rect x="3" y="7" width="15" height="10" rx="2" {...S} />

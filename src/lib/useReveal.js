@@ -5,7 +5,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 /* Batched scroll reveal: any descendant with class .reveal animates in.
-   Honors a per-element style="--d: 0.1s" delay via data-delay. */
+   Honors a per-element style="--d: 0.1s" delay via data-delay.
+
+   The revealed state is stored as a `data-in` ATTRIBUTE, not a class. Some
+   revealed elements (e.g. the services cards) also carry a React-controlled
+   className that changes on hover; when React re-renders it re-assigns
+   node.className wholesale, which would silently strip an externally-added
+   class and make the element fade back to opacity: 0. React never writes
+   `data-in`, so the reveal survives any re-render. */
 export function useReveal(deps = []) {
   const scope = useRef(null)
   useEffect(() => {
@@ -16,7 +23,7 @@ export function useReveal(deps = []) {
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce) {
-      items.forEach((el) => el.classList.add('is-in'))
+      items.forEach((el) => el.setAttribute('data-in', ''))
       return
     }
 
@@ -26,7 +33,7 @@ export function useReveal(deps = []) {
       onEnter: (batch) =>
         batch.forEach((el, i) => {
           const delay = parseFloat(el.dataset.delay || 0) + i * 0.07
-          gsap.delayedCall(delay, () => el.classList.add('is-in'))
+          gsap.delayedCall(delay, () => el.setAttribute('data-in', ''))
         }),
     })
 

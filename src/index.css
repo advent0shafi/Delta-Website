@@ -264,7 +264,7 @@ textarea {
   transform: translateY(22px);
   transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
 }
-.reveal.is-in {
+.reveal[data-in] {
   opacity: 1;
   transform: none;
 }
