@@ -52,29 +52,44 @@ export const AREA = {
 
 /* ---------- contact ----------
 
-   PLACEHOLDERS. `npm run seo:check` fails while any of these are
-   still here, so the site cannot go live carrying fake details.
+   Real, supplied by the client. `isPlaceholder: false` releases the
+   launch gate in `npm run seo:check` and lets the telephone and email
+   into the JSON-LD, where a fake one would have been worse than none.
 
-   `isPlaceholder` gates the values out of the JSON-LD: an absent
-   `telephone` is correct data, a fake one is a wrong fact published
-   under Delta's name. Set it to false once the real numbers land.
+   NOTE — postcode discrepancy. The client's billing address gives
+   676519. Their own Google Business listing resolves to
+   "Valiya Varambu Rd, Down Hill, Malappuram, Kerala 676505". The
+   client's stated value is used here because it is their billing
+   address, but the two should be reconciled: a website and a Google
+   Business Profile disagreeing on the postcode weakens the NAP
+   consistency local search leans on.
    ------------------------------------------------------------- */
 
 export const CONTACT = {
-  isPlaceholder: true,
-  phoneDisplay: '+91 XXXXX XXXXX',
-  phoneHref: 'tel:+910000000000',
+  isPlaceholder: false,
+  phoneDisplay: '+91 75105 00080',
+  phoneHref: 'tel:+917510500080',
   /* E.164, what schema.org and WhatsApp both want */
-  phoneE164: '+910000000000',
-  whatsappHref: 'https://wa.me/910000000000',
-  email: 'hello@deltaenergy.in',
-  streetAddress: '',
-  postalCode: '',
+  phoneE164: '+917510500080',
+  whatsappHref: 'https://wa.me/917510500080',
+  email: 'deltampm@gmail.com',
+  streetAddress: 'Valiyavaramb Bypass, Down Hill',
+  postalCode: '676519',
+  /* GST identification number — 15 characters, and the leading 32 is
+     Kerala's state code. Emitted as schema.org `taxID` and shown in the
+     footer, which is normal practice for an Indian business and a real
+     trust signal. */
+  gstin: '32AAPFD3008C1Z1',
+  /* Google Business listing. Emitted as schema.org `hasMap`, not
+     `sameAs` — sameAs is for identity profiles, this is a map. */
+  mapUrl: 'https://maps.app.goo.gl/UGhCmN2aXj1L23Jn9',
   hoursDisplay: 'Mon–Sat · 9 am – 6 pm',
   opens: '09:00',
   closes: '18:00',
   days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  /* public profiles — feed schema.org `sameAs`. Empty until real. */
+  /* public profiles — feed schema.org `sameAs`. Still empty: the map link
+     above is not a social profile, and padding this with it would silence
+     a warning that is telling the truth. */
   sameAs: [],
 }
 

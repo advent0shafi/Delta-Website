@@ -1,4 +1,80 @@
-# Task: About page, built on mock content
+# Task: Real contact details, replacing the placeholders
+
+Client supplied the live business details. This retires the launch gate that
+has been failing since the site was built.
+
+## What went in
+
+- [x] Phone `+91 75105 00080` → `tel:+917510500080`, `wa.me/917510500080`
+- [x] Email `deltampm@gmail.com`
+- [x] Address `Valiyavaramb Bypass, Down Hill, Malappuram 676519`
+- [x] GSTIN `32AAPFD3008C1Z1` — 15 chars, state code 32 (Kerala), format checked
+- [x] Google Business listing → schema.org `hasMap`
+- [x] `CONTACT.isPlaceholder: false`
+
+## Where it surfaces
+
+- [x] JSON-LD `LocalBusiness` now publishes `telephone`, `email`, `taxID`,
+      `hasMap` and a complete `PostalAddress`.
+- [x] Contact section shows the full street address, linked to the map.
+- [x] Footer shows the address over two lines and the GSTIN in the legal strip.
+- [x] `llms.txt` picks up the phone and email automatically.
+
+## Two judgement calls worth recording
+
+- [x] **The map URL went to `hasMap`, not `sameAs`.** `sameAs` is for identity
+      profiles; a map link is not one. Padding `sameAs` with it would have
+      silenced a warning that is telling the truth — Delta still has no social
+      profiles listed, and that is a real remaining SEO gap.
+- [x] **Postcode discrepancy left as the client stated it.** They gave 676519;
+      their own Google listing resolves to 676505. Used their value because it
+      is their billing address, and flagged it rather than quietly picking one.
+
+## Bug found while doing it
+
+- [x] `checkSameAs` had become unreachable. The `sameAs` warning sat after the
+      placeholder `fail()` inside `checkLaunch`, so the moment contact details
+      went live the early `return` skipped it — the check switched itself off
+      at exactly the point it started mattering. Extracted into its own
+      function, called from both branches.
+
+## New guards
+
+- [x] GSTIN format is validated (`fail` on malformed).
+- [x] `phoneE164` is validated as an Indian mobile in E.164 — a number with a
+      space or a missing country code breaks both WhatsApp and schema.org, and
+      is invisible by eye.
+- [x] Street address and postcode presence warned on.
+
+## Review
+
+```
+LAUNCH
+  ✗ the About page is still mock content
+  ✓ contact details are marked real in site.config.js
+  ✓ GSTIN 32AAPFD3008C1Z1 is well-formed (state code 32)
+  ✓ telephone +917510500080 is valid E.164
+  ✓ address published: Valiyavaramb Bypass, Down Hill, 676519
+  ! no social profiles in CONTACT.sameAs
+```
+
+The single remaining failure is the About mock content. Contact is clear.
+
+Verified: no placeholder string (`XXXXX`, `910000000000`, `hello@deltaenergy.in`)
+survives anywhere in `dist/` or `public/`; the real phone, email, WhatsApp,
+address, GSTIN and map link appear on all 13 pages; Playwright confirms the
+`tel:`, `mailto:`, `wa.me` and map hrefs are exact and that the floating call
+and WhatsApp buttons dial the real number.
+
+## Still outstanding
+
+- `content/about.js` mock content.
+- `Contact.jsx` still shows a success state without sending — now that the
+  phone number is real, WhatsApp is a working fallback, but the form itself
+  still drops the enquiry.
+- No Google Business Profile URL in `CONTACT.sameAs`.
+
+# Archived — Task: About page on mock content (commit f03cd07)
 
 Client ask: "now the about page uses mock ups that resembles of delta as
 content" — i.e. build `/about/` now, with realistic stand-in copy modelled on

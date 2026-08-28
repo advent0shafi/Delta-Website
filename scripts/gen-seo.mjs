@@ -134,6 +134,12 @@ function buildGraph() {
     ...(CONTACT.isPlaceholder
       ? {}
       : { telephone: CONTACT.phoneE164, email: CONTACT.email }),
+    /* GSTIN is the business's registered tax identity — the closest true
+       schema.org property, and a genuine legitimacy signal for an Indian
+       business. hasMap points at the Google Business listing; it is a map,
+       not an identity profile, so it does not belong in sameAs. */
+    ...(CONTACT.gstin ? { taxID: CONTACT.gstin } : {}),
+    ...(CONTACT.mapUrl ? { hasMap: CONTACT.mapUrl } : {}),
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: CONTACT.days,

@@ -33,7 +33,15 @@ export default function Contact({ headingAs: Heading = 'h2' }) {
             <ul className="contact__details">
               <li>
                 <span aria-hidden="true"><Icons.pin width="18" height="18" /></span>
-                {AREA.city}, {AREA.region}
+                {CONTACT.mapUrl ? (
+                  <a href={CONTACT.mapUrl} target="_blank" rel="noopener noreferrer">
+                    {CONTACT.streetAddress}, {AREA.city}, {AREA.region} {CONTACT.postalCode}
+                  </a>
+                ) : (
+                  <>
+                    {CONTACT.streetAddress}, {AREA.city}, {AREA.region} {CONTACT.postalCode}
+                  </>
+                )}
               </li>
               <li>
                 <a href={CONTACT.phoneHref}>

@@ -168,11 +168,12 @@ nil) and shows generation, annual savings, net cost and payback.
 `npm run seo:check` fails while any of these are outstanding. That is on
 purpose: it is the pre-launch gate.
 
-- **Phone / WhatsApp / email** — `site.config.js` -> `CONTACT`. Currently
-  `+91 XXXXX XXXXX` / `hello@deltaenergy.in`. Set the real values, flip
-  `isPlaceholder: false`, then run `npm run seo:gen`. Until that happens the
-  JSON-LD deliberately omits `telephone` and `email` rather than publishing a
-  fake number as fact.
+- ~~**Phone / WhatsApp / email**~~ — **done.** `CONTACT` now carries the real
+  number, email, street address, postcode and GSTIN, and `isPlaceholder` is
+  `false`, so `telephone`, `email`, `taxID` and `hasMap` are published in the
+  structured data.
+- **About page content** — `content/about.js` is mock. See the warning above;
+  it holds the gate shut on its own.
 - **Hero video** — `public/hero.mp4` is 3.3 MB of **wind turbine** stock
   footage, which is the wrong technology for a solar company and the first
   thing a visitor sees. Replace it, then `npm run og` to refresh the poster
@@ -183,8 +184,11 @@ purpose: it is the pre-launch gate.
   just an aesthetic one.
 - **Google Business Profile** — add the URL to `CONTACT.sameAs`. For a local
   business this is one of the highest-value remaining SEO signals.
-- **Street address** — `CONTACT.streetAddress` / `postalCode` feed the
-  `PostalAddress` in the structured data.
+- **Postcode discrepancy** — the client's billing address gives `676519`,
+  which is what `CONTACT.postalCode` publishes. Their Google Business listing
+  resolves to `Valiya Varambu Rd, Down Hill, Malappuram, Kerala 676505`. Local
+  search leans on the website and the Business Profile agreeing, so the two
+  should be reconciled — whichever is correct.
 - **Contact form** — `Contact.jsx` shows a success state on submit but does
   not send anywhere. Wire it to your email service / WhatsApp / CRM.
 

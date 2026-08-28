@@ -89,7 +89,11 @@ export default function Footer() {
                 </li>
                 <li>
                   <Icons.pin width="16" height="16" aria-hidden="true" />
-                  {AREA.city}, {AREA.region}
+                  <span>
+                    {CONTACT.streetAddress}
+                    <br />
+                    {AREA.city}, {AREA.region} {CONTACT.postalCode}
+                  </span>
                 </li>
               </ul>
             </address>
@@ -109,7 +113,10 @@ export default function Footer() {
 
         <div className="container footer__bottom">
           <span>© {new Date().getFullYear()} {SITE.name}, {AREA.city}. All rights reserved.</span>
-          <span>Authorized Solar Dealer · KSEB Net Metering</span>
+          <span>
+            {CONTACT.gstin && <>GSTIN {CONTACT.gstin} · </>}
+            Authorized Solar Dealer · KSEB Net Metering
+          </span>
         </div>
       </footer>
 

@@ -392,6 +392,32 @@ function checkLaunch() {
 
   if (!CONTACT.isPlaceholder) {
     ok('LAUNCH', 'contact details are marked real in site.config.js')
+
+    /* A malformed GSTIN published on the site is a live business problem, and
+       a transposed character is invisible by eye. 15 chars: state code,
+       PAN, entity number, Z, checksum. */
+    const GSTIN = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$/
+    if (!CONTACT.gstin) {
+      warn('LAUNCH', 'no GSTIN set — Indian businesses normally publish one')
+    } else if (!GSTIN.test(CONTACT.gstin)) {
+      fail('LAUNCH', `GSTIN ${CONTACT.gstin} is not a valid GSTIN format`)
+    } else {
+      ok('LAUNCH', `GSTIN ${CONTACT.gstin} is well-formed (state code ${CONTACT.gstin.slice(0, 2)})`)
+    }
+
+    /* The number that reaches schema.org and WhatsApp must be E.164. */
+    if (!/^\+91[6-9][0-9]{9}$/.test(CONTACT.phoneE164)) {
+      fail('LAUNCH', `phoneE164 ${CONTACT.phoneE164} is not a valid Indian mobile in E.164`)
+    } else {
+      ok('LAUNCH', `telephone ${CONTACT.phoneE164} is valid E.164`)
+    }
+
+    if (!CONTACT.streetAddress || !CONTACT.postalCode) {
+      warn('LAUNCH', 'street address or postcode missing — LocalBusiness is weaker without both')
+    } else {
+      ok('LAUNCH', `address published: ${CONTACT.streetAddress}, ${CONTACT.postalCode}`)
+    }
+    checkSameAs()
     return
   }
   fail(
@@ -408,12 +434,21 @@ function checkLaunch() {
     ].join('\n')
   )
 
+  checkSameAs()
+}
+
+/* Relevant whether or not the phone number is real, so it lives outside the
+   placeholder branch — it was previously unreachable the moment the contact
+   details went live, which is exactly when it starts to matter. */
+function checkSameAs() {
   if (!CONTACT.sameAs.length) {
     warn(
       'LAUNCH',
       'no social profiles in CONTACT.sameAs',
-      'Google uses sameAs to connect the site to a Business Profile.'
+      'Google uses sameAs to connect the site to a Business Profile. The map\n       link is emitted as hasMap and is not a substitute.'
     )
+  } else {
+    ok('LAUNCH', `${CONTACT.sameAs.length} profile(s) in sameAs`)
   }
 }
 
