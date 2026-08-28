@@ -36,6 +36,7 @@ export default function Contact({ headingAs: Heading = 'h2' }) {
                 {CONTACT.mapUrl ? (
                   <a href={CONTACT.mapUrl} target="_blank" rel="noopener noreferrer">
                     {CONTACT.streetAddress}, {AREA.city}, {AREA.region} {CONTACT.postalCode}
+                    <span className="ext" aria-hidden="true">↗</span>
                   </a>
                 ) : (
                   <>

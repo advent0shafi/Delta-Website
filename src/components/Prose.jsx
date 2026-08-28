@@ -67,6 +67,10 @@ export default function Prose({
                   Source:{' '}
                   <a href={b.source.href} target="_blank" rel="noopener noreferrer">
                     {b.source.label}
+                    {/* Diagonal, not the → used for onward navigation: this
+                        one leaves the site. Aria-hidden because the link text
+                        already says where it goes. */}
+                    <span className="ext" aria-hidden="true">↗</span>
                   </a>
                 </p>
               )}

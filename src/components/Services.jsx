@@ -57,14 +57,13 @@ function Card({ s, i, titleAs: Title = 'h3' }) {
             <span className="svc__title-2">{s.title[1]}</span>
           </Link>
         </Title>
-        <motion.p
-          className="svc__body"
-          initial={false}
-          animate={{ opacity: hover ? 1 : 0, y: hover ? 0 : 10 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {s.body}
-        </motion.p>
+        {/* Plain <p>, revealed by CSS rather than by a hover-driven opacity
+            animation. The animated version was `opacity: hover ? 1 : 0`, and
+            a touch device never fires hover — so on a phone the description
+            was invisible and the card was an icon, a title and 200px of
+            nothing. CSS can ask `(hover: hover)`; a render cannot, without
+            branching on window and breaking hydration. */}
+        <p className="svc__body">{s.body}</p>
       </div>
     </motion.article>
   )

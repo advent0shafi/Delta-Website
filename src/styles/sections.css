@@ -539,13 +539,23 @@
 .services__grid::-webkit-scrollbar {
   display: none;
 }
+/* Mobile: the photograph and its scrim are always on, the description is
+   always readable, and the card sizes to its content. Previously this was a
+   white box 380px tall holding an icon at the top, a title at the bottom and
+   nothing in between, with the description hidden behind a hover the device
+   cannot perform. The white fill and border are gone because the photograph
+   covers them. The hover-reveal still runs on pointer devices, below. */
 .svc {
   scroll-snap-align: start;
   position: relative;
   border-radius: var(--r-lg);
-  background: var(--white);
-  border: 1px solid var(--line-soft);
-  min-height: 380px;
+  overflow: hidden;
+  /* Enough that the photograph reads above the text rather than being buried
+     under the scrim — the card sizes to content at about 230px, and the
+     gradient hits 0.93 opacity by its foot, so without this the image was
+     effectively invisible on a phone. Still well below the old fixed 380px,
+     and the space is now filled with the description rather than empty. */
+  min-height: 320px;
   padding: clamp(22px, 5vw, 30px);
   display: flex;
   flex-direction: column;
@@ -574,12 +584,19 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Landscape sources cropped into a tall card: bias down, where the roof is,
+     rather than centre, which on most of these lands on sky. */
+  object-position: center 58%;
 }
 .svc__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 41, 38, 0.1) 0%, rgba(10, 41, 38, 0.5) 45%, rgba(10, 41, 38, 0.93) 100%);
-  opacity: 0;
+  /* Lightened at the top and middle so the photograph actually reads. The
+     foot stays at 0.93, which is where the title and description sit, so
+     nothing is harder to read — the previous ramp hit 0.5 by 45% and turned
+     the upper half of every card into a grey wash. */
+  background: linear-gradient(180deg, rgba(10, 41, 38, 0) 0%, rgba(10, 41, 38, 0.28) 45%, rgba(10, 41, 38, 0.93) 100%);
+  opacity: 1;
   transition: opacity 0.6s var(--ease);
 }
 .svc.is-hover .svc__scrim {
@@ -610,20 +627,21 @@
   font-size: clamp(1.25rem, 4.6vw, 1.5rem);
   line-height: 1.16;
   letter-spacing: -0.02em;
-  color: var(--ink);
-  transition: color 0.5s var(--ease);
-}
-.svc__title-2 {
-  color: var(--mute-2);
-  transition: color 0.5s var(--ease);
-}
-.svc.is-hover .svc__title,
-.svc.is-hover .svc__title-2 {
   color: #fff;
+  transition: color 0.5s var(--ease);
+}
+/* Single colour, like every other heading since the two-tone treatment was
+   cut back to the hero and the closing CTA. This class was missed then. */
+.svc__title-2 {
+  color: inherit;
+  transition: color 0.5s var(--ease);
+}
+.svc__icon {
+  color: rgba(255, 255, 255, 0.9);
 }
 .svc__body {
   color: rgba(255, 255, 255, 0.88);
-  font-size: 14.5px;
+  font-size: 0.88rem;
   line-height: 1.55;
   margin-top: 11px;
 }
@@ -2015,4 +2033,87 @@
   letter-spacing: 0.02em;
   color: var(--forest);
   background: var(--paper-3);
+}
+
+/* Project spec — label over value, the pattern the Lugano teardown flagged
+   (research/lugano/study.md §3). Reads as a spec sheet rather than a caption,
+   and gives the eye two fixed points to compare across cards. */
+.proj__spec {
+  display: flex;
+  gap: 22px;
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+.proj__spec dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.62);
+  margin-bottom: 1px;
+}
+.proj__spec dd {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 0.98rem;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Outbound marker. Delta used one → for everything; this separates "leaves the
+   site" from "goes further into it", which is the distinction the Lugano
+   teardown noted them making with ↗ against →. */
+.ext {
+  display: inline-block;
+  margin-left: 0.32em;
+  font-size: 0.86em;
+  line-height: 1;
+  translate: 0 -0.04em;
+  transition: translate 0.3s var(--ease);
+}
+a:hover > .ext {
+  translate: 0.12em -0.16em;
+}
+
+/* ----------------------------------------------------------
+   Service cards on a pointer device
+   ----------------------------------------------------------
+   The hover-reveal is the original design and it is good — but it is only
+   available where a pointer can hover. The base rules above now serve touch
+   (photo and description always visible); this restores the card-to-photo
+   reveal for mouse users, gated on `(hover: hover)` so a touch device with a
+   wide viewport keeps the readable version rather than the empty one.
+   ---------------------------------------------------------- */
+@media (hover: hover) and (min-width: 1000px) {
+  .svc {
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+  }
+  .svc__scrim {
+    opacity: 0;
+  }
+  .svc.is-hover .svc__scrim {
+    opacity: 1;
+  }
+  .svc__title {
+    color: var(--ink);
+  }
+  .svc__icon {
+    color: var(--green-600);
+  }
+  .svc.is-hover .svc__title,
+  .svc.is-hover .svc__icon {
+    color: #fff;
+  }
+  /* Held back until hover, and animated with CSS rather than by the render,
+     so the prerendered markup and the hydrated markup agree. */
+  .svc__body {
+    opacity: 0;
+    translate: 0 10px;
+    transition: opacity 0.45s var(--ease), translate 0.45s var(--ease);
+  }
+  .svc.is-hover .svc__body {
+    opacity: 1;
+    translate: 0 0;
+  }
 }

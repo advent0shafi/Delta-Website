@@ -3,7 +3,7 @@ import { childHeading, SectionHeading } from './common'
 import { useReveal } from '../lib/useReveal'
 import { PROJECTS } from '../../site.config'
 
-const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
 export default function Projects({ headingAs = 'h2' }) {
   const scope = useReveal()
@@ -30,7 +30,7 @@ export default function Projects({ headingAs = 'h2' }) {
             <article className="proj" key={p.name} aria-labelledby={`proj-${slug(p.name)}`}>
               <img
                 src={p.img}
-                alt={`${p.tag} solar install — ${p.name}, ${p.meta}`}
+                alt={`${p.capacity} ${p.type.toLowerCase()} solar install in ${p.town}, ${p.district}`}
                 loading="lazy"
                 decoding="async"
                 width="900"
@@ -38,9 +38,22 @@ export default function Projects({ headingAs = 'h2' }) {
               />
               <div className="proj__scrim" />
               <div className="proj__body">
-                <span className="proj__tag">{p.tag}</span>
+                <span className="proj__tag">{p.type}</span>
                 <Name className="proj__name" id={`proj-${slug(p.name)}`}>{p.name}</Name>
-                <p className="proj__meta">{p.meta}</p>
+                {/* A spec, set as one. <dl> is the right element for
+                    label/value pairs and it reads correctly to a screen
+                    reader, which a run-on "3 kW rooftop home, Manjeri ·
+                    Malappuram" never did. */}
+                <dl className="proj__spec">
+                  <div>
+                    <dt>Capacity</dt>
+                    <dd>{p.capacity}</dd>
+                  </div>
+                  <div>
+                    <dt>Town</dt>
+                    <dd>{p.town}</dd>
+                  </div>
+                </dl>
               </div>
             </article>
           ))}
