@@ -22,13 +22,23 @@
   align-items: center;
   gap: 20px;
 }
+/* Logo height lives in one custom property because the wrapper and both
+   stacked marks have to agree — .nav__logo-c is absolutely positioned over
+   the wrapper, so a mismatch silently distorts the colour version.
+
+   Bigger below 1000px: that is where the bar holds only the logo and the
+   burger, so there is room the desktop layout does not have once five links
+   and the CTA are in the row. */
+.nav {
+  --nav-logo-h: 38px;
+}
 .nav__logo {
   position: relative;
-  height: 26px;
+  height: var(--nav-logo-h);
   flex: none;
 }
 .nav__logo img {
-  height: 26px;
+  height: var(--nav-logo-h);
   width: auto;
   transition: opacity 0.4s var(--ease);
 }
@@ -124,6 +134,7 @@
 }
 
 @media (min-width: 1000px) {
+  .nav { --nav-logo-h: 26px; }
   .nav__links { display: flex; }
   .nav__cta { display: inline-flex; }
   .nav__burger { display: none; }
