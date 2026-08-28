@@ -389,12 +389,14 @@
 .stats2__layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
+  gap: clamp(18px, 4vw, 28px);
 }
 .stats2__feature {
   background: var(--forest);
   border-radius: var(--r-xl);
-  min-height: 280px;
+  /* Was 280px, most of it empty on a phone — a card sized to look like a card
+     rather than to hold anything. */
+  min-height: 190px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -451,24 +453,30 @@
 .stats2__learn:hover {
   background: rgba(0, 0, 0, 0.4);
 }
+/* These four are facts, not dashboard tiles. They previously carried a white
+   fill, a border, a shadow AND a large radius each — four kinds of chrome on
+   content that is one number and one line of text. Now hairline-ruled cells,
+   which is how a spec table has always been set and reads as considered
+   rather than assembled. */
 .stats2__cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 0;
+  border-top: 1px solid var(--line);
 }
 .stats2__card {
-  background: var(--white);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--r-xl);
-  padding: clamp(18px, 4vw, 28px);
+  padding: clamp(20px, 4.5vw, 30px) clamp(14px, 3vw, 24px);
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--line);
 }
-.stats2__ico {
-  display: block;
-  margin-bottom: 14px;
-  color: var(--green-600);
+/* Interior rule only, so the grid does not end in a double line. */
+.stats2__card:nth-child(odd) {
+  border-right: 1px solid var(--line);
+  padding-left: 0;
+}
+.stats2__card:nth-child(even) {
+  padding-right: 0;
 }
 .stats2__num {
   font-family: var(--display);
@@ -480,11 +488,21 @@
   align-items: baseline;
   line-height: 1;
 }
+/* A qualifier — "up to" — is deliberately smaller and quieter than the figure
+   it modifies. */
 .stats2__pre {
   font-size: 0.52em;
   color: var(--mute-2);
   font-weight: 500;
   margin-right: 0.2em;
+}
+/* Part of the figure itself — "3–" in "3–5 yrs" — so it matches the number
+   exactly and closes up against it. */
+.stats2__pre--tight {
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
+  margin-right: 0;
 }
 .stats2__label {
   color: var(--mute);

@@ -2,47 +2,14 @@ import React, { useEffect, useRef } from 'react'
 import { countUp, useReveal } from '../lib/useReveal'
 
 const STATS = [
-  { ico: 'rupee', to: 78000, prefix: '₹', label: 'Govt subsidy, direct to your bank' },
-  { ico: 'bolt', to: 90, suffix: '%', pre: 'up to ', label: 'Reduction in KSEB bill' },
-  { ico: 'shield', to: 25, suffix: '+', label: 'Panel performance warranty' },
-  { ico: 'clock', to: 5, pre: '3–', suffix: ' yrs', label: 'Typical payback period' },
+  { to: 78000, prefix: '₹', label: 'Govt subsidy, direct to your bank' },
+  { to: 90, suffix: '%', pre: 'up to ', label: 'Reduction in KSEB bill' },
+  { to: 25, suffix: '+', label: 'Panel performance warranty' },
+  /* `tight` because "3–" is half of the value, not a qualifier like "up to":
+     it has to sit at full size hard against the number, or the stat reads as
+     "3– 5 yrs". Only visible once the numbers got bigger. */
+  { to: 5, pre: '3–', tight: true, suffix: ' yrs', label: 'Typical payback period' },
 ]
-
-function IcoRupee() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6 3h12M6 8h12M6 21l7-13M16 21H6" />
-      <path d="M9 8c0 2.761 2.239 5 5 5s5-2.239 5-5" />
-    </svg>
-  )
-}
-
-function IcoBolt() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-    </svg>
-  )
-}
-
-function IcoShield() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-    </svg>
-  )
-}
-
-function IcoClock() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
-    </svg>
-  )
-}
-
-const ICONS = { rupee: IcoRupee, bolt: IcoBolt, shield: IcoShield, clock: IcoClock }
 
 function FeatureArt() {
   return (
@@ -110,15 +77,19 @@ export default function Stats() {
 
           {/* Right: 2×2 stat cards */}
           <div className="stats2__cards">
+            {/* The icons were dropped rather than restyled: a rupee glyph beside
+                "₹78,000" and a clock beside "3–5 yrs" restate the number they
+                sit on, and four identical green outline marks in four identical
+                boxes was doing more to date the page than to explain it. */}
             {STATS.map((s, i) => {
-              const Ico = ICONS[s.ico]
               return (
                 <div className="stats2__card reveal" data-delay={0.06 + i * 0.06} key={i}>
-                  <span className="stats2__ico" aria-hidden="true">
-                    <Ico />
-                  </span>
                   <div className="stats2__num">
-                    {s.pre && <span className="stats2__pre">{s.pre}</span>}
+                    {s.pre && (
+                      <span className={`stats2__pre${s.tight ? ' stats2__pre--tight' : ''}`}>
+                        {s.pre}
+                      </span>
+                    )}
                     <span ref={(el) => (numRefs.current[i] = el)}>{finalText(s)}</span>
                   </div>
                   <p className="stats2__label">{s.label}</p>

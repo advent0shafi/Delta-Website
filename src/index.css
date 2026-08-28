@@ -125,8 +125,21 @@ textarea {
 }
 
 .section {
-  padding-block: clamp(64px, 13vw, 140px);
+  padding-block: clamp(52px, 11vw, 140px);
   position: relative;
+}
+
+/* Rhythm, not uniformity.
+
+   Every section carried identical padding, so two adjacent sections on the
+   same background put 128px of nothing between two blocks that belong
+   together — most visible on a phone, where it reads as the page having run
+   out of things to say. Where the background changes the full padding earns
+   its keep, because the colour band needs room; where it does not, the seam
+   closes up. That difference is what gives a page pace. */
+.section:not(.section--paper):not(.section--paper-2):not(.section--forest)
+  + .section:not(.section--paper):not(.section--paper-2):not(.section--forest) {
+  padding-top: clamp(20px, 4vw, 56px);
 }
 /* Only the homepage opens on the full-bleed hero, which sits behind the fixed
    bar by design. On every other route the first section starts at the top of
