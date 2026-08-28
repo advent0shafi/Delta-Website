@@ -77,15 +77,60 @@ sitemap, `llms.txt` and the prerenderer pick it up automatically.
 | Path | Sections |
 | --- | --- |
 | `/` | Hero · Stats · Services · Projects · Subsidy · Calculator · FAQ · Contact |
-| `/services/` | Services · Stats · Contact |
-| `/projects/` | Projects · Stats · Contact |
-| `/subsidy/` | Subsidy · FAQ · Contact |
-| `/savings-calculator/` | Calculator · Subsidy · Contact |
+| `/services/` | Services · Equipment guidance · Stats · FAQ · Contact |
+| `/services/residential/` | Long-form detail · Suits-you-if · FAQ · Contact |
+| `/services/commercial/` | ” |
+| `/services/hybrid/` | ” |
+| `/services/ev-charging/` | ” |
+| `/services/inverters-ups/` | ” |
+| `/subsidy/` | Subsidy · Full KSEB + PM Surya Ghar process · FAQ · Contact |
+| `/kseb-net-metering/` | Net vs gross, meters, banking, outages · FAQ · Contact |
+| `/savings-calculator/` | Calculator · What it assumes · Subsidy · FAQ · Contact |
+| `/projects/` | Projects · Stats · Process · FAQ · Contact |
 | `/contact/` | Contact · FAQ |
+
+The five service detail pages are generated from `SERVICES[].id` in
+`site.config.js`, so the slug, the card, the page and the schema.org `Service`
+node cannot drift apart.
 
 The first section on each route supplies the page's `<h1>` (via `headingAs`),
 and its nested headings shift down with it — `npm run seo:check` rejects a
 skipped heading level.
+
+## Where the words live
+
+Long-form copy is in `content/`, which follows the same contract as
+`site.config.js`: pure data, no JSX, no Node APIs, so the browser bundle and
+the build scripts read the same file.
+
+| File | What it holds |
+| --- | --- |
+| `content/faqs.js` | 60 questions in 12 route-keyed sets, plus `FAQS_BY_ROUTE` |
+| `content/netmetering.js` | KSEB net metering explainer |
+| `content/process.js` | The KSEB + PM Surya Ghar journey, step by step |
+| `content/equipment.js` | Panel, inverter, warranty and mounting guidance |
+| `content/calculator.js` | The method behind the savings estimate |
+| `content/services.js` | Long-form body for each of the five services |
+
+### Publishing rules these files follow
+
+The site makes regulatory claims about somebody's real business, so:
+
+- **Every figure traces to a primary source** — KSEB's Solar Rooftop Portal,
+  the PM Surya Ghar subsidy structure, or the assumptions already documented in
+  `docs/calculator-logic.md`.
+- **Contested figures are omitted, not guessed.** Kerala's framework is
+  mid-revision: the KSERC (Renewable Energy and Related Matters) Regulations,
+  2025 were notified in November 2025 and stayed by the High Court days later,
+  and published summaries of the new capacity caps disagree. Approval timelines
+  competitors quote (15 / 135 / 10 days) appear on no official KSEB page. None
+  of it is published here; the pages say the position is moving and link the
+  portal instead.
+- **No invented business facts** — no testimonials, customer counts, awards or
+  firm prices. Those need the client, and are listed in
+  `research/illumine/04-delta-gap-analysis.md`.
+- **Each long-form section carries a "Last reviewed" date.** Revisit these
+  files when the KSERC regulation's status resolves.
 
 ## What's on the page
 
