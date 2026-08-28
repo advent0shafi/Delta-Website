@@ -1,4 +1,73 @@
-# Task: Content build — close the depth gap against the reference site
+# Task: About page, built on mock content
+
+Client ask: "now the about page uses mock ups that resembles of delta as
+content" — i.e. build `/about/` now, with realistic stand-in copy modelled on
+Delta, rather than waiting for the client's real facts.
+
+This reverses the "verifiable facts only" rule agreed for the previous task,
+for this one page. That is the client's call to make. What it does not do is
+let invented facts reach production silently.
+
+## 1. The page
+
+- [x] `/about/` — story, timeline, team, credentials, stats, FAQ, contact.
+- [x] `content/about.js` — the mock content, in one module, clearly marked.
+- [x] `src/components/Milestones.jsx` — timeline, team cards, credentials.
+- [x] `ABOUT_FAQS` — written to describe how Delta *works* rather than to
+      assert company history, so those five answers stay true even while the
+      rest of the page is placeholder.
+
+## 2. The safeguard
+
+Mock content that looks finished is exactly the kind that ships by accident, so
+it reuses the pattern already in the repo for the fake phone number:
+
+- [x] `ABOUT.isPlaceholder: true` — the page renders, so it can be reviewed and
+      shown to the client.
+- [x] Nothing from `content/about.js` reaches the schema.org graph. Verified:
+      `gen-seo.mjs` does not import it.
+- [x] `npm run seo:check` **fails** while the flag is true, and prints the
+      checklist of what the client still has to supply.
+- [x] `ABOUT.needsFromClient` holds that checklist next to the data.
+
+## 3. Navigation
+
+- [x] About added to the nav and the footer.
+- [x] FAQ dropped from the nav. Every page now carries its own question set, so
+      a link to the homepage accordion stopped meaning anything — and it kept
+      the bar at five links rather than six.
+
+## Review
+
+13 routes. `/about/` renders 659 visible words, one `<h1>`, no console errors.
+
+```
+LAUNCH
+  ✗ the About page is still mock content
+       Still needed from the client:
+         · Real founding year and the actual founding story
+         · Milestone dates that happened
+         · Project counts, total kW installed, units generated
+         · Team names, roles, photos and consent to publish
+         · Registration and empanelment numbers that can be verified
+         · Whether the five-year workmanship warranty is accurate
+  ✗ contact details are still placeholders
+```
+
+Both failures are deliberate and both are the gate doing its job.
+
+Verified: `npm run build` emits 13 documents, one `<h1>` each, no React
+warnings; `seo:check` passes all 13 routes on structure; Playwright confirms
+every route loads with its own metadata, each page renders its own FAQ set, all
+five service cards reach their detail pages, and every internal link resolves.
+
+## Note for whoever picks this up
+
+The team cards carry role titles, not invented personal names — inventing named
+individuals for a real company is a different order of risk from inventing a
+milestone date. The bios are still placeholder and still need replacing.
+
+# Archived — Task: Content build, twelve pages (commit bddea15)
 
 Client ask: "add more content, check the reference website"
 (https://www.illumineenergy.com/).

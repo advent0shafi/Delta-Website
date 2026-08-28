@@ -321,6 +321,33 @@ export const PROJECTS_FAQS = [
    re-exported there so existing imports keep working. */
 export default HOME_FAQS
 
+/* ---------- about ----------
+   Answers describe how Delta works rather than asserting company history,
+   so these stay true even while content/about.js is placeholder. */
+
+export const ABOUT_FAQS = [
+  [
+    'What areas does Delta cover?',
+    'Malappuram district and the towns around it — Malappuram, Manjeri, Kottakkal, Tirur and Perinthalmanna. Staying inside one district is deliberate: it means someone can reach a fault the same week, which matters more over twenty-five years than anything on a specification sheet.',
+  ],
+  [
+    'Do you handle the KSEB and subsidy paperwork?',
+    'Yes, apart from the parts tied to your own identity. We prepare and file the KSEB connectivity application, the technical documentation and the completion certificate. Registering on the national subsidy portal has to be done against your own consumer number and bank account, and we sit with you through it.',
+  ],
+  [
+    'What happens at the first visit?',
+    'We look at the roof and your recent KSEB bill. Between them they determine usable unshaded area, shading through the day, roof condition, and what size system your consumption actually justifies. The site visit and the written quote that follows are both free.',
+  ],
+  [
+    'What equipment do you fit?',
+    'Tier-1 panels and inverters, named by make and model in the quote before anything is ordered, so you can check the warranty terms and the service network yourself rather than taking our word for it.',
+  ],
+  [
+    'Do you service systems you did not install?',
+    'Yes, for maintenance and fault-finding. Where a system was badly installed we will say so plainly and quote for putting it right rather than patching around it.',
+  ],
+]
+
 /* ---------- route → FAQ set ----------
 
    Consumed by scripts/prerender.mjs so each built document carries a
@@ -332,6 +359,7 @@ export default HOME_FAQS
    simply gets no FAQPage, which is correct for a page with no FAQ. */
 export const FAQS_BY_ROUTE = {
   '/': HOME_FAQS,
+  '/about/': ABOUT_FAQS,
   '/services/': SERVICES_FAQS,
   '/services/residential/': SERVICE_FAQS.residential,
   '/services/commercial/': SERVICE_FAQS.commercial,

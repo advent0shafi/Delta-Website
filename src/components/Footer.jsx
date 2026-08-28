@@ -4,7 +4,7 @@ import { Button, Icons } from './common'
 import { SITE, AREA, CONTACT, BRANDS, SERVICES } from '../../site.config'
 
 const QUICK = [
-  ['Home', '/'], ['Services', '/services/'], ['Projects', '/projects/'],
+  ['Home', '/'], ['About', '/about/'], ['Services', '/services/'], ['Projects', '/projects/'],
   ['Subsidy', '/subsidy/'], ['KSEB net metering', '/kseb-net-metering/'],
   ['Calculator', '/savings-calculator/'], ['Contact', '/contact/'],
 ]

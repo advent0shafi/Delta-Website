@@ -77,6 +77,7 @@ sitemap, `llms.txt` and the prerenderer pick it up automatically.
 | Path | Sections |
 | --- | --- |
 | `/` | Hero · Stats · Services · Projects · Subsidy · Calculator · FAQ · Contact |
+| `/about/` | Story · Timeline · Team · Credentials · Stats · FAQ · Contact |
 | `/services/` | Services · Equipment guidance · Stats · FAQ · Contact |
 | `/services/residential/` | Long-form detail · Suits-you-if · FAQ · Contact |
 | `/services/commercial/` | ” |
@@ -111,6 +112,7 @@ the build scripts read the same file.
 | `content/equipment.js` | Panel, inverter, warranty and mounting guidance |
 | `content/calculator.js` | The method behind the savings estimate |
 | `content/services.js` | Long-form body for each of the five services |
+| `content/about.js` | **Mock content** — see the warning below |
 
 ### Publishing rules these files follow
 
@@ -131,6 +133,22 @@ The site makes regulatory claims about somebody's real business, so:
   `research/illumine/04-delta-gap-analysis.md`.
 - **Each long-form section carries a "Last reviewed" date.** Revisit these
   files when the KSERC regulation's status resolves.
+
+### `content/about.js` is the one exception
+
+The About page ships **mock content** so the layout can be reviewed before the
+client has supplied anything. The founding story, the milestone dates, the team
+and the credentials are all invented.
+
+It is gated the same way the placeholder phone number is:
+
+- `ABOUT.isPlaceholder: true` — the page renders, but nothing in it reaches the
+  schema.org graph, and `npm run seo:check` **fails**.
+- `ABOUT.needsFromClient` lists exactly what has to be replaced.
+- Set `isPlaceholder: false` only once every field is confirmed.
+
+An absent fact is missing data. A fabricated one is a wrong fact published
+under Delta's name, which is why it holds the launch gate shut.
 
 ## What's on the page
 

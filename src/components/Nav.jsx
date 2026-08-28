@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom'
 import { Button } from './common'
 import { SITE } from '../../site.config'
 
-/* The FAQ has no page of its own yet, so it stays an anchor into the
-   homepage. ScrollManager handles the cross-route jump. */
+/* Five is what the bar holds before it crowds the logo and the CTA. The FAQ
+   entry was dropped when every page gained its own question set — a link to
+   the homepage's accordion stopped meaning anything. */
 const LINKS = [
+  ['About', '/about/'],
   ['Services', '/services/'],
-  ['Projects', '/projects/'],
   ['Subsidy', '/subsidy/'],
   ['Calculator', '/savings-calculator/'],
-  ['FAQ', '/#faq'],
+  ['Projects', '/projects/'],
 ]
 
 export default function Nav({ isHome = true }) {

@@ -4,6 +4,7 @@ import { ROUTES } from '../site.routes'
 import { SERVICES } from '../site.config'
 
 import Home from './pages/Home'
+import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
 import ServiceDetailPage from './pages/ServiceDetailPage'
 import SubsidyPage from './pages/SubsidyPage'
@@ -18,6 +19,7 @@ import ContactPage from './pages/ContactPage'
    sitemap without a page behind it (or the reverse). */
 const PAGES = {
   '/': Home,
+  '/about/': AboutPage,
   '/services/': ServicesPage,
   '/subsidy/': SubsidyPage,
   '/savings-calculator/': CalculatorPage,

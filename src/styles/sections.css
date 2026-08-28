@@ -1796,3 +1796,136 @@
     gap: 4px 12px;
   }
 }
+
+/* ==========================================================
+   ABOUT — timeline, team, credentials
+   ==========================================================
+   Content here is placeholder (content/about.js). The layout is
+   real so the client can review it; the copy is not.
+   ========================================================== */
+
+.about__timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid var(--line);
+  display: grid;
+  gap: clamp(20px, 2.6vw, 28px);
+}
+
+.about__milestone {
+  position: relative;
+  padding-left: clamp(22px, 3vw, 32px);
+}
+.about__milestone::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 0.42em;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 3px solid var(--paper-2);
+}
+
+.about__year {
+  display: block;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--green-600);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.about__event {
+  margin: 5px 0 0;
+  font-size: clamp(0.97rem, 2.1vw, 1.03rem);
+  line-height: 1.66;
+  color: var(--ink-2);
+  max-width: 64ch;
+}
+
+.about__sub {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2.3vw, 1.3rem);
+  color: var(--ink);
+  letter-spacing: -0.012em;
+  margin: 0 0 16px;
+}
+
+.about__team,
+.about__creds {
+  margin-top: clamp(34px, 4.4vw, 56px);
+}
+
+.about__cards {
+  display: grid;
+  gap: clamp(16px, 2.4vw, 22px);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.about__card {
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  padding: clamp(22px, 3vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.about__name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.about__role {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.about__bio {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: var(--ink-2);
+}
+
+.about__cred-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 88ch;
+}
+.about__cred-list li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.about__cred-list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0.55em;
+  width: 11px;
+  height: 6px;
+  border-left: 2px solid var(--green);
+  border-bottom: 2px solid var(--green);
+  rotate: -45deg;
+}

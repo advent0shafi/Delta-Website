@@ -20,6 +20,7 @@ import { dirname, resolve } from 'node:path'
 import { SITE, CONTACT, IMAGES, FAQS, SERVICES, abs } from '../site.config.js'
 import { ROUTES, routeToFile } from '../site.routes.js'
 import { FAQS_BY_ROUTE } from '../content/faqs.js'
+import { ABOUT } from '../content/about.js'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const exists = (p) => access(p).then(() => true, () => false)
@@ -367,6 +368,28 @@ function jpegSize(buf) {
    ------------------------------------------------------------------ */
 
 function checkLaunch() {
+  /* The About page ships mock content so the layout can be reviewed. Publishing
+     an invented founding story, milestone dates and team under a real
+     company's name is a worse failure than publishing nothing, so it holds the
+     gate shut exactly like the placeholder phone number does. */
+  if (ABOUT.isPlaceholder) {
+    fail(
+      'LAUNCH',
+      'the About page is still mock content',
+      [
+        'content/about.js is placeholder: the founding story, milestone',
+        '       dates, team and credentials are all invented.',
+        '',
+        '       Still needed from the client:',
+        ...ABOUT.needsFromClient.map((t) => `         · ${t}`),
+        '',
+        '       Replace them, then set ABOUT.isPlaceholder to false.',
+      ].join('\n')
+    )
+  } else {
+    ok('LAUNCH', 'About page content is marked real in content/about.js')
+  }
+
   if (!CONTACT.isPlaceholder) {
     ok('LAUNCH', 'contact details are marked real in site.config.js')
     return
