@@ -27,8 +27,12 @@ export function useReveal(deps = []) {
       return
     }
 
-    const triggers = []
-    ScrollTrigger.batch(items, {
+    /* ScrollTrigger.batch() RETURNS the triggers it creates; they have to be
+       captured to be killable. This used to be an empty array that cleanup
+       looped over, which killed nothing — invisible on a one-page site that
+       never unmounted, but every client-side route change now leaves a set of
+       triggers pointing at DOM React has already removed. */
+    const triggers = ScrollTrigger.batch(items, {
       start: 'top 86%',
       onEnter: (batch) =>
         batch.forEach((el, i) => {
