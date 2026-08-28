@@ -89,23 +89,41 @@ export const ABOUT = {
   ],
 
   /* ---------- MOCK: invented people ----------
-     These are not real individuals. Names, roles and backgrounds are
-     placeholder. Do not publish. */
+     These are not real individuals, and the portraits are STAND-INS supplied
+     for the mockup — they are not photographs of Delta staff.
+
+     That distinction matters more than the invented dates elsewhere in this
+     file. Publishing a real person's face beside "Founder & Managing Director"
+     of a real company misrepresents that person, not just the company, so
+     these two images must be replaced with actual staff photographs (with
+     their consent) before ABOUT.isPlaceholder can become false.
+
+     `photo` is optional: a member without one falls back to a monogram, which
+     is what the third slot uses since only two portraits were supplied.
+
+     `role` reads "Name to follow" rather than a shouted PLACEHOLDER banner.
+     The card has to be presentable — it exists to be shown to the client —
+     and the loud version wrapped onto two lines on every card while being
+     inaccurate for the two that now have a picture. The real guard against
+     this shipping is `isPlaceholder` and the seo:check failure it drives,
+     not a caption. */
 
   team: [
     {
       name: 'Founder & Managing Director',
-      role: 'Placeholder — client to supply name and photo',
+      role: 'Name to follow',
+      photo: '/team/placeholder-1.jpg',
       bio: 'Leads system design and customer consultation. Background in electrical engineering, with rooftop solar work across Malappuram district since 2018.',
     },
     {
       name: 'Technical Lead',
-      role: 'Placeholder — client to supply name and photo',
+      role: 'Name to follow',
+      photo: '/team/placeholder-2.jpg',
       bio: 'Responsible for site assessment, system sizing and the KSEB technical documentation, from feasibility through to the inspection.',
     },
     {
       name: 'Installations Manager',
-      role: 'Placeholder — client to supply name and photo',
+      role: 'Name to follow',
       bio: 'Runs the installation crews, mounting structure specification and post-commissioning service visits.',
     },
   ],
@@ -126,7 +144,7 @@ export const ABOUT = {
     'Real founding year and the actual founding story',
     'Milestone dates that happened',
     'Project counts, total kW installed, units generated',
-    'Team names, roles, photos and consent to publish',
+    'Team names, roles, and REAL staff photographs with consent to publish — the two portraits currently shown are stand-ins, not Delta staff',
     'Registration and empanelment numbers that can be verified',
     'Whether the five-year workmanship warranty is accurate',
   ],

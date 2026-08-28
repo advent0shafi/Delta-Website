@@ -1995,3 +1995,26 @@
   border-bottom: 2px solid var(--green);
   rotate: -45deg;
 }
+
+/* Team portraits. Square because the source crops are square, and a circle
+   would cut the shoulders out of a seated portrait. */
+.about__photo {
+  width: 84px;
+  height: 84px;
+  border-radius: var(--r-md);
+  object-fit: cover;
+  margin-bottom: 4px;
+  background: var(--paper-2);
+}
+/* Fallback for a member with no photograph yet — a designed absence rather
+   than a gap or a broken image. */
+.about__photo--mono {
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  color: var(--forest);
+  background: var(--paper-3);
+}
