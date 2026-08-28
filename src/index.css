@@ -64,6 +64,18 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
+/* Body copy was rendering at 15.2-15.7px on a phone — the rem-based clamps all
+   bottom out at their minimum below about 700px, so the smallest screen got the
+   smallest text. Raising the root instead of editing thirty rules scales every
+   rem-based size together, which is the same method luganolivinglab.ch uses
+   (18.35px on mobile against 16px on desktop — bigger on the small screen, not
+   smaller). rem is only ever used for type here, so nothing else moves. */
+@media (max-width: 700px) {
+  html {
+    font-size: 17.5px;
+  }
 }
 
 body {
@@ -159,13 +171,17 @@ textarea {
 }
 
 /* ---------- type ---------- */
+/* Sentence case, not uppercase. Uppercase with 0.16em tracking on every
+   section eyebrow is one of the loudest template signals there is, and it is
+   also less legible at 12px than the sentence case it replaced. Reference
+   point: luganolivinglab.ch uses zero uppercase on the entire site and gives
+   up nothing — hierarchy comes from size, weight and colour. */
 .eyebrow {
   font-family: var(--body);
   font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--mute);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--forest-700);
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -187,7 +203,10 @@ textarea {
 /* two-tone headline: lead in ink, .soft in muted, .grn green */
 .headline {
   font-family: var(--display);
-  font-weight: 600;
+  /* 500, not 600. Above about 40px a semibold grotesque reads as shouting;
+     medium reads as assured. Buttons and small labels keep 600, where the
+     weight is doing legibility work rather than emphasis. */
+  font-weight: 500;
   line-height: 1.06;
   letter-spacing: -0.018em;
   color: var(--ink);

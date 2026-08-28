@@ -183,7 +183,7 @@
 }
 .hero__title {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1.0;
   font-size: clamp(2.7rem, 12vw, 6.2rem);
@@ -273,9 +273,8 @@
   z-index: 2;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.6);
 }
 .hero__scroll i {
@@ -351,7 +350,7 @@
 }
 .stat__num {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(2.2rem, 9vw, 3.5rem);
   letter-spacing: -0.03em;
   color: var(--ink);
@@ -428,7 +427,7 @@
   color: #fff;
   font-family: var(--display);
   font-size: clamp(1.6rem, 5vw, 2rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.02em;
   position: relative;
@@ -506,7 +505,7 @@
 }
 .stats2__label {
   color: var(--mute);
-  font-size: 13.5px;
+  font-size: 0.82rem;
   line-height: 1.45;
   margin-top: 5px;
 }
@@ -607,7 +606,7 @@
 }
 .svc__title {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.25rem, 4.6vw, 1.5rem);
   line-height: 1.16;
   letter-spacing: -0.02em;
@@ -726,7 +725,7 @@
 }
 .proj__name {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.15rem, 4vw, 1.35rem);
   letter-spacing: -0.015em;
   margin-top: 8px;
@@ -834,7 +833,7 @@
 }
 .subsidy2__step-title {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.05rem;
   color: var(--ink);
   margin-bottom: 4px;
@@ -1037,9 +1036,8 @@
   margin-bottom: 8px;
 }
 .calc__result-top span {
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
   color: var(--green-600);
   font-weight: 600;
 }
@@ -1127,7 +1125,7 @@
   text-align: left;
   padding: 20px 0;
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.02rem, 3.6vw, 1.18rem);
   color: var(--ink);
   transition: color 0.3s;
@@ -1170,7 +1168,7 @@
 }
 .faq__a {
   color: var(--mute);
-  font-size: 15px;
+  font-size: 0.92rem;
   line-height: 1.62;
   max-width: 64ch;
   padding-bottom: 22px;
@@ -1262,7 +1260,7 @@
   align-items: flex-start;
   gap: 11px;
   color: var(--ink-2);
-  font-size: 15px;
+  font-size: 0.92rem;
   font-weight: 500;
   transition: color 0.3s;
 }
@@ -1344,7 +1342,7 @@
 }
 .contact__done h3 {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.5rem;
   color: var(--forest);
 }
@@ -1404,9 +1402,8 @@
 }
 .footer__col-title {
   color: #fff;
-  font-size: 12.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.84rem;
+  letter-spacing: 0.01em;
   margin-bottom: 16px;
 }
 .footer__col ul {
@@ -1535,15 +1532,14 @@
 .prose__eyebrow {
   font-family: var(--body);
   font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
   color: var(--green-600);
 }
 
 .prose__title {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.25rem, 2.6vw, 1.6rem);
   line-height: 1.16;
   letter-spacing: -0.012em;
@@ -1551,8 +1547,12 @@
   text-wrap: balance;
   margin: 0;
 }
+/* Single colour, like every other section heading. This was missed when the
+   two-tone treatment was cut back to the hero and the closing CTA — Prose has
+   its own title class rather than .headline, so the rule that neutralised the
+   rest did not reach it, and every long-form page kept the split. */
 .prose__title .soft {
-  color: var(--mute-2);
+  color: inherit;
 }
 
 .prose__p {
@@ -1625,7 +1625,7 @@
 
 .suits__title {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   color: var(--ink);
   margin: 0 0 14px;
@@ -1683,7 +1683,7 @@
 
 .figures__value {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.05rem, 2.2vw, 1.22rem);
   color: var(--ink);
   letter-spacing: -0.012em;
@@ -1767,7 +1767,7 @@
 
 .process__title {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.05rem, 2.2vw, 1.24rem);
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -1780,9 +1780,8 @@
 .process__who {
   font-family: var(--body);
   font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
   color: var(--forest-700);
   background: rgba(14, 58, 74, 0.07);
   border-radius: 999px;
@@ -1825,7 +1824,7 @@
 
 .process__col-title {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.06rem;
   color: var(--ink);
   margin: 0 0 12px;
@@ -1915,7 +1914,7 @@
 
 .about__sub {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.1rem, 2.3vw, 1.3rem);
   color: var(--ink);
   letter-spacing: -0.012em;
@@ -1945,7 +1944,7 @@
 
 .about__name {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.05rem;
   color: var(--ink);
   margin: 0;
@@ -1955,9 +1954,8 @@
 .about__role {
   font-family: var(--body);
   font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
   color: var(--mute);
 }
 
