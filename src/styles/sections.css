@@ -1307,15 +1307,27 @@
   padding: clamp(22px, 5vw, 38px);
   box-shadow: var(--shadow-md);
 }
+/* Five labelled fields stacked at 15px apart with 7px under each label makes
+   a form taller than the viewport on a phone, which is most of why it felt
+   like a slog. Tighter here, back to roomy from 720px where the fields pair
+   up into two columns anyway. */
 .contact__form {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 15px;
+  gap: 11px;
 }
 .contact__field {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 5px;
+}
+@media (min-width: 720px) {
+  .contact__form {
+    gap: 15px;
+  }
+  .contact__field {
+    gap: 7px;
+  }
 }
 .contact__field--full {
   grid-column: 1 / -1;
@@ -2115,5 +2127,26 @@ a:hover > .ext {
   .svc.is-hover .svc__body {
     opacity: 1;
     translate: 0 0;
+  }
+}
+
+/* Floating buttons retract while the contact form is on screen — see the
+   comment in Footer.jsx. Translated rather than hidden so it reads as the
+   buttons stepping out of the way, and pointer-events go with them so they
+   cannot take a tap meant for the submit button. */
+.floaters {
+  transition: translate 0.45s var(--ease), opacity 0.35s var(--ease);
+}
+.floaters--away {
+  translate: 0 calc(100% + 24px);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .floaters {
+    transition: opacity 0.2s linear;
+  }
+  .floaters--away {
+    translate: none;
   }
 }

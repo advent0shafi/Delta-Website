@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Button, Icons } from './common'
 import { SITE, AREA, CONTACT, BRANDS, SERVICES } from '../../site.config'
 
@@ -14,6 +14,34 @@ const QUICK = [
 const WHAT_WE_DO = SERVICES.map((s) => [s.title.join('').replace(/\.$/, ''), `/services/${s.id}/`])
 
 export default function Footer() {
+  /* The floating call and WhatsApp buttons sit in the bottom-right corner,
+     which is exactly where the contact form's submit button ends up on a
+     phone — tapping the right-hand side of "Request callback" placed a call
+     instead of submitting. They are also redundant there: the form IS the
+     contact action.
+
+     So they retract while the contact section is on screen. Starts visible,
+     which is what the prerendered markup says, so hydration agrees. */
+  const [nearForm, setNearForm] = useState(false)
+  const seen = useRef(null)
+  /* Footer stays mounted across routes while #contact is torn down and
+     rebuilt with each page, so the observer has to be re-pointed on
+     navigation — keyed on pathname rather than left without a dependency
+     array, which would re-create it on every unrelated render instead. */
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    setNearForm(false)
+    const target = document.getElementById('contact')
+    if (!target || typeof IntersectionObserver === 'undefined') return
+    seen.current = new IntersectionObserver(
+      ([entry]) => setNearForm(entry.isIntersecting),
+      { rootMargin: '0px 0px -12% 0px' }
+    )
+    seen.current.observe(target)
+    return () => seen.current?.disconnect()
+  }, [pathname])
+
   return (
     <>
       {/* CTA as a contained rounded card */}
@@ -120,7 +148,11 @@ export default function Footer() {
         </div>
       </footer>
 
-      <div className="floaters" role="group" aria-label="Contact Delta Energy Solutions">
+      <div
+        className={`floaters ${nearForm ? 'floaters--away' : ''}`}
+        role="group"
+        aria-label="Contact Delta Energy Solutions"
+      >
         <a
           className="floater floater--wa"
           href={CONTACT.whatsappHref}

@@ -88,7 +88,7 @@ export default function Contact({ headingAs: Heading = 'h2' }) {
               </div>
               <div className="contact__field">
                 <label htmlFor="c-phone">Phone number</label>
-                <input id="c-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" value={form.phone} onChange={set('phone')} placeholder={CONTACT.phoneDisplay} required />
+                <input id="c-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" value={form.phone} onChange={set('phone')} placeholder="10-digit mobile number" required />
               </div>
               <div className="contact__field">
                 <label htmlFor="c-town">Town / Location</label>
