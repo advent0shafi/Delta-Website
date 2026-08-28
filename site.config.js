@@ -186,32 +186,16 @@ export const STEPS = [
 ]
 
 /* ---------- FAQ ----------
-   The single source for both the on-page accordion and the
-   schema.org FAQPage node. Only the open item is in the prerendered
-   HTML, so the FAQPage node is how the other four reach a crawler. */
+   The homepage set. Every page now carries its own keyword-targeted
+   questions — a single shared list meant several pages competing for
+   one set of queries — so the sets live in content/faqs.js and this
+   re-export keeps the name meaning what it always meant here.
 
-export const FAQS = [
-  [
-    'How much does a home system cost after subsidy?',
-    'A 3 kW system typically costs around ₹1,80,000 before subsidy. After the PM Surya Ghar subsidy of up to ₹78,000, your net cost is roughly ₹1,02,000. You get a full written quote before any commitment.',
-  ],
-  [
-    'How much can I save on my KSEB bill?',
-    'Most homes see a 70–90% cut in their monthly bill. A 3 kW system saves roughly ₹1,800–₹2,500 per month depending on usage.',
-  ],
-  [
-    'Who is eligible for the ₹78,000 subsidy?',
-    'Any residential consumer with a valid KSEB connection. The subsidy is up to ₹30,000 for 1 kW, ₹60,000 for 2 kW, and ₹78,000 for 3 kW and above. We handle the entire application.',
-  ],
-  [
-    'How long does installation and approval take?',
-    'From consultation to net-meter activation, the process typically takes 4–8 weeks, including KSEB inspection and approval.',
-  ],
-  [
-    'Do you handle all the KSEB paperwork?',
-    'Yes — every document. The grid-connectivity application, technical undertaking, PM Surya Ghar registration, and the test-cum-completion certificate.',
-  ],
-]
+   Only the open item is in the prerendered HTML, so the schema.org
+   FAQPage node scripts/gen-seo.mjs emits per route is how the rest
+   reach a crawler. */
+
+export { HOME_FAQS as FAQS } from './content/faqs.js'
 
 /* ---------- brands we fit ---------- */
 

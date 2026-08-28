@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { childHeading, SectionHeading, Icons } from './common'
 import { useReveal } from '../lib/useReveal'
 import { SERVICES } from '../../site.config'
@@ -8,6 +9,10 @@ function Card({ s, i, titleAs: Title = 'h3' }) {
   const [hover, setHover] = useState(false)
   const Ico = Icons[s.icon]
   const titleId = `svc-${s.id}`
+  /* onFocus/onBlur still drive the reveal — React's focus events bubble, so
+     focusing the title link inside is enough. The article used to carry
+     tabIndex={0} to be reachable at all; now that it contains a real link,
+     keeping it would put two tab stops on every card. */
   return (
     <motion.article
       className={`svc reveal ${hover ? 'is-hover' : ''}`}
@@ -16,7 +21,6 @@ function Card({ s, i, titleAs: Title = 'h3' }) {
       onHoverEnd={() => setHover(false)}
       onFocus={() => setHover(true)}
       onBlur={() => setHover(false)}
-      tabIndex={0}
       aria-labelledby={titleId}
     >
       {/* The wrapper used to flip aria-hidden on hover, which pulled the image
@@ -45,8 +49,13 @@ function Card({ s, i, titleAs: Title = 'h3' }) {
 
       <div className="svc__foot">
         <Title className="svc__title" id={titleId}>
-          {s.title[0]}
-          <span className="svc__title-2">{s.title[1]}</span>
+          {/* The whole card is the hit area — ::after below stretches this
+              link over it — so the accessible name stays the service title
+              rather than a bare "read more". */}
+          <Link className="svc__link" to={`/services/${s.id}/`}>
+            {s.title[0]}
+            <span className="svc__title-2">{s.title[1]}</span>
+          </Link>
         </Title>
         <motion.p
           className="svc__body"

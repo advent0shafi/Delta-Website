@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Icons } from './common'
-import { SITE, AREA, CONTACT, BRANDS } from '../../site.config'
+import { SITE, AREA, CONTACT, BRANDS, SERVICES } from '../../site.config'
 
 const QUICK = [
   ['Home', '/'], ['Services', '/services/'], ['Projects', '/projects/'],
-  ['Subsidy', '/subsidy/'], ['Calculator', '/savings-calculator/'],
-  ['FAQ', '/#faq'], ['Contact', '/contact/'],
+  ['Subsidy', '/subsidy/'], ['KSEB net metering', '/kseb-net-metering/'],
+  ['Calculator', '/savings-calculator/'], ['Contact', '/contact/'],
 ]
+
+/* The five service detail pages are only reachable from the services grid
+   otherwise, which leaves them one click deeper than they should be. */
+const WHAT_WE_DO = SERVICES.map((s) => [s.title.join('').replace(/\.$/, ''), `/services/${s.id}/`])
 
 export default function Footer() {
   return (
@@ -60,6 +64,11 @@ export default function Footer() {
           <nav className="footer__col" aria-labelledby="footer-explore">
             <h2 className="footer__col-title" id="footer-explore">Explore</h2>
             <ul>{QUICK.map(([l, h]) => <li key={h}><Link to={h}>{l}</Link></li>)}</ul>
+          </nav>
+
+          <nav className="footer__col" aria-labelledby="footer-services">
+            <h2 className="footer__col-title" id="footer-services">What we do</h2>
+            <ul>{WHAT_WE_DO.map(([l, h]) => <li key={h}><Link to={h}>{l}</Link></li>)}</ul>
           </nav>
 
           <div className="footer__col">

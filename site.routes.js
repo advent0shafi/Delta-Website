@@ -48,10 +48,52 @@ export const ROUTES = [
   },
   {
     path: '/savings-calculator/',
-    title: 'Solar Savings Calculator — KSEB Tariffs | Delta Energy Solutions',
+    title: 'Solar Savings Calculator, KSEB Tariffs | Delta Energy',
     description:
       'Estimate your rooftop solar system size, cost after subsidy, monthly savings and payback period. Kerala KSEB tariffs are pre-filled.',
     priority: '0.8',
+  },
+  {
+    path: '/services/residential/',
+    title: 'Residential Rooftop Solar in Malappuram | Delta Energy',
+    description:
+      'On-grid solar for Kerala homes: how a system is sized from your KSEB bill, what roof it needs, and how the PM Surya Ghar subsidy applies.',
+    priority: '0.8',
+  },
+  {
+    path: '/services/commercial/',
+    title: 'Commercial & Industrial Solar in Kerala | Delta Energy',
+    description:
+      'Rooftop solar for shops, offices and factories in Malappuram. Why a daytime load profile pays back faster, and what applies without a subsidy.',
+    priority: '0.8',
+  },
+  {
+    path: '/services/hybrid/',
+    title: 'Hybrid Solar with Battery Backup, Kerala | Delta Energy',
+    description:
+      'Solar that keeps running through a KSEB outage. What hybrid adds over on-grid, how backup is sized, and lithium against lead-acid.',
+    priority: '0.8',
+  },
+  {
+    path: '/services/ev-charging/',
+    title: 'Solar EV Charging from Your Own Roof, Kerala | Delta Energy',
+    description:
+      'Charge an electric vehicle from your own roof. Sizing for an EV, home wall boxes against DC fast charging, and workplace charging.',
+    priority: '0.7',
+  },
+  {
+    path: '/services/inverters-ups/',
+    title: 'Solar Inverters & Backup UPS, Kerala | Delta Energy',
+    description:
+      'Backup power sized from an actual load list. How a solar inverter differs from a UPS, adding solar to an inverter you own, and battery life.',
+    priority: '0.7',
+  },
+  {
+    path: '/kseb-net-metering/',
+    title: 'KSEB Net Metering in Kerala — How It Works | Delta Energy',
+    description:
+      'Net metering against gross metering, the two meters KSEB fits, how banked units are settled, and why solar shuts down in a power cut.',
+    priority: '0.9',
   },
   {
     path: '/projects/',
