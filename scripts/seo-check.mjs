@@ -19,6 +19,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { SITE, CONTACT, IMAGES, FAQS, SERVICES, abs } from '../site.config.js'
 import { ROUTES, routeToFile } from '../site.routes.js'
+import { FAQS_BY_ROUTE } from '../content/faqs.js'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const exists = (p) => access(p).then(() => true, () => false)
@@ -145,9 +146,21 @@ function checkHead(html, route) {
     [/<title>([^<]+)<\/title>/, 'title', route.title, 'site.routes.js'],
   ]
 
+  /* The page stores "&" as "&amp;" because that is how HTML spells it; the
+     route table holds the character itself. Compare what a browser would
+     read, not the raw bytes, or every title containing an ampersand is
+     reported as drift. */
+  const decode = (t) =>
+    t
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&')
+
   for (const [re, label, expected, source] of need) {
     const m = html.match(re)
-    const got = m && m[1].replace(/\s+/g, ' ').trim()
+    const got = m && decode(m[1].replace(/\s+/g, ' ').trim())
     if (!m) {
       fail('STRUCTURE', `${route.path} <head> is missing ${label}`)
     } else if (expected && got !== expected) {
@@ -170,7 +183,12 @@ function checkHead(html, route) {
 
   const desc = html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/)
   if (desc && desc[1].length > 165) {
-    warn('STRUCTURE', `meta description is ${desc[1].length} chars — Google truncates near 160`)
+    warn('STRUCTURE', `${route.path} meta description is ${desc[1].length} chars — Google truncates near 160`)
+  }
+  /* Titles are the half of the snippet people actually click. Google cuts
+     them by pixel width, but ~62 characters is the usual practical limit. */
+  if (route.title.length > 62) {
+    warn('STRUCTURE', `${route.path} title is ${route.title.length} chars — Google truncates near 60`)
   }
 }
 
@@ -213,17 +231,29 @@ function checkJsonLd(html, route) {
     ok('STRUCTURE', `${route.path} JSON-LD WebPage points at itself`)
   }
 
+  /* Each route has its own question set now, so the node is checked against
+     THAT route's set — a page inheriting the homepage's five would look fine
+     against a global count while describing the wrong page. */
+  const expected = FAQS_BY_ROUTE[route.path]
   const faq = nodes.find((n) => n['@type'] === 'FAQPage')
-  if (!faq) {
-    warn('STRUCTURE', 'no FAQPage node — the closed accordion answers reach no crawler')
-  } else if (faq.mainEntity?.length !== FAQS.length) {
+  if (!expected) {
+    if (faq) fail('STRUCTURE', `${route.path} carries a FAQPage but has no FAQ`)
+  } else if (!faq) {
+    warn('STRUCTURE', `${route.path} has no FAQPage node — the closed accordion answers reach no crawler`)
+  } else if (faq.mainEntity?.length !== expected.length) {
     fail(
       'STRUCTURE',
-      `FAQPage has ${faq.mainEntity?.length ?? 0} questions, site.config.js has ${FAQS.length}`,
-      'Re-run `npm run seo:gen`.'
+      `${route.path} FAQPage has ${faq.mainEntity?.length ?? 0} questions, content/faqs.js has ${expected.length}`,
+      'Re-run `npm run build`.'
+    )
+  } else if (faq.mainEntity[0]?.name !== expected[0][0]) {
+    fail(
+      'STRUCTURE',
+      `${route.path} FAQPage carries another page's questions`,
+      `node: ${faq.mainEntity[0]?.name}\n       expected: ${expected[0][0]}`
     )
   } else {
-    ok('STRUCTURE', `FAQPage carries all ${FAQS.length} questions`)
+    ok('STRUCTURE', `${route.path} FAQPage carries its own ${expected.length} questions`)
   }
 
   const services = nodes.filter((n) => n['@type'] === 'Service')

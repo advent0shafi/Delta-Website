@@ -154,15 +154,19 @@ function buildGraph() {
       name: 'Solar services',
       itemListElement: SERVICES.map((s) => ({
         '@type': 'Offer',
-        itemOffered: { '@id': abs(`/#service-${s.id}`) },
+        itemOffered: { '@id': abs(`/services/${s.id}/#service`) },
       })),
     },
   })
 
+  /* Each service now has a page of its own, so the node is anchored to that
+     URL rather than to a homepage fragment — `url` gives a crawler somewhere
+     to send a reader, which a `#service-x` anchor never did. */
   for (const s of SERVICES) {
     graph.push({
       '@type': 'Service',
-      '@id': abs(`/#service-${s.id}`),
+      '@id': abs(`/services/${s.id}/#service`),
+      url: abs(`/services/${s.id}/`),
       name: serviceName(s),
       description: s.body,
       serviceType: serviceName(s),

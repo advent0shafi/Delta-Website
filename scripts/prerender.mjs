@@ -47,6 +47,7 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import { ROUTES, routeToFile } from '../site.routes.js'
 import { abs } from '../site.config.js'
+import { FAQS_BY_ROUTE } from '../content/faqs.js'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const SHELL = resolve(root, 'dist/index.html')
@@ -159,6 +160,27 @@ function applyJsonLd(html, route) {
   page.url = abs(route.path)
   page.name = route.title
   page.description = route.description
+
+  /* Each page asks a different set of questions, so each document carries a
+     FAQPage describing its own. This matters more than it looks: the accordion
+     renders only the open item, so for every other answer this node is the
+     only form in which a crawler sees it. */
+  const faq = (graph['@graph'] || []).find((n) => n['@type'] === 'FAQPage')
+  const items = FAQS_BY_ROUTE[route.path]
+  if (faq) {
+    if (items) {
+      faq['@id'] = `${abs(route.path)}#faq`
+      faq.isPartOf = { '@id': page['@id'] }
+      faq.mainEntity = items.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer },
+      }))
+    } else {
+      /* A page with no FAQ should not inherit the homepage's. */
+      graph['@graph'] = graph['@graph'].filter((n) => n !== faq)
+    }
+  }
 
   const body = JSON.stringify(graph, null, 2)
     .split('\n')

@@ -15,6 +15,12 @@ Canonical page: https://www.deltaenergy.in/
 - https://www.deltaenergy.in/services/ — Residential and commercial rooftop solar, hybrid battery systems, solar EV charging and backup UPS across Malappuram district. KSEB approvals handled for you.
 - https://www.deltaenergy.in/subsidy/ — Claim up to ₹78,000 under PM Surya Ghar. Delta files your KSEB application and subsidy paperwork end to end, from first consultation to net meter.
 - https://www.deltaenergy.in/savings-calculator/ — Estimate your rooftop solar system size, cost after subsidy, monthly savings and payback period. Kerala KSEB tariffs are pre-filled.
+- https://www.deltaenergy.in/services/residential/ — On-grid solar for Kerala homes: how a system is sized from your KSEB bill, what roof it needs, and how the PM Surya Ghar subsidy applies.
+- https://www.deltaenergy.in/services/commercial/ — Rooftop solar for shops, offices and factories in Malappuram. Why a daytime load profile pays back faster, and what applies without a subsidy.
+- https://www.deltaenergy.in/services/hybrid/ — Solar that keeps running through a KSEB outage. What hybrid adds over on-grid, how backup is sized, and lithium against lead-acid.
+- https://www.deltaenergy.in/services/ev-charging/ — Charge an electric vehicle from your own roof. Sizing for an EV, home wall boxes against DC fast charging, and workplace charging.
+- https://www.deltaenergy.in/services/inverters-ups/ — Backup power sized from an actual load list. How a solar inverter differs from a UPS, adding solar to an inverter you own, and battery life.
+- https://www.deltaenergy.in/kseb-net-metering/ — Net metering against gross metering, the two meters KSEB fits, how banked units are settled, and why solar shuts down in a power cut.
 - https://www.deltaenergy.in/projects/ — Rooftop solar we have installed across Manjeri, Kottakkal, Tirur and Perinthalmanna — from 3 kW homes to a 50 kW factory array.
 - https://www.deltaenergy.in/contact/ — Talk to Delta Energy Solutions about rooftop solar in Malappuram. Free site assessment and a written quote, with all KSEB paperwork handled.
 
@@ -99,4 +105,4 @@ Yes — every document. The grid-connectivity application, technical undertaking
   https://www.deltaenergy.in/sitemap.xml.
 - The HTML is prerendered at build time, so the full page content is present
   in the initial response and needs no JavaScript execution.
-- Last generated: 2026-08-27
+- Last generated: 2026-08-28
