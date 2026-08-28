@@ -215,16 +215,47 @@
   gap: 12px;
   margin: 28px 0 0;
 }
-.hero__actions .btn {
+/* Two identical full-width pills stacked on top of each other gave both
+   actions equal weight and read as a template. The primary keeps the width;
+   the secondary drops to a quiet outlined button that does not compete, so
+   there is an actual hierarchy on the first screen. */
+.hero__actions .btn--green {
   flex: 1 1 auto;
+}
+.hero__actions .btn--light {
+  flex: 0 0 auto;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.34);
+  backdrop-filter: none;
+  padding-inline: 20px;
+  font-weight: 500;
+}
+.hero__actions .btn--light:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 .hero__trust {
   margin-top: 30px;
   padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px 22px;
+  flex-direction: column;
+  gap: 9px;
+}
+/* Side by side only once there is room for the full row without running into
+   the floating buttons. Below that they stack, which also reads as a
+   deliberate list rather than three chips that happened to wrap. */
+/* Without this the chips stretch to the container as column flex items, so
+   their boxes still run under the floating buttons even though the text stops
+   short — which makes the tap targets overlap. */
+.hero__chip {
+  align-self: flex-start;
+}
+@media (min-width: 700px) {
+  .hero__trust {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+  }
 }
 .hero__chip {
   display: inline-flex;
@@ -841,18 +872,19 @@
   gap: 11px;
   margin-top: 6px;
 }
+/* Was a filled dark chip with a white 01/02/03 inside. Numbered badges are one
+   of the more recognisable generated-layout devices, and the number here is
+   genuinely just an ordinal — it does not need a container to earn its place.
+   Now a plain tabular numeral in the accent colour. */
 .calc__step-n {
   font-family: var(--display);
   font-weight: 600;
-  font-size: 12px;
-  color: #fff;
-  background: var(--forest);
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-  display: grid;
-  place-items: center;
+  font-size: 13px;
+  color: var(--green-600);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
   flex: none;
+  padding-top: 1px;
 }
 .calc__step-q {
   font-weight: 600;
@@ -1209,8 +1241,8 @@
 .contact__details li,
 .contact__details a {
   display: flex;
-  align-items: center;
-  gap: 13px;
+  align-items: flex-start;
+  gap: 11px;
   color: var(--ink-2);
   font-size: 15px;
   font-weight: 500;
@@ -1219,16 +1251,16 @@
 .contact__details a:hover {
   color: var(--green-600);
 }
+/* Each icon used to sit in its own 40px outlined white box, which turned four
+   contact lines into four boxed rows and made the simplest block on the page
+   the busiest. The icon alone carries it; the row reads as an address now
+   rather than as a set of cards. */
 .contact__details span {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 11px;
-  background: var(--white);
+  width: 20px;
   color: var(--green-600);
   flex: none;
-  border: 1px solid var(--line);
 }
 .contact__hours {
   color: var(--mute);
@@ -1417,16 +1449,21 @@
 /* ---------------- FLOATERS ---------------- */
 .floaters {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  right: 14px;
+  /* Clears the browser chrome on a phone, which the old 16px did not. */
+  bottom: max(14px, env(safe-area-inset-bottom));
   z-index: 90;
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 9px;
 }
+/* Two 52px circles stacked took a 52x115 bite out of the bottom-right corner
+   and landed squarely on the hero's trust row at 430px — the reason the third
+   chip read as "KSEB net-metering e" on a real phone. Smaller here, and the
+   trust row below no longer reaches under them. */
 .floater {
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   display: grid;
   place-items: center;

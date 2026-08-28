@@ -36,10 +36,13 @@
   --line-dark: rgba(255, 255, 255, 0.14);
 
   /* radii */
-  --r-xl: 30px;
-  --r-lg: 22px;
-  --r-md: 16px;
-  --r-sm: 11px;
+  /* Tightened from 30/22/16/11. Uniformly generous corner radius on every
+     surface is one of the clearest tells of a generated layout; the shapes
+     read as chosen once they stop all being the same soft rectangle. */
+  --r-xl: 20px;
+  --r-lg: 14px;
+  --r-md: 10px;
+  --r-sm: 7px;
 
   --shadow-sm: 0 1px 2px rgba(8, 38, 54, 0.04), 0 8px 24px rgba(8, 38, 54, 0.05);
   --shadow-md: 0 16px 44px rgba(8, 38, 54, 0.10);
@@ -178,8 +181,23 @@ textarea {
   font-size: clamp(2rem, 7vw, 3.6rem);
   text-wrap: balance;
 }
+/* The two-tone headline is a strong device and it was on every heading on the
+   site — nine on a single page — which turned a signature into wallpaper. It
+   now survives in exactly two places: the hero, and the closing CTA. Section
+   headings are a single colour, so the two that are split actually land.
+
+   Kept as a colour override rather than removed from the markup: the split is
+   still expressed in site.config.js and the content modules, so restoring it
+   anywhere is a one-line change rather than a content edit. */
 .headline .soft {
+  color: inherit;
+}
+.hero__title .soft,
+.cta__card .headline .soft {
   color: var(--mute-2);
+}
+.cta__card .headline .soft {
+  color: rgba(255, 255, 255, 0.55);
 }
 .headline .grn {
   color: var(--green-600);
@@ -187,8 +205,10 @@ textarea {
 .section--forest .headline {
   color: #fff;
 }
+/* Higher specificity than the rule above, so it would have reinstated the
+   two-tone split on any dark section. Left as inherit for the same reason. */
 .section--forest .headline .soft {
-  color: rgba(255, 255, 255, 0.42);
+  color: inherit;
 }
 
 .lead {
