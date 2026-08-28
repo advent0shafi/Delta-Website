@@ -1,0 +1,81 @@
+# FILE: services.html
+TITLE: On Grid Solar System Cochin | Off Grid Solar System | Hybrid Solar
+DESC: On Grid/Grid Tie solar power project are connected to the public electricity grid(KSEB) and do not require battery storage. Off-grid systems are most suitable in remote locations devoid of utility service.
+
+
+--- SECTION 1  id=menu1-q  group=""  class="menu cid-qTkzRZLJNu" ---
+  • About Us
+  • Services On Grid
+  • Off Grid
+  • Hybrid
+  • Subsidy
+  • Micro Inverters
+  • Projects
+  • Blog
+  • Careers
+  • Contact
+
+--- SECTION 2  id=header1-1a  group=""  class="header1 cid-r9RIvGwvtN mbr-parallax-background" ---
+
+--- SECTION 3  id=header12-2i  group=""  class="header12 cid-raeiDh996B" ---
+  <H2> Our Work Flow
+  We provide engineering, permitting and installation all under one roof.
+
+--- SECTION 4  id=features11-31  group=""  class="features11 cid-rdp5z3pyxt" ---
+  [IMG] assets/images/13765863-10153803505473595-4491541290955145988-o1-520x390.jpg  alt="Top Solar Panel Dealers In Cochin"
+  <H1> ON - Grid Project
+  On Grid/Grid Tie solar power project are connected to the public electricity grid(KSEB) and do not require battery storage. Any solar power that we generate from an on-grid system during daytime (which is not used directly in your home) is exported onto the electricity grid(KSEB) and we can utilize the exported power during night. Grid-tie solar systems are not able to function or generate electricity during a blackoutor power failure due to safety reasons; since blackouts usually occur when the electricity grid is damaged. If the solar inverter were still feeding electricity into a damaged grid it would risk the safety of the people repairing the fault/s in the network. The major components of a grid-connect PV system include: *PV array *Inverter *Net Meters Advantages 1. Reduces Electricity Bill 2. Can Credit the electricity to KSEB when not in use 3. High Return of Investment (ROI) 4. Zero Reinvestment
+
+--- SECTION 5  id=features11-32  group=""  class="features11 cid-rdp6HajuXs" ---
+  [IMG] assets/images/30171442-1668219456548332-348064143744935553-o-520x346.jpg  alt="Solar power solution provider in Kerala"
+  <H2> OFF - Grid Project
+  When the electricity grid is unavailable or not dependable or too expensive to bring in to your home, an Off-Grid System can help you. It allows us to store our solar power in batteries for use when the grid goes down. Off-grid systems are most suitable in remote locations devoid of utility service. Since most homes have higher energy demand in the evening or at night, an off-grid system uses battery storage Also solar system must be designed appropriately so that it will generate enough power throughout the year and have enough battery capacity to meet the home’s requirements, even in the depths of winter when there is less sunlight. The major components of a OFF Grid PV system include: *Solar Panel *Solar Inverter *MPPT Charger *Solar Battery Advantages 1. Reduces Electricity Bill 2. Can power all devices with quality power all year around 3. Can be used for backup purpose 4. Suitable for residence 5. Can replace Electricity Generators/normal inverters
+
+--- SECTION 6  id=features11-33  group=""  class="features11 cid-rdp6HN8uOo" ---
+  [IMG] assets/images/37784568-2715430758482847-5851571355123712000-o-520x390.jpg  alt="Mobirise"
+  <H2> Hybrid Project
+  Hybrid solar systems combine the best from grid-tied and off-grid solar systems . Hybrid solar systems utilize battery-based grid-tie inverters. These devices combined can draw electrical power to and from battery banks, as well as synchronize with the utility grid. They are able to control and balance the available sources of energy: The major components of a OFF Grid PV system include: *Solar Panel *Solar Inverter *MPPT Charger *Solar Battery *Net Meter Advantages 1. Reduces Electricity Bill 2. Can power all devices with quality power all year around 3. Can be used for backup purpose 4. Can Credit the electricity to KSEB when not in use 5. Suitable for residence and commercial projects 6. Can replace Electricity Generators/normal inverters
+
+--- SECTION 7  id=clients-3n  group=""  class="clients cid-rf61VICpH9" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  <H2> Our Products
+  <H3> 1. Global dealer of our products 2. International quality of products 3. Qualified installers and no maintenance required
+  [IMG] assets/images/s1.jpg  alt="Leading Rooftop Solar Company in India"
+  [IMG] assets/images/s2.jpg  alt="solar panel cost in Kerala"
+  [IMG] assets/images/s3.jpg  alt="solar panel system in Cochin"
+  [IMG] assets/images/s4.jpg  alt="On Grid Solar System Distributor Cochin"
+  [IMG] assets/images/s5.jpg  alt="Best solar roofing in Kerala"
+  [IMG] assets/images/s6.jpg  alt="Best Solar Power Systems Cochin"
+  [IMG] assets/images/s7.jpg  alt="Best solar panel selling company in India"
+  [IMG] assets/images/s8.jpg  alt="On Grid Solar System India"
+  [IMG] assets/images/s9.jpg  alt="Solar panel installation services in Ernakulum"
+  [IMG] assets/images/s10.jpg  alt="Best Solar Company In India"
+  [IMG] assets/images/s11.jpg  alt="Leading Solar Energy Company Cochin"
+  [IMG] assets/images/s12.jpg  alt="Top Solar Panel Distributors In Kerala"
+  [IMG] assets/images/s13.jpg  alt="On-Grid Solar Power Systems India"
+  [IMG] assets/images/s14.jpg  alt="Leading solar panel dealers in Cochin"
+  [IMG] assets/images/s15.jpg  alt="leading solar power producer in India"
+  [IMG] assets/images/s16.jpg  alt="On Grid Solar System
+
+"
+  [IMG] assets/images/s17.jpg  alt="Best On Grid Solar System Cochin"
+  [IMG] assets/images/s18.jpg  alt="solar power price in India"
+  [IMG] assets/images/s19.jpg  alt="Best Solar Company in Kochi"
+  [IMG] assets/images/s20.jpg  alt="Rooftop Solar Power Systems Cochin"
+  [IMG] assets/images/s21.jpg  alt="Leading Solar Power Company in India"
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved

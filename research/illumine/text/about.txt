@@ -1,0 +1,89 @@
+# FILE: about.html
+TITLE: Leading Solar Energy Company Kerala - Illumine Energy
+DESC: Illumine is a top player in the category development, acquisition and long-term management of large-scale solar projects and smart energy solutions
+
+
+--- SECTION 1  id=menu1-q  group=""  class="menu cid-qTkzRZLJNu" ---
+  • About Us
+  • Services On Grid
+  • Off Grid
+  • Hybrid
+  • Subsidy
+  • Micro Inverters
+  • Projects
+  • Blog
+  • Careers
+  • Contact
+
+--- SECTION 2  id=header1-12  group=""  class="header1 cid-r9RwT5iGB2 mbr-parallax-background" ---
+
+--- SECTION 3  id=content4-13  group=""  class="mbr-section content4 cid-r9RxKjadfV" ---
+  <H1> A leading solar energy company
+  <H3> Illumine Energy undertakes designing, engineering, product procurement, documentation, installation and maintenace of power plants. Unlike product sales, company is unique in focusing project sales, by Energy Auditing, Turn Key Solutions and Helping Customer to do Profitable Investments.
+  <H3> Established in the year 2012, Illumine is a top player in the category development, acquisition and long-term management of large-scale solar projects and smart energy solutions. With one of the largest footprints of clean energy projects, spanning India, the company has installed more than 5000+ solar power projects and has the largest portfolio of solar rooftops. The company has over 10 MW of solar power plants under operation and a further 2 KW under construction.
+  <H3> We operate in both the centralized energy market and the evolving distributed energy market around the India and UAE. ILLUMINE is investing in new technologies and product offerings from the advantageous position of pure solar economics.
+
+--- SECTION 4  id=features4-2r  group=""  class="features4 cid-rdoTuWa7Ci mbr-parallax-background" ---
+  <H2> Illumine undertakes complete EPC of solar projects including
+  <H4> Power compensation
+  Planning, conceptualization and documentation of power plants
+  <H4> Power compensation
+  Design, engineering and preparation of detailed project report
+  <H4> Power compensation
+  Procurement of components
+  <H4> Power compensation
+  Commissioning, operation and maintenance with performance guarantee
+
+--- SECTION 5  id=info2-2y  group=""  class="mbr-section info2 cid-rdoY41q1B3" ---
+  <H2> Senior Management Team
+
+--- SECTION 6  id=testimonials3-2t sm3  group=""  class="testimonials3 cid-rdoUvZoy43" ---
+  -Steering largest team of CLEAN ENERGY EXPERTS in Kerala -Handles Operations of the company -Selected as Young Entrepreneur for Green Future - Leadership award 2017 by World CSR COUNCIL -Executive administrator of KREEPA (KERALA RENEWABLE ENERGY ENTREPRENEURS’ AND PROMERTERS’ ASSOCIATION) -Holds a B.Tech in Electronics & Instrumentation
+  MOHAMED SHAFFEEQ N
+  CHIEF EXECUTIVE OFFICER
+  [IMG] assets/images/rsz-screen-shot-2018-07-25-at-122241-am-300x300.jpg  alt="Best off Grid Solar System Cochin"
+
+--- SECTION 7  id=testimonials2-2w  group=""  class="testimonials2 cid-rdoXEezhtT" ---
+  [IMG] assets/images/rsz-12688212-10208497876625612-8012300512489173152-n-300x300.jpg  alt="Solar Power System Distributors in Kerala"
+  -Responsible for Project Designing and Handling Complex Electrical Designs -Hands own experience in dealing with multiple technical enquiries -Former Graduate Engineer at General Electric (GE) -On the Spot Awarded Engineer for the Best Performance -Holds a B.Tech in Electronics and MBA in International Business Administration
+  ANWAR BABU
+  CHIEF TECHNICAL OFFICER
+
+--- SECTION 8  id=testimonials3-2x  group=""  class="testimonials3 cid-rdoXFoB226" ---
+  -Responsible for the execution and delivery of ILLUMINE's wide portfolio of projects -Responsible for ILLUMINE’s diversification into new markets, business lines, technologies, partnerships and joint ventures. -Hands on Experience with Solar Thermal De-salination Projects -Holds Msc in Geology from ANNA University
+  T K LUKMAN
+  CHIEF MARKETING OFFICER
+  [IMG] assets/images/rsz-lukman-300x300.jpg  alt="Solar Dealer in Kerala"
+
+--- SECTION 9  id=features4-2r  group=""  class="features4 cid-rdoTuWa7Ci bg1 mbr-parallax-background" ---
+  <H2> Jyothirgamaya: Sustainable lighting solutions in rural villages
+  <H3> Preserve the environment, reduce carbon footprint, promote bio-diversity ..
+
+--- SECTION 10  id=clients-1s  group=""  class="clients cid-r9S2tZsd8n" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  <H2> Awards & Recognition
+  <H3> Our customers are our partners. We do not just deliver to their requirements, we go all out for creating complete customer delight.
+  [IMG] assets/images/a6.jpg  alt="Top Solar Panel Distributors Cochin"
+  [IMG] assets/images/a1.jpg  alt="Solar Installation & Products Distributor Kerala"
+  [IMG] assets/images/a2.jpg  alt="off Grid Solar System Cochin"
+  [IMG] assets/images/a3.jpg  alt="off Grid Solar System"
+  [IMG] assets/images/a4.jpg  alt="Solar Panel Installation and Maintenance  Kerala"
+  [IMG] assets/images/a5.jpg  alt="solar panel system in India"
+  [IMG] assets/images/a7.jpg  alt="Solar panel installation services Kerala"
+  [IMG] assets/images/a8.jpg  alt="Best Solar Panels in India"
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved

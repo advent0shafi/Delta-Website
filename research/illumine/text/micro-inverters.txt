@@ -1,0 +1,118 @@
+# FILE: micro-inverters.html
+TITLE: Best Micro Inverter Installation Kochi | Kerala
+DESC: Upgrade your solar system with the best micro inverter installation in Kochi, Kerala from Illumine Energy. Experience enhanced energy production.
+
+
+--- SECTION 1  id=home  group=""  class="banner-area6 relative" ---
+  <H5> Solar for Residential and Commercial,
+  <H2> 2000
+  <H4> Satisfied Customers
+  We are one of the leading solar company in kerala with 10 years experience in solar power projects.
+  [BTN] "About us" -> about.html
+
+--- SECTION 2  id=enquire  group=""  class="convert-area" ---
+  <H2> Get in Touch
+  Who are always there with solutions.
+  [BTN] "Submit" -> 
+
+--- SECTION 3  id=  group=""  class="" ---
+  <H4> Some Of Our Clients
+  [IMG] /landing_page_assets/img/cl1.jpg  alt="logo-1"
+  [IMG] /landing_page_assets/img/cl10.jpg  alt="logo-2"
+  [IMG] /landing_page_assets/img/cl11.jpg  alt="logo-3"
+  [IMG] /landing_page_assets/img/cl12.jpg  alt="logo-4"
+  [IMG] /landing_page_assets/img/cl13.jpg  alt="logo-5"
+  [IMG] /landing_page_assets/img/cl14.jpg  alt="logo-6"
+  [IMG] /landing_page_assets/img/cl15.jpg  alt="logo-7"
+  [IMG] /landing_page_assets/img/cl16.jpg  alt="logo-8"
+  [IMG] /landing_page_assets/img/cl17.jpg  alt="logo-9"
+  [IMG] /landing_page_assets/img/cl18.jpg  alt="logo-10"
+  [IMG] /landing_page_assets/img/cl19.jpg  alt="logo-11"
+  [IMG] /landing_page_assets/img/cl2.jpg  alt="logo-12"
+  [IMG] /landing_page_assets/img/cl20.jpg  alt="logo-13"
+  [IMG] /landing_page_assets/img/cl21.jpg  alt="logo-14"
+  [IMG] /landing_page_assets/img/cl22.jpg  alt="logo-15"
+  [IMG] /landing_page_assets/img/cl23.jpg  alt="logo-16"
+  [IMG] /landing_page_assets/img/cl24.jpg  alt="logo-17"
+  [IMG] /landing_page_assets/img/cl3.jpg  alt="logo-18"
+  [IMG] /landing_page_assets/img/cl4.jpg  alt="logo-19"
+  [IMG] /landing_page_assets/img/cl5.jpg  alt="logo-20"
+  [IMG] /landing_page_assets/img/cl6.jpg  alt="logo-21"
+  [IMG] /landing_page_assets/img/cl7.jpg  alt="logo-22"
+  [IMG] /landing_page_assets/img/cl8.jpg  alt="logo-23"
+  [IMG] /landing_page_assets/img/cl9.jpg  alt="logo-24"
+
+--- SECTION 4  id=  group=""  class="aboutus-area" ---
+  [IMG] /landing_page_assets/img/about-img2.jpeg  alt="Rooftop Solar Power Systems Cochin"
+  [IMG] /landing_page_assets/img/about-img1.jpeg  alt="Best Solar Systems Cochin, Kerala"
+  [IMG] /landing_page_assets/img/about-img3.jpg  alt="Solar Panel Distributor in Kerala"
+  [IMG] /landing_page_assets/img/about-img4.jpeg  alt="On Grid Solar System Cochin"
+  [IMG] /landing_page_assets/img/about-img5.jpeg  alt="Best Solar Energy Company Kerala"
+  <H1> MICRO INVERTERS
+  Micro inverters are devices used with solar arrays to convert the energy that is generated to usable electricity for a home. In Microinverters each panel is connected to single microinverters. So the Advantages are; 1 ) The ability for each panel to work individually using microinverters, however, allows for greater energy production and efficiency - especially when only a few panels are in the shade or under snow. 2 ) Microinverters are recommended on most home solar projects since most roofs have some sort of shading and also it removes the necessity for a separate inverter. 3 ) Even though it possesses a high initial cost, it can be justified in cases where ther e are technical challenges in installing a series of solar panels or shading issues that could cause the entire system to underperform. 4 ) Micro inverters have a longer life compared to ordinary inverters (20-25 Years). 5 ) Micro inverters also have 95% maximum efficiency like string inverters even though they are a newer technology. 6 ) Another factor weighing in favor of the micro inverter market is that microinverters are much safer than central inverters since microinverters convert the electricity to AC at the panel level.
+
+--- SECTION 5  id=  group=""  class="simple-services-area section-gap" ---
+  <H3> ENPHASE Micro inverters
+  Enphase microinverters are proven to produce more energy than other technologies.
+  • Microinverters operate independently, so each panel performs to its fullest. One shaded or dirty panel won't affect the rest of the system.
+  • Burst technology lets microinverters produce more at dawn, dusk, and in low-light conditions, for a longer solar day.
+  • Enphase microinverters come with a 10-year warranty; string inverters need to be replaced at least once in the lifetime of the system.
+  • Whichever the inverter it doesn’t matter. the inverter can be Indian-made or foreign made.
+
+--- SECTION 6  id=  group=""  class="simple-services-area section-gap2" ---
+  <H3> Residential Solar Projects
+  When choosing a solar system in your home, The first thing of concern is how much plant capacity will be apt for your home to meet the daily consumption. To calculate that we have to know the daily/Bimonthly unit consumption or The approximate bimonthly electricity bill amount from the utility grid(KSEB/BESCOM). According to the solar design aspects, 4-5 units of electricity can be generated from a 1kW system per day.
+
+--- SECTION 7  id=  group=""  class="simple-services-area section-gap3" ---
+  For example, if A home consumes 480 units bimonthly, Then 8 units will be the consumption /day. So a 2kW system (2x 4 units)might be apt. The second thing is the area of your home in which the solar system will accommodate. You Can take advice from a technically strong person from electrical background or demand a site visit from a concerned person from any solar EPC company. The third thing is the Cost of the solar power system. Generally, the cost of an on-grid solar system depends on the location, size of your project, the number of panels you install, and the complexity of getting them to work effectively. When you choose a solar company that offers one-stop solutions, the cost of your system will be inclusive of all expenses. The company will create a customized design for your home's solar installation, and the system will come with warranties and maintenance packages. 3kW Residential On Grid Solar Power System will cost anywhere between Rs. 2 - 3 Lakhs, depending on products used, warranties, maintenance package and roof type of installation. 5kW Residential On Grid Solar Power System projects cost anywhere between Rs. 3 - 5 Lakhs. 10 kW Residential On Grid Solar Power System costs about 6 - 10 Lakhs. 30 kW Residential Grid Solar Power System cost ranges from 18 - 28 Lakhs.
+
+--- SECTION 8  id=blog  group=""  class="blog-area section-gap" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  <H2> Testimonials
+  Words from our satisfied Customers
+  [IMG] /landing_page_assets/img/Enviro Eco lab.jpg  alt="Solar Companies in Kerala"
+  Our Mission was to clear the issues with KSEB and implement a reliable On Grid solution at the available space considering maximum utility. Team ILLUMINE implemented a 20 kWpOn grid project using Canadian Solar Modules and SMA Germany Inverters. The system produces 105 Units of electricity per day and covers almost 75% of the power requirements. And saves 40 tons of Co2 emission into atmosphere.
+  <H6> Mr. K L Antony
+  MD, Envirodesigns-Eco Tower
+  [IMG] /landing_page_assets/img/pr3-700x400.jpg  alt="Solar Energy Company Kerala"
+  PURAVANKARA under the leadership of Mr.RAVI PURAVANKARA is one of the largest builder in INDIA. With construction spread over Karnataka, Kerala, Maharashtra, Tamil Nadu . On the mission of Green building and LEED Certifications they chose ILLUMINE as their strategic partners for Solar Power Solutions. 31 kWpSolar OFF Grid project was commissioned in 2013. This is second largest successful Off-Grid project built in Kerala, making us the longest tenured private
+  <H6> Mr.RAVI
+  MD, Puravankara Builders
+  [IMG] /landing_page_assets/img/Abad.jpg  alt="Solar Panel Installation Services in Ernakulam"
+  Abad Fisheries is one of the largest processors of quality quick frozen seafood in India with 11 accredited and certified factories PAN India. ILLUMINE carried out an energy audit at site and implemented energy efficient measures, designed and implemented a 100kWp Solar Grid Tie Project. The project is capable of supporting Deep freezers and covers 95% of there load requirements.
+  <H6> Mr. Anwar Hashim
+  MD, ABAD Fisheries
+  <H2> FAQs
+  Answers to the most frequently asked questions.
+  <H4> What makes Illumine Energy a trusted provider of micro inverter-based solar systems?
+  Illumine Energy offers premium-quality micro inverter solutions tailored to Kerala's unique climate. We ensure long-term performance of solar projects through expert installation, system monitoring, and ongoing support.
+  <H4> Can I monitor each panels performance with micro-inverters from Illumine?
+  Yes, micro-inverters enable panel-level monitoring. Smart monitoring tools (such as Enphase Enlighten) allow Illumine's systems to track individual panel performance in real time and identify any issues.
+  <H4> Do micro inverters from Illumine Energy work well in low-light or shaded areas?
+  Illumine Energy's micro inverter systems are ideal for installations with partial shading or varying sunlight conditions. The fact that each panel operates independently ensures that energy production remains efficient even if some panels receive less sunlight than others.
+  <H4> Can I expand my solar system later with micro inverters from Illumine Energy?
+  Absolutely. Illumine Energy's micro inverter systems have a modular design that makes adding more panels and inverters easy without affecting the existing system.
+  <H4> Do micro inverters from Illumine Energy improve energy efficiency?
+  Yes, Illumine Energy's micro inverters optimize each solar panel's output individually, resulting in energy loss reduction and enhanced efficiency for your solar system.
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved
+  [BTN] "whatsapp" -> https://api.whatsapp.com/send?phone=+919037048988&text=Hi,%20I%20would%20like%20to%20get%20more%20information..
+  [BTN] "--> whatsapp --> <!--" -> https://web.whatsapp.com/send?phone=+919581880892&amp;text=Hi, I would like to get more information..
+  • --> --> location_on --> --> <!--
+  • --> --> phonelink_ring --> --> <!--
+  • --> --> email --> --> <!--
+  • --> --> ring_volume --> --> <!--

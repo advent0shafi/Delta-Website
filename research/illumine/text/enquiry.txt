@@ -1,0 +1,113 @@
+# FILE: enquiry.html
+TITLE: 	Solar Panel Installation Company Kerala | Rooftop Solar Panel
+DESC: Illumine Energy is one of the leading rooftop solar panel installation company in Kerala which offer a complete range of solar products supply in Kerala.
+
+
+--- SECTION 1  id=home  group=""  class="banner-area relative" ---
+  <H5> Solar for Residential and Commercial,
+  <H2> 2000
+  <H4> Satisfied Customers
+  We are one of the leading solar company in kerala with 10 years experience in solar power projects.
+  [BTN] "About us" -> about.html
+
+--- SECTION 2  id=enquire  group=""  class="convert-area" ---
+  <H2> Get in Touch
+  Who are always there with solutions.
+  Oops! Something went wrong. Please try again.
+  ✅ Thank you! Your message has been sent successfully.
+  [IMG] captcha.php  alt="Captcha Image"
+
+--- SECTION 3  id=  group=""  class="" ---
+  <H4> Some Of Our Clients
+  [IMG] /landing_page_assets/img/cl1.jpg  alt="logo-1"
+  [IMG] /landing_page_assets/img/cl10.jpg  alt="logo-2"
+  [IMG] /landing_page_assets/img/cl11.jpg  alt="logo-3"
+  [IMG] /landing_page_assets/img/cl12.jpg  alt="logo-4"
+  [IMG] /landing_page_assets/img/cl13.jpg  alt="logo-5"
+  [IMG] /landing_page_assets/img/cl14.jpg  alt="logo-6"
+  [IMG] /landing_page_assets/img/cl15.jpg  alt="logo-7"
+  [IMG] /landing_page_assets/img/cl16.jpg  alt="logo-8"
+  [IMG] /landing_page_assets/img/cl17.jpg  alt="logo-9"
+  [IMG] /landing_page_assets/img/cl18.jpg  alt="logo-10"
+  [IMG] /landing_page_assets/img/cl19.jpg  alt="logo-11"
+  [IMG] /landing_page_assets/img/cl2.jpg  alt="logo-12"
+  [IMG] /landing_page_assets/img/cl20.jpg  alt="logo-13"
+  [IMG] /landing_page_assets/img/cl21.jpg  alt="logo-14"
+  [IMG] /landing_page_assets/img/cl22.jpg  alt="logo-15"
+  [IMG] /landing_page_assets/img/cl23.jpg  alt="logo-16"
+  [IMG] /landing_page_assets/img/cl24.jpg  alt="logo-17"
+  [IMG] /landing_page_assets/img/cl3.jpg  alt="logo-18"
+  [IMG] /landing_page_assets/img/cl4.jpg  alt="logo-19"
+  [IMG] /landing_page_assets/img/cl5.jpg  alt="logo-20"
+  [IMG] /landing_page_assets/img/cl6.jpg  alt="logo-21"
+  [IMG] /landing_page_assets/img/cl7.jpg  alt="logo-22"
+  [IMG] /landing_page_assets/img/cl8.jpg  alt="logo-23"
+  [IMG] /landing_page_assets/img/cl9.jpg  alt="logo-24"
+  [IMG] assets/images/illumine.jpg  alt="On Grid Solar System Kerala"
+  SOLAR SUBSIDY SCHEME FOR RESIDENCE.
+  GET UPTO 40% MNRE Subsidy.
+  5 years free maintenance service.
+  Tier 1 Electrical & Solar Accessories.
+  There is no additional cost for structure fabrication.
+
+--- SECTION 4  id=  group=""  class="aboutus-area" ---
+  [IMG] /landing_page_assets/img/about-img2.jpeg  alt="Rooftop Solar Power Systems Cochin"
+  [IMG] /landing_page_assets/img/about-img1.jpeg  alt="Best Solar Systems Cochin, Kerala"
+  [IMG] /landing_page_assets/img/about-img3.jpg  alt="Solar Panel Distributor in Kerala"
+  [IMG] /landing_page_assets/img/about-img4.jpeg  alt="On Grid Solar System Cochin"
+  [IMG] /landing_page_assets/img/about-img5.jpeg  alt="Best Solar Energy Company Kerala"
+  <H1> On Grid, Off Grid & Hybrid Solar Installations Kerala
+  On Grid/Grid Tie solar power project are connected to the public electricity grid(KSEB) and do not require battery storage. Any solar power that we generate from an on-grid system during daytime (which is not used directly in your home) is exported onto the electricity grid(KSEB) and we can utilize the exported power during night. When the electricity grid is unavailable or not dependable or too expensive to bring in to your home, an Off-Grid System can help you. It allows us to store our solar power in batteries for use when the grid goes down. Off-grid systems are most suitable in remote locations devoid of utility service.
+
+--- SECTION 5  id=  group=""  class="simple-services-area section-gap" ---
+  <H2> Be Energy Independent
+  [IMG] /landing_page_assets/img/icons8-solar-panel-40.png  alt="Solar Panel Price in Kerala"
+  We understand the value of a diverse architecture across the world and therefore, we customize and integrate 100% tailored to our client's design intent.
+  [IMG] /landing_page_assets/img/icons8-solar-panel-40.png
+  Free PMS in every three months, giving customer's complete panel, inverter and accessories performance status plus Daily online monitoring services.
+  [IMG] /landing_page_assets/img/icons8-solar-panel-40.png
+  Suitable for residential customers with 3500-10,000 rupees electricity bill and commercial customers with 5000 and above electricity bill.
+
+--- SECTION 6  id=  group=""  class="callaction-area section-gap" ---
+  <H2> YOUR ONE STOP FOR SOLAR POWER REQUIREMENTS
+  Illumine Energy undertakes designing, engineering, product procurement, documentation, installation and maintenace of power plants. Unlike product sales, company is unique in focusing project sales, by Energy Auditing, Turn Key Solutions and Helping Customer to do Profitable Investments. We operate in both the centralized energy market and the evolving distributed energy market around the India and UAE. ILLUMINE is investing in new technologies and product offerings from the advantageous position of pure solar economics.
+  [BTN] "Enquire Now!" -> #enquire
+
+--- SECTION 7  id=blog  group=""  class="blog-area section-gap" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  <H2> Testimonials
+  Words from our satisfied Customers
+  [IMG] /landing_page_assets/img/Enviro Eco lab.jpg  alt="Solar Companies in Kerala"
+  Our Mission was to clear the issues with KSEB and implement a reliable On Grid solution at the available space considering maximum utility. Team ILLUMINE implemented a 20 kWpOn grid project using Canadian Solar Modules and SMA Germany Inverters. The system produces 105 Units of electricity per day and covers almost 75% of the power requirements. And saves 40 tons of Co2 emission into atmosphere.
+  <H6> Mr. K L Antony
+  MD, Envirodesigns-Eco Tower
+  [IMG] /landing_page_assets/img/pr3-700x400.jpg  alt="Solar Energy Company Kerala"
+  PURAVANKARA under the leadership of Mr.RAVI PURAVANKARA is one of the largest builder in INDIA. With construction spread over Karnataka, Kerala, Maharashtra, Tamil Nadu . On the mission of Green building and LEED Certifications they chose ILLUMINE as their strategic partners for Solar Power Solutions. 31 kWpSolar OFF Grid project was commissioned in 2013. This is second largest successful Off-Grid project built in Kerala, making us the longest tenured private
+  <H6> Mr.RAVI
+  MD, Puravankara Builders
+  [IMG] /landing_page_assets/img/Abad.jpg  alt="Solar Panel Installation Services in Ernakulam"
+  Abad Fisheries is one of the largest processors of quality quick frozen seafood in India with 11 accredited and certified factories PAN India. ILLUMINE carried out an energy audit at site and implemented energy efficient measures, designed and implemented a 100kWp Solar Grid Tie Project. The project is capable of supporting Deep freezers and covers 95% of there load requirements.
+  <H6> Mr. Anwar Hashim
+  MD, ABAD Fisheries
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved
+  [BTN] "whatsapp" -> https://api.whatsapp.com/send?phone=+919037048988&text=Hi,%20I%20would%20like%20to%20get%20more%20information..
+  [BTN] "--> whatsapp --> <!--" -> https://web.whatsapp.com/send?phone=+919581880892&amp;text=Hi, I would like to get more information..
+  • --> --> location_on --> --> <!--
+  • --> --> phonelink_ring --> --> <!--
+  • --> --> email --> --> <!--
+  • --> --> ring_volume --> --> <!--

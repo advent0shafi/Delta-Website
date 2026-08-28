@@ -1,0 +1,158 @@
+# FILE: subsidy.html
+TITLE: Solar Subsidy For Installations in Kochi | Kerala
+DESC: Take advantage of solar subsidies for installations in Kochi, Kerala. Illumine Energy offers affordable, high-efficiency solar solutions.
+
+
+--- SECTION 1  id=home  group=""  class="banner-area5 relative" ---
+  <H5> Solar installations Kerala
+  <H2> 40% SOLAR SUBSIDY
+  <H4> for Installations
+  We are one of the leading solar company in kerala with 10 years experience in solar power project & 2000+ Happy Clients.
+  [BTN] "About us" -> about.html
+
+--- SECTION 2  id=enquire  group=""  class="convert-area" ---
+  <H2> Get in Touch
+  Who are always there with solutions.
+  ✅ Thank you! Your message has been sent successfully.
+  [IMG] captcha.php  alt="Captcha Image"
+
+--- SECTION 3  id=  group=""  class="" ---
+  <H4> Some Of Our Clients
+  [IMG] /landing_page_assets/img/cl1.jpg  alt="logo-1"
+  [IMG] /landing_page_assets/img/cl10.jpg  alt="logo-2"
+  [IMG] /landing_page_assets/img/cl11.jpg  alt="logo-3"
+  [IMG] /landing_page_assets/img/cl12.jpg  alt="logo-4"
+  [IMG] /landing_page_assets/img/cl13.jpg  alt="logo-5"
+  [IMG] /landing_page_assets/img/cl14.jpg  alt="logo-6"
+  [IMG] /landing_page_assets/img/cl15.jpg  alt="logo-7"
+  [IMG] /landing_page_assets/img/cl16.jpg  alt="logo-8"
+  [IMG] /landing_page_assets/img/cl17.jpg  alt="logo-9"
+  [IMG] /landing_page_assets/img/cl18.jpg  alt="logo-10"
+  [IMG] /landing_page_assets/img/cl19.jpg  alt="logo-11"
+  [IMG] /landing_page_assets/img/cl2.jpg  alt="logo-12"
+  [IMG] /landing_page_assets/img/cl20.jpg  alt="logo-13"
+  [IMG] /landing_page_assets/img/cl21.jpg  alt="logo-14"
+  [IMG] /landing_page_assets/img/cl22.jpg  alt="logo-15"
+  [IMG] /landing_page_assets/img/cl23.jpg  alt="logo-16"
+  [IMG] /landing_page_assets/img/cl24.jpg  alt="logo-17"
+  [IMG] /landing_page_assets/img/cl3.jpg  alt="logo-18"
+  [IMG] /landing_page_assets/img/cl4.jpg  alt="logo-19"
+  [IMG] /landing_page_assets/img/cl5.jpg  alt="logo-20"
+  [IMG] /landing_page_assets/img/cl6.jpg  alt="logo-21"
+  [IMG] /landing_page_assets/img/cl7.jpg  alt="logo-22"
+  [IMG] /landing_page_assets/img/cl8.jpg  alt="logo-23"
+  [IMG] /landing_page_assets/img/cl9.jpg  alt="logo-24"
+
+--- SECTION 4  id=  group=""  class="aboutus-area" ---
+  [IMG] /landing_page_assets/img/about-img2.jpeg  alt="Rooftop Solar Power Systems Cochin"
+  [IMG] /landing_page_assets/img/about-img1.jpeg  alt="Best Solar Systems Cochin, Kerala"
+  [IMG] /landing_page_assets/img/about-img3.jpg  alt="Solar Panel Distributor in Kerala"
+  [IMG] /landing_page_assets/img/about-img4.jpeg  alt="On Grid Solar System Cochin"
+  [IMG] /landing_page_assets/img/about-img5.jpeg  alt="Best Solar Energy Company Kerala"
+  <H1> SOLAR SUBSIDY
+  When discussing solar energy, we think about the pricing of the solar system and the subsidy scheme for solar panels. The Government of India has launched a power-saving scheme called Solar Roof Top Power Plant to save wealth for future generations. We all know the obvious reason for not using solar energy in the residential/commercial sector is its overall price. Therefore, realizing this problem, the Central Government launched the MNRE(Ministry of New and Renewable Energy Rooftop Solar Division) Solar Subsidy Scheme.
+
+--- SECTION 5  id=  group=""  class="simple-services-area section-gap" ---
+  <H3> MNRE solar subsidy scheme features
+  • CFA (Central Financial Assistance ) of 30% on the cost of installation of a residential solar power plant (up to Rs. 1.05 Cr/MW) will be provided.
+  • Unlike previous subsidy schemes, the client has a provision to select high-quality mono-perc half-cut cells Solar panels, and inverters for their residential installation as per their need.
+  • The panels used must be DCR MONO PERC/POLY CRYSTALLINE panels (Domestic Content Requirement). The Scheme will mandate the use of both solar photovoltaic (SPV) cells and modules manufactured domestically as per specifications and testing requirements fixed by MNRE.(Premier Energies, AXITEC, Vikram Solar, Adani Solar, Waaree, etc are DCR panels provided by us. Any of these panels can be chosen by the client at their convenience.)
+  • Whichever the inverter it doesn’t matter. the inverter can be Indian-made or foreign made.
+  • The following table gives the plant capacity and corresponding Subsidy Amounts of the Solar rooftop grid tie system
+
+--- SECTION 6  id=  group=""  class="aboutus-area" ---
+  <H3> Illustration for Calculation of Central Government Subsidy
+  [IMG] /landing_page_assets/img/about-img2.jpeg  alt="Rooftop Solar Power Systems Cochin"
+  [IMG] /landing_page_assets/img/about-img1.jpeg  alt="Best Solar Systems Cochin, Kerala"
+  [IMG] /landing_page_assets/img/about-img3.jpg  alt="Solar Panel Distributor in Kerala"
+  [IMG] /landing_page_assets/img/about-img4.jpeg  alt="On Grid Solar System Cochin"
+  [IMG] /landing_page_assets/img/about-img5.jpeg  alt="Best Solar Energy Company Kerala"
+  <H2> Procedures to apply for MNRE solar subsidy
+  1 ) Download Sandesh App and register in the portal with your state, electricity distribution company (KSEB/BESCOM),electricity consumer number, mobile number & email. (as per the instruction in the portal) 2 ) Login with the consumer number and mobile number. 3 ) Wait for the feasibility approval from electricity distribution company (kSEB/BESCOM) 4 ) Once you get the feasibility install the plant by the installer 5 ) Once the plant installed submit the plant details and apply for the net meter to the distribution Company(KSEB/BESCOM). 6 ) After Installation of Net Meter and inspection by the Distribution Company they will generate commissioning certificate from portal.
+
+--- SECTION 7  id=  group=""  class="callaction-area section-gap" ---
+
+--- SECTION 8  id=  group=""  class="simple-services-area" ---
+  Residential solar installations are eligible for subsidy under the national solar rooftop subsidy scheme. Here customer has to choose a vendor who is participating in the national solar subsidy scheme and make installation using 100% Indian-manufactured Solar panels. The good news is unlike previous SOURA SOLAR SUBSIDY schemes, the new one allows customers to choose high-quality advanced MONO PERC half-cut solar panels of choice. Also, it is mandatory for the installers to provide 5 years of compulsory service for all solar plants. Being an authorized MNRE subsidy channel partner illumine energy can help you claim subsidies for your solar installations with quality products and workmanship.
+  One can avail of solar project subsidy for home installation in Kerala up to 10kW. You need to register in MNRE NATIONAL SOLAR ROOFTOP SCHEME, process an application with the KSEB consumer number, the capacity of the solar plant, connected load, etc. Once they process the application, an intimation will be sent to your KSEB section. Then we can proceed with feasibility, registration, solar installation, and commissioning. Then after submitting the joint inspection report from KSEB along with bank details, you will get a subsidy in your bank account within 30-50 days.
+
+--- SECTION 9  id=  group=""  class="callaction-area section-gap" ---
+  <H2> YOUR ONE STOP FOR SOLAR POWER REQUIREMENTS
+  Illumine Energy undertakes designing, engineering, product procurement, documentation, installation and maintenace of power plants. Unlike product sales, company is unique in focusing project sales, by Energy Auditing, Turn Key Solutions and Helping Customer to do Profitable Investments. We operate in both the centralized energy market and the evolving distributed energy market around the India and UAE. ILLUMINE is investing in new technologies and product offerings from the advantageous position of pure solar economics.
+  [BTN] "Enquire Now!" -> #enquire
+
+--- SECTION 10  id=  group=""  class="simple-services-area section-gap" ---
+  <H3> How is solar billing done, Net-metering or Gross-metering
+  Net-metering is done for all residential installations. For commercial and industrial installation below 1MW or 1000 kW, net metering is applicable. In net metering billing process, from the bidirectional energy meter, grid authority (KSEB/BESCOM) will be taking readings on a monthly basis to understand the total solar power exported and total grid power imported or consumed. After taking readings these will be adjusted. If imported grid power is higher than exported solar power, customers will have to pay energy charges for the consumed additional units to Grid KSEB/BESCOM. if exported solar power is higher than imported grid power, then Grid authority(KSEB/BESCOM) will adjust in bill or bank the additional units which customer can utilize in months ahead. Also customer can adjust the additional solar energy exported in any other consumer connection under same Utility Grid (KSEB), of the same customer (Wheeling Process).
+  Gross-metering is done for utility scale installations above 1MW or 1000 kW, those installations in which solar power plant will be setup on land or larger area. And power from these plants will be fed to utility substation/client substation feeder. Here the solar units exported to grid will noted by bidirectional meter and it will be given a unit rate. This unit rate will be less when compared with charges for unit when customer has to pay while taking electricity from grid. For example if a customer exports 1000 units and consumes 1000 units, here for exports customer gets 5000Rs – whereas for imported 1000 units. He might be charged 7,000Rs, so there will be always a difference which customer will have to pay to grid. In this type cases, customer will have to generate additional 20-30% of customer actual power consumption to achieve net zero billing.
+
+--- SECTION 11  id=  group=""  class="aboutus-area2" ---
+  [IMG] /landing_page_assets/img/about-img2.jpeg  alt="Rooftop Solar Power Systems Cochin"
+  [IMG] /landing_page_assets/img/about-img1.jpeg  alt="Best Solar Systems Cochin, Kerala"
+  <H3> Permission and procedures for installation On grid or grid tie solar project
+  For On Grid Installations, we need to take permission of Local Grid(KSEB/BESCOM) as we are feeding power to Grid.
+  • Solar Feasibility is the basic step which we need to do for on grid installation. We will be approaching KSEB / concerned utility dept and giving application for solar feasibility. For which they will give the report within 7 days of application.
+  • After we receive feasibility report from concerned utility dept, we need to undergo a registration process. In which we will have to upload to give details regarding the project, products, make, type of roof, time period expecting to complete the installation etc. Also will have to make a security deposit depending on the kW of installation. On completing the registration process we can do installation.
+  • Utility Grid inspection, after completing the installation grid utility dept will be making site inspections. Checking all the safety parameters of the project. Once we pass the inspection, they will allow net-metering for the project.
+  • In the net-metering process, grid authorities will be coming and changing the existing energy meter with bidirectional energy meter.
+
+--- SECTION 12  id=  group=""  class="simple-services-area section-gap" ---
+  <H3> Best On Grid Solar Panels and Solar Inverters in market
+  Quality of an on grid project depends on the components used in installation. It is important to choose products wisely depending on your need, budget and reliability of product.
+  [IMG] /landing_page_assets/img/icons8-solar-panel-40.png  alt="Solar Panel Price in Kerala"
+  Mono Perc Solar panels with halfcut cells– are widely used high efficiency solar panels in the market now. PERC technology means passivated emitter and rear collector, which allow solar panel cells to utilise more of incident sunlight by transmitting energy to cells back layer. With PERC technology, cell efficiency have reached up to 21%. Solar Panel wattage ranging from 450Wp – 650Wp are currently available in market within efficiency range of 21%. Few top solar panels in india are Premier Energies, Adani Solar, Vikram Solar, Axitec Solar from Indian panels and SUNPOWER, Canadian Solar, Trina Solar, REC Solar, JA Solar etc in imported category.
+  [IMG] /landing_page_assets/img/icons8-solar-panel-40.png
+  These are mono crystalline halfcut solar panels with Thin Film solar coating, forming advanced semiconductor junction. The benefit of these junctions are it contains more electron hole pairs, thereby allowing more electricity flow even in low sunlight.
+  [IMG] /landing_page_assets/img/icons8-solar-panel-40.png
+  Best On Grid Solar Inverters are those with higher efficiency and reliable service support. Most of solar inverter manufacturers offers 7-25 years warranty. Apart from product brand name a reliable service network and decent product replacement policies are to be taken care while selecting a solar inverter. Some of the most reliable solar inverters in Indian market are Fronius, Growatt, Enphase, Fimer, Studer, SMA, Sungrow etc
+
+--- SECTION 13  id=blog  group=""  class="blog-area section-gap" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  <H2> Testimonials
+  Words from our satisfied Customers
+  [IMG] /landing_page_assets/img/Enviro Eco lab.jpg  alt="Solar Companies in Kerala"
+  Our Mission was to clear the issues with KSEB and implement a reliable On Grid solution at the available space considering maximum utility. Team ILLUMINE implemented a 20 kWpOn grid project using Canadian Solar Modules and SMA Germany Inverters. The system produces 105 Units of electricity per day and covers almost 75% of the power requirements. And saves 40 tons of Co2 emission into atmosphere.
+  <H6> Mr. K L Antony
+  MD, Envirodesigns-Eco Tower
+  [IMG] /landing_page_assets/img/pr3-700x400.jpg  alt="Solar Energy Company Kerala"
+  PURAVANKARA under the leadership of Mr.RAVI PURAVANKARA is one of the largest builder in INDIA. With construction spread over Karnataka, Kerala, Maharashtra, Tamil Nadu . On the mission of Green building and LEED Certifications they chose ILLUMINE as their strategic partners for Solar Power Solutions. 31 kWpSolar OFF Grid project was commissioned in 2013. This is second largest successful Off-Grid project built in Kerala, making us the longest tenured private
+  <H6> Mr.RAVI
+  MD, Puravankara Builders
+  [IMG] /landing_page_assets/img/Abad.jpg  alt="Solar Panel Installation Services in Ernakulam"
+  Abad Fisheries is one of the largest processors of quality quick frozen seafood in India with 11 accredited and certified factories PAN India. ILLUMINE carried out an energy audit at site and implemented energy efficient measures, designed and implemented a 100kWp Solar Grid Tie Project. The project is capable of supporting Deep freezers and covers 95% of there load requirements.
+  <H6> Mr. Anwar Hashim
+  MD, ABAD Fisheries
+  <H2> FAQs
+  Answers to the most frequently asked questions.
+  <H4> Is Illumine Energy registered to provide government solar subsidies?
+  We are an approved vendor for government subsidy schemes for solar installations. It is our goal to ensure that customers get the most benefits by providing proper documentation and timely processing.
+  <H4> Who is eligible for solar panel subsidies in Kerala?
+  Homeowners who install solar systems through approved vendors like Illumine Energy are eligible for subsidies.
+  <H4> What percentage of subsidy can I get for installing a solar system?
+  It is possible to receive up to 40% subsidy for solar systems up to 3 kW and up to 20% subsidy for systems between 3–10 kW, depending on current MNRE policies and availability.
+  <H4> Does Illumine Energy help with documentation for subsidy claims?
+  Illumine Energy provides end-to-end assistance, including all required documentation, application submission, and follow-up to ensure smooth processing of your subsidy.
+  <H4> Is the subsidy available for both on-grid and off-grid systems?
+  Subsidy is typically offered for on-grid systems installed by approved vendors. Illumine Energy ensures your installation complies with these conditions to maximize subsidy benefits.
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved
+  [BTN] "whatsapp" -> https://api.whatsapp.com/send?phone=+919037048988&text=Hi,%20I%20would%20like%20to%20get%20more%20information..
+  [BTN] "--> whatsapp --> <!--" -> https://web.whatsapp.com/send?phone=+919581880892&amp;text=Hi, I would like to get more information..
+  • --> --> location_on --> --> <!--
+  • --> --> phonelink_ring --> --> <!--
+  • --> --> email --> --> <!--
+  • --> --> ring_volume --> --> <!--

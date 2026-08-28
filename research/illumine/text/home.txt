@@ -1,0 +1,89 @@
+# FILE: home.html
+TITLE: Solar Energy Company Kerala | Solar Installation Kochi - Illumine
+DESC: Illumine Energy is one of the leading solar company in Kerala which offer a complete range of solar products supply and Installation in Kerala.
+
+
+--- SECTION 1  id=slider1-2q  group=""  class="carousel slide cid-rdjP0PsGic" ---
+  BG: assets/images/b.jpg, assets/images/c.jpg, assets/images/a.jpg
+  [IMG] assets/images/b.jpg  alt="BIPV"
+  <H2> BIPV (Building Integrated Photo Voltaics)
+  Customised Solutions..
+  [IMG] assets/images/c.jpg  alt="Solar panel installation services"
+  <H2> Jyothirgamaya: Sustainable lighting solutions in rural villages
+  Preserve the environment, reduce carbon footprint, promote bio-diversity ..
+  [IMG] assets/images/a.jpg  alt="Solar Panel Distributor in Kerala"
+  <H2> Solar Power Projects for
+  Residential, Commercial and Industrial..
+  [IMG] assets/images/fr1.jpg  alt="solar panel system in India"
+  [IMG] assets/images/fr2.jpg  alt="solar panel price in India"
+  [IMG] assets/images/fr3.jpg  alt="Best Solar Panel Dealer"
+  [IMG] assets/images/fr4.jpg  alt="solar panel cost in kerala"
+  [IMG] assets/images/fr5.jpg  alt="solar panel dealers in Kochi
+
+"
+  [IMG] assets/images/fr6.jpg  alt="Top Solar Panel Dealers In Kochi"
+
+--- SECTION 2  id=header2-2a  group=""  class="cid-raebwtQnyt mbr-parallax-background" ---
+  <H2> Residential and Commercial Solar
+  Smallest Carbon Footprint & Fastest Energy Payback Pioneering India’s Sustainable Energy Renaissance. Residential and Commercial Solar Company in Kerala
+
+--- SECTION 3  id=counters1-e  group=""  class="counters1 counters cid-r9z6wnceDk mbr-parallax-background" ---
+  <H3> 5000+
+  <H4> Number of projects
+  <H3> 10 MW+
+  <H4> Projects completed
+  <H3> 58,40,000+
+  <H4> Total units generated (kWh)
+  <H3> 760 tonnes of Co2
+  <H4> Carbon emission reduced
+
+--- SECTION 4  id=content5-9  group=""  class="mbr-section content5 cid-r9yVvN6Y1E mbr-parallax-background" ---
+  <H1> On Grid, Off Grid & Hybrid Solar Installations Kerala
+  <H3> As EPC-Contractors, we take care of the Engineering, Design and Construction of solar installation. Illumine, the best solar panel installation services in Ernakulam to top-up this service, Which provide complete maintenance of the solar installation in Kochi, Kerala
+
+--- SECTION 5  id=header2-29  group=""  class="cid-raebutSWqo mbr-parallax-background" ---
+  <H2> Jyothirgamaya: CSR Programme
+  Illumine partners with NGOs and Corporate Companies through this programme, to provide renewable energy education, training and expertise, as well as Solar Panel donations aimed at providing access to clean and sustainable energy.
+
+--- SECTION 6  id=features13-6  group=""  class="features13 cid-r9ySHqgHyQ" ---
+  MEDIA: https://www.youtube.com/embed/Dlcg9chI8Q8?rel=0&amp;amp;showinfo=0&amp;autoplay=0&amp;loop=0
+  [IMG] assets/images/prd.jpg  alt="off Grid Solar System Cochin"
+  [IMG] assets/images/proj.jpg  alt="On Grid Solar System Distributor Cochin"
+  [IMG] assets/images/qut.jpg  alt="solar power price in India"
+  <H4> Get a Quote
+  <H3> OR
+  Maximum use of the available renewable energy is the next option in future. The PV system we’ve installed through ILLUMINE has exceeded our expectations in terms of the electricity savings we’d originally calculated so we’re really happy with how it’s performing. Having this system in place helps to ensure we can carry on making savings year-on-year, and allows us to be proud of our ‘Greener Arena’ status as an eco-friendly venue. Dr.Gopakumar (Professor of Eminence-KUFOS), Ernakulam
+
+--- SECTION 7  id=content5-b  group=""  class="mbr-section content5 cid-r9yWuCrDIo mbr-parallax-background" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  <H2> Your First Step to a Brighter Future
+  <H3> Working at Illumine means working for a company that brings energy to people around. Discover how you can join the Illumine team.
+  <H2> FAQs
+  Answers to the most frequently asked questions.
+  <H4> What kind of solar services does Illumine Energy provide?
+  Illumine Energy offers comprehensive solar solutions, including on-grid, off-grid, and hybrid systems, as well as maintenance and consultations. As part of our services, we also provide net metering support and annual maintenance contracts (AMCs).
+  <H4> Does Illumine Energy help with solar subsidies?
+  Absolutely. We assist customers in obtaining government solar subsidies. Our team provides support with MNRE and state-level application and approval processes. Subsidies are credited directly to the customer's bank account following installation.
+  <H4> How can I request a solar consultation or quote online?
+  Please fill out the Enquiry form on our website with your contact information and project details to request a consultation. We will contact you to schedule a site visit or provide a quote tailored to your specific requirements.
+  <H4> Why should I choose Illumine Energy over other providers?
+  Providing end-to-end solar solutions, Illumine Energy is focused on quality, reliability, and long-term value. As a solar investment firm with over 300 installations and years of experience in India and the UAE, we provide expert guidance, reliable service, and profitable returns on investments.
+  <H4> Where is Illumine Energy located?
+  Illumine Energy is headquartered in Ernakulam, Kerala, with its registered office at 2nd Floor, SN Complex, Koonamthai Junction, Edappally, Ernakulam – 682024, Kerala, India.
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services
+  • Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright © document.write(new Date().getFullYear()); Illumine - All Rights Reserved

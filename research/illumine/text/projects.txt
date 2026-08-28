@@ -1,0 +1,114 @@
+# FILE: projects.html
+TITLE: Solar Panel Distributor in Kerala | Top Solar Panel Dealers In Kochi
+DESC: You are at the right place for India’s top Solar Panel Distributor. Illumine Energy provides Renewable solar energy solutions in Kerala
+
+
+--- SECTION 1  id=menu1-q  group=""  class="menu cid-qTkzRZLJNu" ---
+  • About Us
+  • Services On Grid
+  • Off Grid
+  • Hybrid
+  • Subsidy
+  • Micro Inverters
+  • Projects
+  • Blog
+  • Careers
+  • Contact
+
+--- SECTION 2  id=header1-10  group=""  class="header1 cid-r9RtA9CmkR mbr-parallax-background" ---
+
+--- SECTION 3  id=clients-3n  group=""  class="clients cid-rf61VICpH9" ---
+  <H2> Our Clients
+  <H3> 1. Global dealer of our products 2. International quality of products 3. Qualified installers and no maintenance required
+  [IMG] assets/images/cl24.jpg  alt="solar panel cost in India"
+  [IMG] assets/images/cl1.jpg  alt="On Grid Solar System"
+  [IMG] assets/images/cl2.jpg  alt="Best Solar Panels in India"
+  [IMG] assets/images/cl3.jpg  alt="solar panel system"
+  [IMG] assets/images/cl4.jpg  alt="solar roofing in Cochin"
+  [IMG] assets/images/cl5.jpg  alt="Solar panel installation services"
+  [IMG] assets/images/cl6.jpg  alt="Best solar roofing in India"
+  [IMG] assets/images/cl7.jpg  alt="Cost of Rooftop Solar System"
+  [IMG] assets/images/cl8.jpg  alt="Rooftop Solar Power Systems Ernakulum"
+  [IMG] assets/images/cl9.jpg  alt="Off Grid Solar System Kerala"
+  [IMG] assets/images/cl10.jpg  alt="solar roofing Kerala"
+  [IMG] assets/images/cl11.jpg  alt="solar power price in India"
+  [IMG] assets/images/cl12.jpg  alt="solar panel cost "
+  [IMG] assets/images/cl13.jpg  alt="Top Solar Panel Dealers In Kerala"
+  [IMG] assets/images/cl14.jpg  alt="Solar Rooftop Panel Installation Company In Kerala"
+  [IMG] assets/images/cl15.jpg  alt="Best Rooftop Solar Power Systems Cochin"
+  [IMG] assets/images/cl16.jpg  alt="Solar Power Panel Installation in India"
+  [IMG] assets/images/cl17.jpg  alt="solar panel dealers in Ernakulum"
+  [IMG] assets/images/cl18.jpg  alt="Solar Energy Company in Kochi"
+  [IMG] assets/images/cl19.jpg  alt="Leading Solar Energy Company India"
+  [IMG] assets/images/cl20.jpg  alt="solar system price in Kerala"
+  [IMG] assets/images/cl21.jpg  alt="solar panel cost in kochi"
+  [IMG] assets/images/cl22.jpg  alt="Leading Solar Energy Company Kerala"
+  [IMG] assets/images/cl23.jpg  alt="Solar Power System Distributors in Kerala"
+
+--- SECTION 4  id=testimonials2-3s  group=""  class="testimonials2 cid-rf6c0OU6fP" ---
+  [IMG] assets/images/Abad.jpg  alt="On Grid Solar System Kerala"
+  Abad Fisheries is one of the largest processors of quality quick frozen seafood in India with 11 accredited and certified factories PAN India.The Director of Abad Fisheries Mr. Anwar Hashim, decided to adopt energy efficient measures and Renewable Energy as an alternative option for their Bangalore facility.
+  ILLUMINE carried out an energy audit at site and implemented energy efficient measures, designed and implemented a 100kWp Solar Grid Tie Project. The project is capable of supporting Deep freezers and covers 95% of there load requirements.
+  The Project is done using SMA German manufactured Inverters and ReneSola Modules – which are used in CIAL – Cochin Airport for 12 MW project. All the approvals from BESCOM and PPA is signed for the project.It is expectedto generate 40 lakhs Units of Electricity during its lifetime and ensures a payback within 5 years.
+  The Project is generating 500 units/day with grid export facility and live data monitoring, helping the customer to monitor day to day generation.
+  Mr. Anwar Hashim (MD, ABAD Fisheries)
+  See more on facebook
+
+--- SECTION 5  id=testimonials3-3t  group=""  class="testimonials3 cid-rf6dCshyAv" ---
+  Envirodesigns Eco Labs is an organization mainly engaged in the area of General Testing in Chemical and Biological Parameters, Quality Assessment and Environmental Consultancy Services. The head office is located at PalarivattomErnakulam near Jawaharlal Nehru Stadium.
+  As their power consumption kept increased on account of increased business activities, reliability on grid supply was no longer desirable. Furthermore, the higher tariff and issues with KSEB added the cost.
+  Our Mission was to clear the issues with KSEB and implement a reliable On Grid solution at the available space considering maximum utility.
+  Team ILLUMINE implemented a 20 kWpOn grid project using Canadian Solar Modules and SMA Germany Inverters. The system produces 105 Units of electricity per day and covers almost 75% of the power requirements. And saves 40 tons of Co2 emission into atmosphere.
+  Mr. K L Antony (MD, Envirodesigns-Eco Tower)
+  See more on facebook
+  [IMG] assets/images/Enviro Eco lab.jpg  alt="Off Grid Solar System Distributor Ernakulum"
+
+--- SECTION 6  id=testimonials3-3r  group=""  class="testimonials3 cid-rf6bZEQI7f" ---
+  [IMG] assets/images/pr1-700x400.jpg  alt="Solar Panel Installation Kerala"
+  Mr.NavasMeeran is the visionary leader of Eastern Group, the undisputed leaders in the country engaged in the manufacturing & marketing of spice powders.
+  He was very keen in renewable energy usage for his new residential project of 25000 sq feet at Palarivattom. Under the Engineering, Design and Construction of ILLUMINE Energy , a 12kWp OFF Grid Project- stand alone system was installed with 40kVA Inverter support. Inverters and Chargers used are of TESLA and Solar Panels are of ReneSola- used in Cochin International Airport project.
+  The project supports Air conditioners, Swimming pool Motors, Lights, LIFT, Refrigerator etc.
+  Mr. Navaz Meeran (Chairman - Eastern)
+  See more on facebook
+
+--- SECTION 7  id=testimonials2-3s  group=""  class="testimonials2 cid-rf6c0OU6fP" ---
+  The Akbar Travels solar power plant has a capacity of 10 kWpand is located in PonnaniMalappuram, an area with excellent solar resource. The off taker of this project is Mr. K.V.AbdulNazar (MD Akbar Travels). This On-grid project utilizes latest German technology inverters of SMA. Surge protection of DEHN Germany has been used.
+  The Project is generating 60 units/day with grid export facility and live data monitoring, helping the customer to monitor day to day generation.
+  Mr. K V Abdul Nazar (MD, Akbar Travels)
+  See more on facebook
+  [IMG] assets/images/pr2-700x400.jpg  alt="Solar Energy in India"
+
+--- SECTION 8  id=testimonials3-3t  group=""  class="testimonials3 cid-rf6dCshyAv" ---
+  [IMG] assets/images/pr3-700x400.jpg  alt="India's Leading Solar Distributer"
+  PURAVANKARA under the leadership of Mr.RAVI PURAVANKARA is one of the largest builder in INDIA. With construction spread over Karnataka, Kerala, Maharashtra, Tamil Nadu .
+  On the mission of Green building and LEED Certifications they chose ILLUMINE as their strategic partners for Solar Power Solutions. 31 kWpSolar OFF Grid project was commissioned in 2013. This is second largest successful Off-Grid project built in Kerala, making us the longest tenured private solar power generating company in Kerala.
+  108 C10 Solar Batteries and Tesla Inverters are used for the project, it is a ZERO BREAK DOWN site even after 5 years of Tenure. This project was nominated by WWF for Green House Gas (GHG) reduction category in 2014. We are specialized in Reliable Solar OFF Grid designs.
+  Mr.RAVI (MD, Puravankara Builders)
+  See more on facebook
+
+--- SECTION 9  id=header11-3w  group=""  class="header11 cid-rf6hzSzTt2" ---
+  <H2> Some words from our clients
+
+--- SECTION 10  id=header7-3u  group=""  class="header7 cid-rf6gJWpWIn" ---
+  MEDIA: https://www.youtube.com/embed/15uT-1eWmCU?rel=0&amp;amp;showinfo=0&amp;autoplay=0&amp;loop=0
+  The service provided by ILLUMINE has been excellent throughout project. Their project delivery programme was well thought out and integrated seamlessly and was delivered on time with professionalism and attention to detail. We do recommend brand ILLUMINE to our clients too. Mr. Muhammed Mather MD-Mather Builders
+
+--- SECTION 11  id=header7-3v  group=""  class="header7 cid-rf6hiIOe6S" ---
+  MEDIA: https://www.youtube.com/embed/rdCua1tB7rk?rel=0&amp;amp;showinfo=0&amp;autoplay=0&amp;loop=0, https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  ILLUMINE worked hard before the project to come up with a solution that met our requirements. The company was keen to have PV as a showcase for renewable energy technologies and we were really pleased that they helped us find a solution which enabled this installation to run smoothly. The team was helpful and efficient throughout the installation Mr Thasleek Director - RAK Group
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved

@@ -1,0 +1,83 @@
+# FILE: career.html
+TITLE: Rooftop Solar Power Systems Cochin | solar panel dealer in india
+DESC: Join in Illumine Energy the fastest growing solar company in India. Start a career in solar energy and other renewable energy with best solar panel dealers in Kochi
+
+
+--- SECTION 1  id=menu1-q  group=""  class="menu cid-qTkzRZLJNu" ---
+  • About Us
+  • Services On Grid
+  • Off Grid
+  • Hybrid
+  • Subsidy
+  • Micro Inverters
+  • Projects
+  • Blog
+  • Careers
+  • Contact
+
+--- SECTION 2  id=header1-3c  group=""  class="header1 cid-rdpO7s3fui mbr-parallax-background" ---
+
+--- SECTION 3  id=header11-3d  group=""  class="header11 cid-rdpPmdRnNt" ---
+  <H1> Be an Illumine!
+  At Illumine, we believe a company’s strength is its employees. To be in the forefront of the clean energy business, we are always interested in hearing from talented, motivated individuals. We post vacancies in Illumine on our social media. We also keep submitted applications on file. So if you’re interested in working for an environmentally responsible company that ensures everyone is respected and professionally challenged, please email a copy of your CV, job title and cover letter to hr@illumineenergy.com Due to the volume of applications received, it isn’t possible to respond directly to all applicants. However, should your skills and qualifications match an opening, our human resources department will be in touch.
+  <H2> Postion Open
+  <H2> Sales Engineer
+  Illumine Energy Solutions is a Cochin based solar EPC (Engineering, Procurement and Construction) company. The company provides cost effective logistics and infrastructure solutions for sustainable resource utilization to markets around the world. We offer a complete range of sustainable products and services which include unique technologies. We are seeking a highly skilled sales engineer to join our organization who serves customers by identifying their needs; engineering adaptations of products, equipment and services.
+  Job Description
+  • Identifies current and future customer service requirements by establishing personal rapport with potential and actual customers and other persons in a position to understand service requirements.
+  • Prepare and deliver technical presentations explaining products or services to customers and prospective customers.
+  • Confer with customers and engineers to access equipment needs and to determine system requirements.
+  • Secure and renew orders and arrange delivery.
+  • Plan and modify products to meet customer needs.
+  • Help clients solve problems with installed equipment.
+  • Recommend improved materials or machinery to customers.
+  • Gains customer acceptance by explaining or demonstrating cost reductions and operations improvements.
+  • Prepares sales engineering reports by collecting, analyzing and summarizing sales information and engineering and application trends.
+  • Willing to work on targets.
+  • Contributes to sales engineering effectiveness by identifying short term and long range issues that must be addressed; providing information and commentary pertinent to deliberations; recommending options and courses of actions; implementing directives
+  Skills & Qualification
+  • B.tech/ MBA or related field
+  • Previous experience required. 1-3 years experience in Automation/Interior design/sanitary/AC/Insurance sales.
+  • Excellent communication and leadership skills.
+  • Familiarity with project management solutions is a plus.
+  Salary & Benefits
+  • 25000 plus incentives
+  • Medical insurance
+  • Training
+  [BTN] "APPLY NOW" -> #
+  <H2> Sales/Marketing Coordinator
+  We are looking for 2-5 years experienced candidate for the job role of "Sales/Marketing Coordinator " in Marketing dept.
+  Responsibilities and Duties
+  • Managing Inbound Sales
+  • Will be the first point of contact that a potential customer will connect with, via call, email or any other means of communication
+  • Effectively manage calls, understanding customer needs and providing suitable proposals
+  • Building sustainable relationship of trust through open and interactive communication
+  • Keep records of customer interactions and maintaining database
+  • Regular follow up with customers on closing the deals.
+  • Coordinating the sales/ marketing team by managing schedules, filing important documents and communicating relevant information
+  • Ensuring the adequacy of sales-related equipment or material
+  • Monitor the team’s progress, identify shortcomings and propose improvements
+  • Assist in the preparation and organizing of promotional material or events
+  • Supporting Sales team by talking to Customers toget appointments.
+  • Building Data and Analysing Data for New Sales opportunities
+  • Establishing Innovative and creative methods for new Marketing strategies
+  Required Experience, Skills and Qualifications
+  • B Tech/MBA(Marketing) or any technical Degree with Sales/Marketing coordination Experience (2-5 years)
+  • Proven experience in marketing/sales coordinator
+  • Must be Bold, independent and Energetic in accepting challenges
+  • Good Experience in working in Excel, Powerpoint,Project report preparation
+  • Good Communication skills - Proficiency in English
+  • Critical Thinking
+  • Active Learning
+  Salary & Benefits
+  • Full time job, Good Incentives and other benefits.
+  • Job Timing: 9.30 a.m. - 5.30 p.m. .
+  • Job Type: Full-time
+  • Salary: 17,000.00 to 23,000.00 /month
+  [BTN] "APPLY NOW" -> #
+  <H4> Apply Now
+  Name: Location: Phone Number: Email: Position Title: Upload your resume ) Submit
+
+--- SECTION 4  id=footer5-d  group=""  class="cid-r9yWSogZCS" ---
+  Services Projects Careers Contact Privacy Policy Terms & Conditions Cancellation & Refund Policy Shipping & Delivery Policy
+  © Copyright 2019 Illumine - All Rights Reserved

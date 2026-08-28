@@ -1,0 +1,59 @@
+# FILE: bipv.html
+TITLE: Solar Panel Cost In Kerala | Leading Solar Energy Company Cochin
+DESC: Illumine Energy undertakes designing, engineering, product procurement, documentation, installation and maintenance of power plants.
+
+
+--- SECTION 1  id=menu1-s  group=""  class="menu cid-qTkzRZLJNu" ---
+  • About Us
+  • Services
+  • Projects
+  • Blog
+  • Careers
+  • Contact
+
+--- SECTION 2  id=header1-1a  group=""  class="header1 cid-r9RIvGwvtN bv mbr-parallax-background" ---
+
+--- SECTION 3  id=header12-2i  group=""  class="header12 cid-raeiDh996B" ---
+  We understand the value of a diverse architecture across the world and therefore, we customize and integrate 100% tailored to our client’s design intent.
+  <H2> BIPV-
+  Building Integrated Photovoltaic-are solar panels designed to replace conventional building materials in parts such as the roof, skylights, facades and windows.
+  The key difference between this technology and traditional solar PV is that panels are built into the building rather than being tacked-on. This means there’s more of a relationship between aesthetics and functionality.
+
+--- SECTION 4  id=features11-31  group=""  class="features11 cid-rdp5z3pyxt" ---
+  [IMG] assets/images/Tile 2.png  alt="Best Solar Package Deals in India"
+  <H1> Solar Roof Tiles:
+  Solar Tiles are solar medium that would look and function like a traditional roofing system and also replace traditional solar panel add-ons.They not only look like, and function as, conventional roofing materials, such as terracotta, slate, or asphalt, they also produce electricity!The Solar Roof line of products is unique among other solar options because it doesn’t resemble a typical solar installation. Every solar cell is embedded invisibly within every glass tile. The tiles are then installed like traditional roofing shingles or tiles.
+  [IMG] assets/images/Solar Tile.jpg  alt="On Grid Solar System Cochin"
+  [IMG] assets/images/TESLA tile.png  alt="Solar panel installation services Kochi"
+  [IMG] assets/images/Tile 3.png  alt="Mobirise"
+
+--- SECTION 5  id=features11-32  group=""  class="features11 cid-rdp6HajuXs" ---
+  [IMG] assets/images/Bifcial.png  alt="Rooftop solar power Kerala"
+  <H2> Solar Bifacial Modules:
+  Bifacial modules represent a promising technology for increasing a PV system’s lifetime generated electricity. Their core innovation is the ability to capture and utilize light from both sides of the module. Bifacial modules can generate power from the front and back of the module, when compared with common mono facial modules. That is it also harvests sunlight, reflected from the ground that shines on the rear side of the module. As a result, over-all power generation can be boosted by as much as 30%.These modules can be offered with an extended warranty of 30 years at just 0.5% annual degradation rate.
+  [IMG] assets/images/Bifacial 2.jpg  alt="Rooftop Solar Installation Company India"
+  [IMG] assets/images/BiFicial Solar modules.jpg  alt="Best Solar Package Deals India"
+
+--- SECTION 6  id=features11-33  group=""  class="features11 cid-rdp6HN8uOo" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  [IMG] assets/images/Solar Glass.jpg  alt="Mobirise"
+  <H2> Solar Glass Panels:
+  Amorphous silicon or CIGS glass offers the perfect combination between aesthetics and functionality. Solar Glass is innovative, transparent photovoltaic panels, which can be integrated as windows in Greenhouses, Canopies, Building facades, Homes and Office buildings. They are having UV-IR Filtration and Thermal Insulation properties.In addition, it also generates free and clean energy. By providing the same thermal performance as a conventional glass, along with clean, free electricity from the sun, buildings can drastically improve their energy efficiency, decrease O&M costs, and reduce their carbon footprint. It is able to completely offset the energy demand for HVAC equipment and drastically reduce the cost of electricity.
+  [IMG] assets/images/Solar Glass 4.jpg  alt="Mobirise"
+  [IMG] assets/images/Solar Glass 3.jpg  alt="Mobirise"
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved

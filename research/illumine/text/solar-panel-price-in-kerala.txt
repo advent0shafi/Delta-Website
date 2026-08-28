@@ -1,0 +1,37 @@
+# FILE: solar-panel-price-in-kerala.html
+TITLE: Solar Panel Price in Kerala | 1kW Solar Panel Price in Kochi
+DESC: We provide the best solar panel in Kerala at an affordable rate. Enquire now for the best price for the top solar panel in Kerala. Rooftop solar panel dealer in Kerala
+
+
+--- SECTION 1  id=menu1-q  group=""  class="menu cid-qTkzRZLJNu" ---
+  • About Us
+  • Services
+  • Projects
+  • Blog
+  • Careers
+  • Contact
+
+--- SECTION 2  id=header1-12  group=""  class="header1 cid-r9RwT5iGB2 mbr-parallax-background" ---
+
+--- SECTION 3  id=content4-13  group=""  class="mbr-section content4 cid-r9RxKjadfV" ---
+  MEDIA: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7991230965554!2d76.31118531432217!3d10.033428775211863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dac37353589%3A0xfec0979f8ee29bc6!2sILLUMINE%20Energy%20Solutions!5e0!3m2!1sen!2sin!4v1595657488425!5m2!1sen!2sin
+  <H1> SOLAR PANEL PRICE IN KERALA
+  Solar electricity is easy and safe to harvest from SUN. Kerala receives an annual average solar insolation of over 5.5 KWh/sq.m/day. With energy demand higher than the state’s power generation capacity, solar energy & solar panels in Kerala are of great importance. Solar panels price in Kerala depends on the type of modules, brands, solar panel cell grade, Tier1 manufacturer, etc.
+  With a one-time investment, anyone can generate free solar electricity for a minimum of 25 years. Starting from the early development of solar panels, it has gone through various technological and efficiency improvements till date. Right now Solar panel wattages up to 550Wp are available with a commercially available efficiency of 22%. These are high-efficiency solar panels in Kerala.
+  Solar panel price in Kerala depends on the type of Solar panels used, Quality of solar panels, solar panel Brand, Solar panel efficiency, etc used for a solar installation. Solar installation cost in Kerala usually comes around 60,000 Rs per kW. And it can differ based on the quality of solar installation materials used. So on average, a solar panel price in Kerala comes around 60,000 Rs. And these solar panel installation price in Kerala can come down to 40,000Rs also, if the kW capacity requirement is higher.
+  <H4> CONTACT
+  ILLUMINE ENERGY SOLUTIONS S N Tower, Koonamthai, Edapally Metro Pillar #366 Cochin 682024, INDIA Phone: +91-484-255 7377 Mob: +919037048988 Email: info@Illumineenergy.com
+  <H4> Top Products
+  • SMA SOLAR
+  • REC SOLAR
+  • PANASONIC SOLAR
+  <H4> LOCATION
+  <H4> Quick links
+  • Services Projects
+  • Careers
+  • Contact
+  • Privacy Policy
+  • Terms & Conditions
+  • Cancellation & Refund Policy
+  • Shipping & Delivery Policy
+  Copyright &copy; document.write(new Date().getFullYear()); Illumine - All Rights Reserved
