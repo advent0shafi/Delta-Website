@@ -1,12 +1,13 @@
 import React from 'react'
-import { SectionHeading } from './common'
+import { childHeading, SectionHeading } from './common'
 import { useReveal } from '../lib/useReveal'
 import { PROJECTS } from '../../site.config'
 
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
-export default function Projects() {
+export default function Projects({ headingAs = 'h2' }) {
   const scope = useReveal()
+  const Name = childHeading(headingAs)
   return (
     <section
       id="projects"
@@ -16,7 +17,7 @@ export default function Projects() {
     >
       <div className="container">
         <div className="sec-head">
-          <SectionHeading eyebrow="Our work" id="projects-title">
+          <SectionHeading eyebrow="Our work" id="projects-title" as={headingAs}>
             Installed across <span className="soft">Kerala.</span>
           </SectionHeading>
           <p className="lead reveal" data-delay="0.1">
@@ -38,7 +39,7 @@ export default function Projects() {
               <div className="proj__scrim" />
               <div className="proj__body">
                 <span className="proj__tag">{p.tag}</span>
-                <h3 className="proj__name" id={`proj-${slug(p.name)}`}>{p.name}</h3>
+                <Name className="proj__name" id={`proj-${slug(p.name)}`}>{p.name}</Name>
                 <p className="proj__meta">{p.meta}</p>
               </div>
             </article>

@@ -1,4 +1,118 @@
-# Task: SEO, crawlability & semantic hierarchy
+# Task: Tier-1 pages — single route → six indexable pages
+
+Source of the scope: `research/illumine/04-delta-gap-analysis.md`, which listed
+six pages buildable today from content already in `site.config.js`.
+
+**No new copy was written** beyond six `<title>` / `<meta description>` pairs.
+Every page is a composition of section components that already existed.
+
+## Routes
+
+| Path | Sections (first one supplies the `<h1>`) |
+| --- | --- |
+| `/` | Hero, Stats, Services, Projects, Subsidy, Calculator, FAQ, Contact — unchanged |
+| `/services/` | **Services**, Stats, Contact |
+| `/projects/` | **Projects**, Stats, Contact |
+| `/subsidy/` | **Subsidy**, FAQ, Contact |
+| `/savings-calculator/` | **Calculator**, Subsidy, Contact |
+| `/contact/` | **Contact**, FAQ |
+
+Section reuse is kept shallow on purpose so no two pages are near-duplicates —
+the mistake Illumine makes across their on-grid/off-grid/hybrid pages.
+
+## 1. Routing
+
+- [x] `react-router-dom` v7 (user's choice over a hand-rolled manifest).
+- [x] `site.routes.js` — pure data (path/title/description/priority), imported by
+      both the browser bundle and the Node scripts, same pattern as
+      `site.config.js`.
+- [x] `src/routes.jsx` — joins that data to page components; throws at module
+      load if a route has no page, so a mismatch is a build failure not a blank
+      page.
+- [x] `src/pages/*.jsx` — six thin compositions, no markup of their own.
+- [x] `App.jsx` takes the route; `main.jsx` wraps in `BrowserRouter`,
+      `prerender.mjs` in `StaticRouter`.
+- [x] Nav and Footer links point at routes. Nav is force-solid off the homepage
+      (only `/` has the dark hero behind the bar).
+
+## 2. Heading levels
+
+- [x] `SectionHeading` gained `as`; five sections gained `headingAs`.
+- [x] `childHeading()` helper — promoting a section to `<h1>` has to move its
+      nested headings too, or the outline jumps h1 → h3. Caught by `seo:check`
+      on three pages, not by eye.
+
+## 3. Build pipeline
+
+- [x] `prerender.mjs` writes one document per route, each with its own title,
+      description, canonical, og/twitter tags and JSON-LD `WebPage` node.
+      Also fails the build if any route renders ≠ 1 `<h1>`.
+- [x] `gen-seo.mjs` — sitemap and `llms.txt` loop the route table.
+- [x] `seo-check.mjs` — audits every built route against its own route entry;
+      clean pages roll up to one line so failures stay visible.
+
+## 4. Bugs found and fixed along the way
+
+- [x] **`useReveal` leaked every ScrollTrigger it made.** `const triggers = []`
+      was never populated — `ScrollTrigger.batch()`'s return value was
+      discarded, so the cleanup killed nothing. Invisible on a one-page site;
+      with client-side routing it leaked a trigger set per navigation, each
+      pointing at unmounted DOM.
+- [x] **`ScrollTrigger.refresh()` was undoing the scroll reset.** It records the
+      current offset and restores it when it finishes, so calling it *after*
+      `scrollTo` silently reverted the scroll one frame later. Refresh first.
+- [x] **Lenis clamped deep anchors to the previous page's height.** Its resize
+      observer had not fired yet, so `/contact/` → `/#faq` was clamped to the
+      short page's limit and went nowhere. `lenis.resize()` before scrolling.
+- [x] **`history.scrollRestoration` cannot be used here.** It belongs to the
+      current history *entry*, so every pushState lands on a fresh entry reset
+      to `auto`, and Chromium re-applies that asynchronously even when it is
+      reassigned in the effect.
+- [x] **Manual POP restoration was wrong and was removed.** Tracking offsets per
+      `location.key` recorded the wrong value, because the browser restores the
+      incoming page's offset before the effect reads `window.scrollY`. The
+      browser already restores back/forward correctly — `ScrollManager` now
+      only forces scroll on PUSH/REPLACE and leaves POP alone.
+
+## Review
+
+### Build
+Six documents, one `<h1>` each, no React warnings (the build fails on either):
+
+```
+✓ prerender:   33996 chars, 29 headings, 1 h1 → dist/index.html
+✓ prerender:   21457 chars, 11 headings, 1 h1 → dist/services/index.html
+✓ prerender:   15947 chars, 15 headings, 1 h1 → dist/subsidy/index.html
+✓ prerender:   17065 chars, 10 headings, 1 h1 → dist/savings-calculator/index.html
+✓ prerender:   17207 chars, 10 headings, 1 h1 → dist/projects/index.html
+✓ prerender:   13601 chars, 10 headings, 1 h1 → dist/contact/index.html
+```
+
+`npm run seo:check` — all six routes pass 16 checks each. The one remaining
+failure is the pre-existing placeholder-contact gate, which is the point of it.
+
+### Verified in a real browser (Playwright + Chromium)
+
+| Check | Result |
+| --- | --- |
+| Direct load of all 6 routes | own title, 1 h1, 0 console errors |
+| Nav solid + colour logo off the homepage | correct on all 5 sub-pages |
+| First section clears the fixed bar | 172–174 px gap |
+| Client-side nav | lands at top, reveals fire (`opacity: 1`) |
+| `/#faq` from `/contact/` | lands on `/`, FAQ 76 px from top |
+| Back / forward | back restores 1800, forward restores 0 |
+| Mobile sheet | navigates, closes, unlocks body scroll |
+| Calculator on its own route | bill ₹4,000 → 6 kW, 8,760 kWh, ₹48,000/yr |
+| Dev server (`vite`, SPA fallback) | all 6 routes render, 0 errors |
+
+### Still blocking go-live — unchanged by this work
+
+- `CONTACT.isPlaceholder` is `true`; phone, WhatsApp, email and address are fake.
+- `Contact.jsx` shows a success state and sends nothing. That form now appears
+  on six pages instead of one, so the cost of the bug went up even though the
+  bug did not change.
+
+# Archived — Task: SEO, crawlability & semantic hierarchy (commit 8648dc5)
 
 Client ask: research how SEO and crawling work on this site today, produce an
 insight map, generate proper OG images and the files AI crawlers need, and get

@@ -3,10 +3,16 @@ import React from 'react'
 /* Two-tone section heading echoing the reference: lead word(s) in ink,
    trailing phrase in muted grey (or green when accent).
 
-   `id` is given to the <h2> so the owning <section> can point at it with
+   `id` is given to the heading so the owning <section> can point at it with
    aria-labelledby — that is what turns an anonymous region into a named
-   landmark for screen readers and for the document outline a crawler builds. */
-export function SectionHeading({ eyebrow, children, className = '', id }) {
+   landmark for screen readers and for the document outline a crawler builds.
+
+   `as` exists because the same section is a sub-heading on the homepage and
+   the page title on its own route: Services is an <h2> under the hero at `/`,
+   and the <h1> at `/services/`. Every page needs exactly one <h1>, first in
+   the heading order, or `npm run seo:check` fails the build — so the lead
+   section of each route passes as="h1" and the rest keep the default. */
+export function SectionHeading({ eyebrow, children, className = '', id, as: Tag = 'h2' }) {
   return (
     <div className={`sh ${className}`}>
       {eyebrow && (
@@ -14,11 +20,22 @@ export function SectionHeading({ eyebrow, children, className = '', id }) {
           {eyebrow}
         </span>
       )}
-      <h2 className="headline reveal" data-delay="0.05" id={id}>
+      <Tag className="headline reveal" data-delay="0.05" id={id}>
         {children}
-      </h2>
+      </Tag>
     </div>
   )
+}
+
+/* The heading one level below `parent`.
+
+   A section is an <h2> on the homepage and the <h1> on its own route, and the
+   headings nested inside it have to move with it — a promoted section whose
+   cards stayed at <h3> leaves an h1 → h3 jump, which `npm run seo:check`
+   rejects because a crawler builds its document outline from these levels. */
+export function childHeading(parent) {
+  const n = Number(String(parent).replace('h', '')) || 2
+  return `h${Math.min(n + 1, 6)}`
 }
 
 export function Button({ as = 'a', variant = 'green', children, arrow, ...rest }) {

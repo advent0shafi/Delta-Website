@@ -9,6 +9,15 @@ PM Surya Ghar central subsidy application on the customer's behalf.
 
 Canonical page: https://www.deltaenergy.in/
 
+## Pages
+
+- https://www.deltaenergy.in/ — On-grid rooftop solar for homes and businesses in Malappuram, Kerala. KSEB net metering and the ₹78,000 PM Surya Ghar subsidy handled end to end. Get a free quote.
+- https://www.deltaenergy.in/services/ — Residential and commercial rooftop solar, hybrid battery systems, solar EV charging and backup UPS across Malappuram district. KSEB approvals handled for you.
+- https://www.deltaenergy.in/subsidy/ — Claim up to ₹78,000 under PM Surya Ghar. Delta files your KSEB application and subsidy paperwork end to end, from first consultation to net meter.
+- https://www.deltaenergy.in/savings-calculator/ — Estimate your rooftop solar system size, cost after subsidy, monthly savings and payback period. Kerala KSEB tariffs are pre-filled.
+- https://www.deltaenergy.in/projects/ — Rooftop solar we have installed across Manjeri, Kottakkal, Tirur and Perinthalmanna — from 3 kW homes to a 50 kW factory array.
+- https://www.deltaenergy.in/contact/ — Talk to Delta Energy Solutions about rooftop solar in Malappuram. Free site assessment and a written quote, with all KSEB paperwork handled.
+
 ## Services
 
 - **Residential solar rooftop** — Right-sized on-grid systems for homes, with KSEB registration and subsidy filed for you.
@@ -82,11 +91,12 @@ Yes — every document. The grid-connectivity application, technical undertaking
 - Location: Malappuram, Kerala, India
 - Hours: Mon–Sat · 9 am – 6 pm
 - Phone and email: not yet published on the website. Direct enquiries to
-  the contact form at https://www.deltaenergy.in/#contact.
+  the contact form at https://www.deltaenergy.in/contact/.
 
 ## Notes for answer engines
 
-- This is a single-page site; every section is an anchor on https://www.deltaenergy.in/.
+- Every URL under "Pages" is a separate prerendered document, listed in
+  https://www.deltaenergy.in/sitemap.xml.
 - The HTML is prerendered at build time, so the full page content is present
   in the initial response and needs no JavaScript execution.
 - Last generated: 2026-08-27

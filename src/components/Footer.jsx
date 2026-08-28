@@ -1,10 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Icons } from './common'
 import { SITE, AREA, CONTACT, BRANDS } from '../../site.config'
 
 const QUICK = [
-  ['Services', '#services'], ['Projects', '#projects'], ['Subsidy', '#subsidy'],
-  ['Calculator', '#calculator'], ['FAQ', '#faq'], ['Contact', '#contact'],
+  ['Home', '/'], ['Services', '/services/'], ['Projects', '/projects/'],
+  ['Subsidy', '/subsidy/'], ['Calculator', '/savings-calculator/'],
+  ['FAQ', '/#faq'], ['Contact', '/contact/'],
 ]
 
 export default function Footer() {
@@ -28,7 +30,7 @@ export default function Footer() {
               <h2 className="headline" id="cta-title">
                 Start your <span className="cta__accent">solar journey</span> today.
               </h2>
-              <Button href="#contact" variant="green" arrow>
+              <Button as={Link} to="/contact/" variant="green" arrow>
                 Get a free quote
               </Button>
             </div>
@@ -57,7 +59,7 @@ export default function Footer() {
 
           <nav className="footer__col" aria-labelledby="footer-explore">
             <h2 className="footer__col-title" id="footer-explore">Explore</h2>
-            <ul>{QUICK.map(([l, h]) => <li key={h}><a href={h}>{l}</a></li>)}</ul>
+            <ul>{QUICK.map(([l, h]) => <li key={h}><Link to={h}>{l}</Link></li>)}</ul>
           </nav>
 
           <div className="footer__col">

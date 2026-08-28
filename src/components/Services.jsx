@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { SectionHeading, Icons } from './common'
+import { childHeading, SectionHeading, Icons } from './common'
 import { useReveal } from '../lib/useReveal'
 import { SERVICES } from '../../site.config'
 
-function Card({ s, i }) {
+function Card({ s, i, titleAs: Title = 'h3' }) {
   const [hover, setHover] = useState(false)
   const Ico = Icons[s.icon]
   const titleId = `svc-${s.id}`
@@ -44,10 +44,10 @@ function Card({ s, i }) {
       </div>
 
       <div className="svc__foot">
-        <h3 className="svc__title" id={titleId}>
+        <Title className="svc__title" id={titleId}>
           {s.title[0]}
           <span className="svc__title-2">{s.title[1]}</span>
-        </h3>
+        </Title>
         <motion.p
           className="svc__body"
           initial={false}
@@ -61,7 +61,7 @@ function Card({ s, i }) {
   )
 }
 
-export default function Services() {
+export default function Services({ headingAs = 'h2' }) {
   const scope = useReveal()
   return (
     <section
@@ -72,7 +72,7 @@ export default function Services() {
     >
       <div className="container">
         <div className="sec-head">
-          <SectionHeading eyebrow="What we do" id="services-title">
+          <SectionHeading eyebrow="What we do" id="services-title" as={headingAs}>
             Everything you need to <span className="soft">go solar.</span>
           </SectionHeading>
           <p className="lead reveal" data-delay="0.1">
@@ -83,7 +83,7 @@ export default function Services() {
 
         <div className="services__grid">
           {SERVICES.map((s, i) => (
-            <Card s={s} i={i} key={s.id} />
+            <Card s={s} i={i} key={s.id} titleAs={childHeading(headingAs)} />
           ))}
         </div>
       </div>

@@ -18,31 +18,52 @@ import { readFile, access, stat } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { SITE, CONTACT, IMAGES, FAQS, SERVICES, abs } from '../site.config.js'
+import { ROUTES, routeToFile } from '../site.routes.js'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const exists = (p) => access(p).then(() => true, () => false)
 
 const results = []
-const ok = (group, msg) => results.push({ group, level: 'ok', msg })
-const fail = (group, msg, hint) => results.push({ group, level: 'fail', msg, hint })
-const warn = (group, msg, hint) => results.push({ group, level: 'warn', msg, hint })
+
+/* Where ok/fail/warn currently write. The per-route pass redirects this into
+   a scratch array so a clean page can be reported as one line instead of the
+   ten it actually ran — six routes x ten assertions buries the one that
+   failed. Failures and warnings are always promoted back out in full. */
+let sink = results
+const ok = (group, msg) => sink.push({ group, level: 'ok', msg })
+const fail = (group, msg, hint) => sink.push({ group, level: 'fail', msg, hint })
+const warn = (group, msg, hint) => sink.push({ group, level: 'warn', msg, hint })
 
 /* ------------------------------------------------------------------
    Load the built page — that is what crawlers actually get.
    ------------------------------------------------------------------ */
 
-const DIST = resolve(root, 'dist/index.html')
-
-async function loadPage() {
-  if (await exists(DIST)) return { html: await readFile(DIST, 'utf8'), built: true }
-  return { html: await readFile(resolve(root, 'index.html'), 'utf8'), built: false }
+async function loadPages() {
+  const out = []
+  for (const route of ROUTES) {
+    const file = resolve(root, 'dist', routeToFile(route.path))
+    if (await exists(file)) {
+      out.push({ route, html: await readFile(file, 'utf8'), built: true })
+    } else if (route.path === '/') {
+      /* No dist yet — fall back to the source shell so the tool still says
+         something useful before the first build. */
+      out.push({ route, html: await readFile(resolve(root, 'index.html'), 'utf8'), built: false })
+    } else {
+      fail(
+        'STRUCTURE',
+        `${route.path} was never built — dist/${routeToFile(route.path)} is missing`,
+        'site.routes.js lists it. Re-run `npm run build`.'
+      )
+    }
+  }
+  return out
 }
 
 /* ------------------------------------------------------------------
    STRUCTURE
    ------------------------------------------------------------------ */
 
-function checkRendered(html, built) {
+function checkRendered(html, built, route) {
   if (!built) {
     warn(
       'STRUCTURE',
@@ -54,7 +75,7 @@ function checkRendered(html, built) {
   if (/<div id="root">\s*<\/div>/.test(html)) {
     fail(
       'STRUCTURE',
-      'dist/index.html ships an EMPTY #root — no crawler sees any content',
+      `${route.path} ships an EMPTY #root — no crawler sees any content`,
       'scripts/prerender.mjs did not run or did not match. Re-run `npm run build`.'
     )
     return false
@@ -110,29 +131,33 @@ function checkHeadings(html) {
   }
 }
 
-function checkHead(html) {
+function checkHead(html, route) {
+  /* Every value is compared against THIS route's entry. A page that quietly
+     inherits the homepage's title and canonical is the exact failure mode
+     multi-page prerendering introduces, and it is invisible on the page. */
   const need = [
-    [/<html[^>]+lang="([^"]+)"/, 'lang attribute', SITE.lang],
-    [/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/, 'canonical', abs('/')],
-    [/<meta[^>]+property="og:url"[^>]+content="([^"]+)"/, 'og:url', abs('/')],
-    [/<meta[^>]+property="og:image"[^>]+content="([^"]+)"/, 'og:image', abs(IMAGES.og)],
-    [/<meta[^>]+property="og:title"[^>]+content="([^"]+)"/, 'og:title', SITE.title],
-    [/<meta[^>]+name="description"[^>]+content="([^"]+)"/, 'description', SITE.description],
-    [/<title>([^<]+)<\/title>/, 'title', SITE.title],
+    [/<html[^>]+lang="([^"]+)"/, 'lang attribute', SITE.lang, 'site.config.js'],
+    [/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/, 'canonical', abs(route.path), 'site.routes.js'],
+    [/<meta[^>]+property="og:url"[^>]+content="([^"]+)"/, 'og:url', abs(route.path), 'site.routes.js'],
+    [/<meta[^>]+property="og:image"[^>]+content="([^"]+)"/, 'og:image', abs(IMAGES.og), 'site.config.js'],
+    [/<meta[^>]+property="og:title"[^>]+content="([^"]+)"/, 'og:title', route.title, 'site.routes.js'],
+    [/<meta[^>]+name="description"[^>]+content="([\s\S]*?)"/, 'description', route.description, 'site.routes.js'],
+    [/<title>([^<]+)<\/title>/, 'title', route.title, 'site.routes.js'],
   ]
 
-  for (const [re, label, expected] of need) {
+  for (const [re, label, expected, source] of need) {
     const m = html.match(re)
+    const got = m && m[1].replace(/\s+/g, ' ').trim()
     if (!m) {
-      fail('STRUCTURE', `<head> is missing ${label}`)
-    } else if (expected && m[1].trim() !== expected) {
+      fail('STRUCTURE', `${route.path} <head> is missing ${label}`)
+    } else if (expected && got !== expected) {
       fail(
         'STRUCTURE',
-        `${label} has drifted from site.config.js`,
-        `page: ${m[1].trim()}\n       config: ${expected}`
+        `${route.path} ${label} has drifted from ${source}`,
+        `page: ${got}\n       expected: ${expected}`
       )
     } else {
-      ok('STRUCTURE', `${label} matches site.config.js`)
+      ok('STRUCTURE', `${route.path} ${label} matches ${source}`)
     }
   }
 
@@ -149,7 +174,7 @@ function checkHead(html) {
   }
 }
 
-function checkJsonLd(html) {
+function checkJsonLd(html, route) {
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
   if (!blocks.length) return fail('STRUCTURE', 'no JSON-LD on the page')
 
@@ -173,6 +198,19 @@ function checkJsonLd(html) {
     fail('STRUCTURE', `JSON-LD uses non-existent schema.org type(s): ${bogus.join(', ')}`)
   } else {
     ok('STRUCTURE', 'JSON-LD @type values are real schema.org types')
+  }
+
+  const page = nodes.find((n) => n['@type'] === 'WebPage')
+  if (!page) {
+    warn('STRUCTURE', `${route.path} JSON-LD has no WebPage node`)
+  } else if (page.url !== abs(route.path)) {
+    fail(
+      'STRUCTURE',
+      `${route.path} JSON-LD WebPage points at the wrong URL`,
+      `node: ${page.url}\n       expected: ${abs(route.path)}`
+    )
+  } else {
+    ok('STRUCTURE', `${route.path} JSON-LD WebPage points at itself`)
   }
 
   const faq = nodes.find((n) => n['@type'] === 'FAQPage')
@@ -329,15 +367,34 @@ function checkLaunch() {
 /* ------------------------------------------------------------------ */
 
 async function main() {
-  const { html, built } = await loadPage()
+  const pages = await loadPages()
 
-  const rendered = checkRendered(html, built)
-  if (rendered) {
-    checkHeadings(html)
-    checkImgAlt(html)
+  for (const { route, html, built } of pages) {
+    /* Redirect ok/fail/warn into a scratch array for this route. */
+    const local = []
+    sink = local
+    const rendered = checkRendered(html, built, route)
+    if (rendered) {
+      checkHeadings(html)
+      checkImgAlt(html)
+    }
+    checkHead(html, route)
+    checkJsonLd(html, route)
+    sink = results
+
+    const problems = local.filter((r) => r.level !== 'ok')
+    if (problems.length) {
+      results.push(...local)
+    } else {
+      /* Clean page: one line, not ten. */
+      results.push({
+        group: 'STRUCTURE',
+        level: 'ok',
+        msg: `${route.path} — ${local.length} checks passed (head, headings, JSON-LD, alt text)`,
+      })
+    }
   }
-  checkHead(html)
-  checkJsonLd(html)
+
   await checkAssets()
   checkLaunch()
 

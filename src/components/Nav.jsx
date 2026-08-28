@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Button } from './common'
 import { SITE } from '../../site.config'
 
+/* The FAQ has no page of its own yet, so it stays an anchor into the
+   homepage. ScrollManager handles the cross-route jump. */
 const LINKS = [
-  ['Services', '#services'],
-  ['Projects', '#projects'],
-  ['Subsidy', '#subsidy'],
-  ['Calculator', '#calculator'],
-  ['FAQ', '#faq'],
+  ['Services', '/services/'],
+  ['Projects', '/projects/'],
+  ['Subsidy', '/subsidy/'],
+  ['Calculator', '/savings-calculator/'],
+  ['FAQ', '/#faq'],
 ]
 
-export default function Nav() {
-  const [solid, setSolid] = useState(false)
+export default function Nav({ isHome = true }) {
+  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -26,11 +29,16 @@ export default function Nav() {
     document.body.style.overflow = open ? 'hidden' : ''
   }, [open])
 
+  /* Transparent is only legible over the homepage's dark hero. Everywhere
+     else the bar sits on warm paper from the first pixel, where the white
+     logo and light button would be invisible. */
+  const solid = scrolled || !isHome
+
   return (
     <header className={`nav ${solid ? 'nav--solid' : ''}`}>
       <div className="nav__inner container">
-        <a href="#top" className="nav__logo" aria-label={`${SITE.name} — back to top`}>
-          {/* Two stacked marks, swapped by CSS as the bar goes solid. The <a>
+        <Link to="/" className="nav__logo" aria-label={`${SITE.name} — home`}>
+          {/* Two stacked marks, swapped by CSS as the bar goes solid. The link
               carries the accessible name, so both images stay decorative. */}
           <img
             src="/brand/delta-white.png"
@@ -48,18 +56,18 @@ export default function Nav() {
             width="3354"
             height="866"
           />
-        </a>
+        </Link>
 
         <nav className="nav__links" aria-label="Primary">
           {LINKS.map(([label, href]) => (
-            <a key={href} href={href} className="nav__link">
+            <Link key={href} to={href} className="nav__link">
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="nav__cta">
-          <Button href="#contact" variant={solid ? 'green' : 'light'} arrow>
+          <Button as={Link} to="/contact/" variant={solid ? 'green' : 'light'} arrow>
             Get Free Quote
           </Button>
         </div>
@@ -89,11 +97,17 @@ export default function Nav() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
             {LINKS.map(([label, href]) => (
-              <a key={href} href={href} onClick={() => setOpen(false)}>
+              <Link key={href} to={href} onClick={() => setOpen(false)}>
                 {label}
-              </a>
+              </Link>
             ))}
-            <Button href="#contact" variant="green" arrow onClick={() => setOpen(false)}>
+            <Button
+              as={Link}
+              to="/contact/"
+              variant="green"
+              arrow
+              onClick={() => setOpen(false)}
+            >
               Get Free Quote
             </Button>
           </motion.nav>

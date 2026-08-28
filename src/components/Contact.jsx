@@ -5,7 +5,7 @@ import { CONTACT, AREA } from '../../site.config'
 
 const BILLS = ['Under ₹500', '₹500–₹1,000', '₹1,000–₹2,000', '₹2,000–₹5,000', 'Above ₹5,000']
 
-export default function Contact() {
+export default function Contact({ headingAs: Heading = 'h2' }) {
   const scope = useReveal()
   const [sent, setSent] = useState(false)
   const [form, setForm] = useState({ name: '', phone: '', town: '', bill: '', message: '' })
@@ -22,9 +22,9 @@ export default function Contact() {
       <div className="container contact__grid">
         <div className="contact__copy reveal">
           <span className="eyebrow">Get a free quote</span>
-          <h2 className="headline" id="contact-title">
+          <Heading className="headline" id="contact-title">
             Ready to cut your <span className="soft">KSEB bill?</span>
-          </h2>
+          </Heading>
           <p className="lead">
             Tell us a little about your home or business and we'll get back to you within 24 hours.
           </p>

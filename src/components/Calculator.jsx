@@ -46,7 +46,7 @@ const MODES = [
   { id: 'roof', label: 'Roof area', hint: 'square feet', sym: '▦' },
 ]
 
-export default function Calculator() {
+export default function Calculator({ headingAs = 'h2' }) {
   const scope = useReveal()
   const [mode, setMode] = useState('bill')
   const [bill, setBill] = useState(3000)
@@ -83,7 +83,7 @@ export default function Calculator() {
     >
       <div className="container">
         <div className="sec-head">
-          <SectionHeading eyebrow="Savings calculator" id="calculator-title">
+          <SectionHeading eyebrow="Savings calculator" id="calculator-title" as={headingAs}>
             Go solar, <span className="soft">save big.</span>
           </SectionHeading>
           <p className="lead reveal" data-delay="0.1">

@@ -1,12 +1,17 @@
 import React from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
 
 const container = document.getElementById('root')
 const tree = (
   <React.StrictMode>
-    <App />
+    {/* The server half of this pair is StaticRouter in scripts/prerender.mjs,
+        which pins the location to the route being written. */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 )
 

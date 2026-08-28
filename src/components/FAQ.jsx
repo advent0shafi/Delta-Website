@@ -4,14 +4,14 @@ import { SectionHeading } from './common'
 import { useReveal } from '../lib/useReveal'
 import { FAQS } from '../../site.config'
 
-export default function FAQ() {
+export default function FAQ({ headingAs = 'h2' }) {
   const scope = useReveal()
   const [open, setOpen] = useState(0)
   return (
     <section id="faq" className="section faq" ref={scope} aria-labelledby="faq-title">
       <div className="container faq__grid">
         <div className="faq__aside">
-          <SectionHeading eyebrow="Questions" id="faq-title">
+          <SectionHeading eyebrow="Questions" id="faq-title" as={headingAs}>
             Frequently asked <span className="soft">questions.</span>
           </SectionHeading>
           <p className="lead reveal" data-delay="0.1">

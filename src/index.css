@@ -125,6 +125,12 @@ textarea {
   padding-block: clamp(64px, 13vw, 140px);
   position: relative;
 }
+/* Only the homepage opens on the full-bleed hero, which sits behind the fixed
+   bar by design. On every other route the first section starts at the top of
+   the document, so it has to clear the bar itself. */
+.page--sub > .section:first-child {
+  padding-top: calc(clamp(64px, 13vw, 140px) + 72px);
+}
 .section--paper {
   background: var(--paper);
 }

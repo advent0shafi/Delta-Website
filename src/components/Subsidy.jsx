@@ -1,10 +1,12 @@
 import React from 'react'
-import { SectionHeading } from './common'
+import { childHeading, SectionHeading } from './common'
 import { useReveal } from '../lib/useReveal'
 import { SUBSIDY_TIERS as TIERS, STEPS } from '../../site.config'
 
-export default function Subsidy() {
+export default function Subsidy({ headingAs = 'h2' }) {
   const scope = useReveal()
+  const StepsTitle = childHeading(headingAs)
+  const StepTitle = childHeading(StepsTitle)
   return (
     <section
       id="subsidy"
@@ -17,7 +19,7 @@ export default function Subsidy() {
         <div className="subsidy2__grid">
           {/* Left */}
           <div className="subsidy2__copy reveal" data-delay="0">
-            <SectionHeading eyebrow="Government subsidy" id="subsidy-title">
+            <SectionHeading eyebrow="Government subsidy" id="subsidy-title" as={headingAs}>
               The govt pays you <span className="soft">to go solar.</span>
             </SectionHeading>
             <p className="lead">
@@ -50,9 +52,9 @@ export default function Subsidy() {
       {/* Steps — cream bg band */}
       <div className="subsidy2__steps-wrap">
         <div className="container">
-          <h3 className="sr-only" id="subsidy-steps-title">
+          <StepsTitle className="sr-only" id="subsidy-steps-title">
             How going solar with Delta works, in three steps
-          </h3>
+          </StepsTitle>
           <ol className="subsidy2__steps" aria-labelledby="subsidy-steps-title">
             {STEPS.map(([t, b], i) => (
               <li className="subsidy2__step reveal" data-delay={0.06 + i * 0.08} key={t}>
@@ -60,7 +62,7 @@ export default function Subsidy() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <h4 className="subsidy2__step-title">{t}</h4>
+                  <StepTitle className="subsidy2__step-title">{t}</StepTitle>
                   <p>{b}</p>
                 </div>
               </li>
