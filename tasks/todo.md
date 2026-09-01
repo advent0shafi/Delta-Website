@@ -1,4 +1,74 @@
-# Task: Real contact details, replacing the placeholders
+# Task: Brand logos — the eight manufacturers Delta actually fits
+
+Client named the brands they deal in: WAAREE, ADANI, MICROTEK, SOLAIRE, UTL,
+EASTMAN, TSUN, DEYE. The site was still carrying the five placeholder names
+(`Tata Power Solar, Waaree, Microtek, V-Guard, Vikram`) as text pills in the
+footer, and no logos anywhere.
+
+## Sourcing — every logo from the brand's own site
+
+- [x] WAAREE — shop.waaree.com (BigCommerce store logo, 254×71)
+- [x] ADANI SOLAR — adanisolar.com Sitecore media library (227×42)
+- [x] MICROTEK — microtek.in `/img/logo.svg` — true vector, kept as SVG
+- [x] SOLAIRE — solairefuture.com (600×200; white box behind it keyed out)
+- [x] UTL SOLAR — utlsolar.com CDN (1019×150)
+- [x] EASTMAN — eastmansolar.in theme assets (182×96)
+- [x] TSUN (TSUNESS) — tsun-ess.com header mark (143×50)
+- [x] DEYE — deyeinverter.com `logo.svg`, which is a 1705×680 PNG in an SVG
+      wrapper; the base64 payload was extracted rather than shipping the wrapper
+
+Two traps found and avoided: the file named `logo` on tsun-ess.com is a *Solar
+Storage Magazine* press badge, not TSUN's mark; and Solaire's header PNG is the
+white knockout version, invisible on paper — the dark-ink one is a different file.
+
+## Build
+
+- [x] Assets trimmed to their own ink, capped (never upscaled), written to
+      `public/brands/`
+- [x] `BRANDS` in site.config.js becomes objects — name, what the brand supplies,
+      logo path, intrinsic w/h — so the strip and the footer read one source
+- [x] New `Brands` section: hairline grid, full colour on paper
+- [x] Home (after Services) and /services/ (before the equipment prose)
+- [x] Footer pills keep the same eight names, now from the new shape
+
+## Verify
+
+- [x] `npm run build` — prerender + `seo:check` clean
+- [x] Heading order holds on both routes (h1 → h2, no jump)
+- [x] Every logo legible on paper at the rendered size; nothing pixelated
+
+## Review
+
+Done. Eight logos live in `public/partners/` (44 KB for all eight), a new
+`Brands` section renders them on `/` between the services grid and projects,
+and on `/services/` between the grid and the "how to read a quote" prose.
+
+Judgement calls worth recording:
+
+- **The logos are full colour on paper, not a monochrome wall.** A dealer's
+  brand list is a credential; greyed-out marks read as decoration. The cost is
+  eight different colour temperatures in one band, which the hairline grid and
+  a fixed optical band for every mark absorb.
+- **Every logo came from the manufacturer's own site.** Two near-misses are
+  worth knowing about if these are ever refreshed: the file called `logo` on
+  tsun-ess.com is a *Solar Storage Magazine* press badge, and Solaire's header
+  PNG is the white knockout, which is invisible on paper — the dark-ink version
+  is a different file, behind a white box that had to be keyed out.
+- **`supplies` is a claim about the brand's line, not Delta's stock.** Several
+  of these makers cover more than one category; the label says which one the
+  brand is on the list for. One line each in `site.config.js` to change.
+- **`seo:gen` had to be rerun by hand.** The JSON-LD `brand` node and
+  `llms.txt` both carried the five placeholder names; they now carry the eight
+  real ones. `seo:check` is unchanged at 30 passed / 1 warning / 1 failure —
+  the failure is the pre-existing About placeholder, verified against a clean
+  tree.
+- **Two low-resolution sources accepted.** Adani publish their mark at 227×42
+  and TSUN theirs at 143×50, and neither has anything larger on their own
+  site (TSUN's catalogue PDF was checked too). At the 26–34 px the strip
+  renders them, both are at or near 2×. Microtek ships true vector, so that
+  one is an SVG.
+
+# Archived — Task: Real contact details, replacing the placeholders (commit ab276c2)
 
 Client supplied the live business details. This retires the launch gate that
 has been failing since the site was built.

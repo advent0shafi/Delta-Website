@@ -2,9 +2,10 @@
    EQUIPMENT — how to read a solar quote
    ============================================================
 
-   `BRANDS` in site.config.js is five names. This is the guidance a
-   buyer comparing two quotes actually needs, and it is written to be
-   useful even to someone who ends up buying elsewhere.
+   `BRANDS` in site.config.js is eight names and eight logos — the
+   manufacturers, not the argument. This is the guidance a buyer
+   comparing two quotes actually needs, and it is written to be useful
+   even to someone who ends up buying elsewhere.
 
    SOURCING. Everything here is stable, non-proprietary technology
    and market fact: PERC and half-cut cell construction, the typical

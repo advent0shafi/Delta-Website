@@ -69,7 +69,7 @@ quotation. Final numbers follow a site survey.
 
 ## Equipment
 
-Panels and inverters fitted from: Tata Power Solar, Waaree, Microtek, V-Guard, Vikram.
+Panels, inverters and batteries fitted from: Waaree (solar panels), Adani Solar (solar panels), Microtek (inverters), Solaire (inverters), UTL Solar (inverters, batteries), Eastman (batteries), TSUN (microinverters), Deye (hybrid inverters).
 
 ## Frequently asked questions
 
@@ -106,4 +106,4 @@ Yes — every document. The grid-connectivity application, technical undertaking
   https://www.deltaenergy.in/sitemap.xml.
 - The HTML is prerendered at build time, so the full page content is present
   in the initial response and needs no JavaScript execution.
-- Last generated: 2026-08-28
+- Last generated: 2026-09-01

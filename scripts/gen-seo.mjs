@@ -154,7 +154,7 @@ function buildGraph() {
       'Solar EV charging',
       'Hybrid solar and battery storage',
     ],
-    brand: BRANDS.map((name) => ({ '@type': 'Brand', name })),
+    brand: BRANDS.map((b) => ({ '@type': 'Brand', name: b.name })),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Solar services',
@@ -360,7 +360,9 @@ quotation. Final numbers follow a site survey.
 
 ## Equipment
 
-Panels and inverters fitted from: ${BRANDS.join(', ')}.
+Panels, inverters and batteries fitted from: ${BRANDS.map(
+  (b) => `${b.name} (${b.supplies.toLowerCase()})`
+).join(', ')}.
 
 ## Frequently asked questions
 

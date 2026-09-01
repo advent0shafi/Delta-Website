@@ -232,7 +232,29 @@ export { HOME_FAQS as FAQS } from './content/faqs.js'
 
 /* ---------- brands we fit ---------- */
 
-export const BRANDS = ['Tata Power Solar', 'Waaree', 'Microtek', 'V-Guard', 'Vikram']
+/* The eight manufacturers Delta actually deals in. Read by the brands strip
+   on `/` and `/services/`, and by the footer, which shows the names alone.
+
+   Each logo is the manufacturer's own current mark, taken from that
+   manufacturer's own site and used to identify the equipment we fit —
+   nominative use, no endorsement implied or claimed. `w`/`h` are the file's
+   intrinsic pixels so the row reserves its space before the images land;
+   `scale` is an optical nudge for a mark whose artwork carries more empty
+   space than the rest, and is left off where none is needed.
+
+   `supplies` is the line that brand is on this list FOR, not the whole of
+   what it manufactures — several of them make more than one category. */
+
+export const BRANDS = [
+  { name: 'Waaree',     supplies: 'Solar panels',          logo: '/partners/waaree.png',   w: 254, h: 71 },
+  { name: 'Adani Solar', supplies: 'Solar panels',         logo: '/partners/adani.png',    w: 227, h: 42 },
+  { name: 'Microtek',   supplies: 'Inverters',             logo: '/partners/microtek.svg', w: 144, h: 50 },
+  { name: 'Solaire',    supplies: 'Inverters',             logo: '/partners/solaire.png',  w: 344, h: 120 },
+  { name: 'UTL Solar',  supplies: 'Inverters, batteries',  logo: '/partners/utl.png',      w: 560, h: 82 },
+  { name: 'Eastman',    supplies: 'Batteries',             logo: '/partners/eastman.png',  w: 182, h: 96, scale: 1.28 },
+  { name: 'TSUN',       supplies: 'Microinverters',        logo: '/partners/tsun.png',     w: 143, h: 50 },
+  { name: 'Deye',       supplies: 'Hybrid inverters',      logo: '/partners/deye.png',     w: 301, h: 120 },
+]
 
 /* ---------- share images ---------- */
 

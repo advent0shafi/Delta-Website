@@ -85,7 +85,7 @@ export default function Footer() {
               solar dealer · KSEB net metering.
             </p>
             <div className="footer__brands">
-              {BRANDS.map((b) => <span key={b}>{b}</span>)}
+              {BRANDS.map((b) => <span key={b.name}>{b.name}</span>)}
             </div>
           </div>
 

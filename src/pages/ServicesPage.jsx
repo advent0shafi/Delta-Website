@@ -1,5 +1,6 @@
 import React from 'react'
 import Services from '../components/Services'
+import Brands from '../components/Brands'
 import Stats from '../components/Stats'
 import Prose, { Figures, Reviewed } from '../components/Prose'
 import FAQ from '../components/FAQ'
@@ -17,6 +18,7 @@ export default function ServicesPage() {
   return (
     <>
       <Services headingAs="h1" />
+      <Brands />
       <Prose
         id="equipment"
         eyebrow="Equipment"

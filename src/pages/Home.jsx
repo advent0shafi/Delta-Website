@@ -2,6 +2,7 @@ import React from 'react'
 import Hero from '../components/Hero'
 import Stats from '../components/Stats'
 import Services from '../components/Services'
+import Brands from '../components/Brands'
 import Projects from '../components/Projects'
 import Subsidy from '../components/Subsidy'
 import Calculator from '../components/Calculator'
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <Stats />
       <Services />
+      <Brands />
       <Projects />
       <Subsidy />
       <Calculator />
