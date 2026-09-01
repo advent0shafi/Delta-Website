@@ -28,9 +28,14 @@
 
    Bigger below 1000px: that is where the bar holds only the logo and the
    burger, so there is room the desktop layout does not have once five links
-   and the CTA are in the row. */
+   and the CTA are in the row.
+
+   The desktop value is what the "Get Free Quote" button already measures
+   minus a little air — the button is about 52px tall, so the logo can grow to
+   38 without the bar growing by a pixel. It was 26, which left the wordmark
+   reading as smaller than the button beside it. */
 .nav {
-  --nav-logo-h: 38px;
+  --nav-logo-h: 44px;
 }
 .nav__logo {
   position: relative;
@@ -134,7 +139,7 @@
 }
 
 @media (min-width: 1000px) {
-  .nav { --nav-logo-h: 26px; }
+  .nav { --nav-logo-h: 38px; }
   .nav__links { display: flex; }
   .nav__cta { display: inline-flex; }
   .nav__burger { display: none; }
