@@ -1,7 +1,7 @@
 import React from 'react'
 import { childHeading, SectionHeading } from './common'
 import { useReveal } from '../lib/useReveal'
-import { SUBSIDY_TIERS as TIERS, STEPS } from '../../site.config'
+import { SYSTEM_PRICES as PRICES, PRICE_CAVEAT, STEPS, subsidyFor, inr } from '../../site.config'
 
 export default function Subsidy({ headingAs = 'h2' }) {
   const scope = useReveal()
@@ -31,20 +31,27 @@ export default function Subsidy({ headingAs = 'h2' }) {
             </a>
           </div>
 
-          {/* Right: stacked tier pills */}
+          {/* Right: what a system costs, and what is left after the subsidy.
+              The second figure is derived rather than typed, so the price
+              list and the subsidy schedule cannot drift apart. */}
           <div className="subsidy2__tiers reveal" data-delay="0.1">
-            {TIERS.map((t) => (
-              <div
-                className={`subsidy2__tier${t.hot ? ' hot' : ''}`}
-                key={t.kw}
-              >
-                <div>
-                  <div className="subsidy2__tier-kw">{t.kw}</div>
-                  <div className="subsidy2__tier-label">{t.label}</div>
+            <p className="subsidy2__tiers-cap">What a system costs</p>
+            {PRICES.map((p) => {
+              const subsidy = subsidyFor(p.kwValue)
+              return (
+                <div className={`subsidy2__tier${p.hot ? ' hot' : ''}`} key={p.kw}>
+                  <div>
+                    <div className="subsidy2__tier-kw">{p.kw}</div>
+                    <div className="subsidy2__tier-label">
+                      {p.note && <>{p.note} · </>}
+                      {inr(p.price - subsidy)} after subsidy
+                    </div>
+                  </div>
+                  <div className="subsidy2__tier-amt">{inr(p.price)}</div>
                 </div>
-                <div className="subsidy2__tier-amt">{t.amount}</div>
-              </div>
-            ))}
+              )
+            })}
+            <p className="subsidy2__tiers-note">{PRICE_CAVEAT}</p>
           </div>
         </div>
       </div>

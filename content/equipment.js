@@ -72,7 +72,7 @@ export const EQUIPMENT_SECTIONS = [
    savings calculator already uses, documented in docs/calculator-logic.md
    and published in llms.txt. Restating them here keeps one source. */
 export const PLANNING_FIGURES = [
-  ['About ₹60,000 per kW', 'installed cost before subsidy'],
+  ['₹53,000–₹72,000 per kW', 'installed cost before subsidy — the bigger the system, the lower the rate'],
   ['About 1,460 kWh per kW per year', 'typical on-grid generation in Kerala'],
   ['About 100 sq ft per kW', 'usable, unshaded roof area'],
 ]

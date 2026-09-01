@@ -191,17 +191,67 @@ export const PROJECTS = [
 /* ---------- PM Surya Ghar ----------
    Mirrors the tiers the calculator applies in Calculator.jsx. */
 
+/* The statutory PM Surya Ghar schedule: ₹30,000 for each of the first two
+   kilowatts and ₹18,000 for the third, capping at ₹78,000. Residential
+   connections only. Not Delta's numbers to set, and not rendered as a card
+   any more — the price list below derives its "after subsidy" line from this,
+   so the two can never disagree on the same page. Also read by the share
+   image and by llms.txt. */
+
 export const SUBSIDY_TIERS = [
-  { kw: '1 kW', amount: '₹30,000', value: 30000, label: 'For 1 kW systems' },
-  { kw: '2 kW', amount: '₹60,000', value: 60000, label: 'For 2 kW systems' },
-  {
-    kw: '3 kW+',
-    amount: '₹78,000',
-    value: 78000,
-    label: 'Maximum subsidy — most popular',
-    hot: true,
-  },
+  { kw: '1 kW', minKw: 1, amount: '₹30,000', value: 30000 },
+  { kw: '2 kW', minKw: 2, amount: '₹60,000', value: 60000 },
+  { kw: '3 kW+', minKw: 3, amount: '₹78,000', value: 78000 },
 ]
+
+/* The schedule as a function. The caller owns the eligibility question —
+   commercial and industrial connections get nothing, and that is the
+   calculator's category switch to answer, not this table's. */
+export const subsidyFor = (kw) =>
+  [...SUBSIDY_TIERS].reverse().find((t) => kw >= t.minKw)?.value ??
+  Math.round(kw * 30000)
+
+/* ---------- what a system costs ---------- */
+
+/* Client's prices, given 2026-09-01. Two of the three were quoted before
+   subsidy and the third after it — 10 kW was given as ₹4,50,000 net of the
+   ₹78,000 cap — so that one is carried here as ₹5,28,000 and comes back out
+   at exactly ₹4,50,000 in the card's "after subsidy" line. Every figure on
+   the card is on one basis, which is the only way a buyer can compare rows.
+
+   `price` is before subsidy, installed. The after-subsidy figure is never
+   stored: it is `price - subsidyFor(kwValue)`, computed at render. */
+
+export const SYSTEM_PRICES = [
+  { kw: '3 kW', kwValue: 3, price: 215000, note: 'Most popular', hot: true },
+  { kw: '5 kW', kwValue: 5, price: 320000 },
+  { kw: '10 kW', kwValue: 10, price: 528000 },
+]
+
+/* What a system of any size costs, read off the price list above — the
+   calculator's cost model, so the calculator and the card cannot quote a
+   3 kW roof differently.
+
+   Between two quoted sizes it interpolates. Below the smallest it holds that
+   size's per-kW rate rather than extrapolating the 3→5 line backwards, which
+   would price a 1 kW system above a 2 kW one. Above the largest it continues
+   the last segment, which is what keeps a 25 kW commercial estimate sane at
+   about ₹46,000 per kW rather than freezing it at the 10 kW rate. */
+export const costFor = (kw) => {
+  const pts = [...SYSTEM_PRICES].sort((a, b) => a.kwValue - b.kwValue)
+  const first = pts[0]
+  if (kw <= first.kwValue) return (first.price / first.kwValue) * kw
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1]
+    const b = pts[i]
+    if (kw <= b.kwValue || i === pts.length - 1) {
+      return a.price + ((kw - a.kwValue) * (b.price - a.price)) / (b.kwValue - a.kwValue)
+    }
+  }
+}
+
+export const PRICE_CAVEAT =
+  'Installed price for a standard on-grid system, before subsidy. Final price follows a site survey.'
 
 export const STEPS = [
   [
@@ -267,6 +317,11 @@ export const IMAGES = {
   ogSquare: '/og-square.jpg',
   heroPoster: '/hero-poster.jpg',
 }
+
+/* Indian digit grouping — ₹2,15,000, not ₹215,000. Shared so the price card
+   and the calculator cannot format the same rupee two different ways. */
+export const inr = (n) =>
+  '₹' + Math.round(n).toLocaleString('en-IN', { maximumFractionDigits: 0 })
 
 /* Absolute URL helper — every emitted file needs the same origin. */
 export const abs = (path) => `${SITE.origin}${path.startsWith('/') ? path : `/${path}`}`

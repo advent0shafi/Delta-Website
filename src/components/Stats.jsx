@@ -5,10 +5,15 @@ const STATS = [
   { to: 78000, prefix: '₹', label: 'Govt subsidy, direct to your bank' },
   { to: 90, suffix: '%', pre: 'up to ', label: 'Reduction in KSEB bill' },
   { to: 25, suffix: '+', label: 'Panel performance warranty' },
-  /* `tight` because "3–" is half of the value, not a qualifier like "up to":
+  /* `tight` because "4–" is half of the value, not a qualifier like "up to":
      it has to sit at full size hard against the number, or the stat reads as
-     "3– 5 yrs". Only visible once the numbers got bigger. */
-  { to: 5, pre: '3–', tight: true, suffix: ' yrs', label: 'Typical payback period' },
+     "4– 7 yrs". Only visible once the numbers got bigger.
+
+     4–7, not the 3–5 this said while the site costed every system at a flat
+     ₹60,000 per kW. On Delta's real prices a 3 kW roof pays back in 5.7 years
+     at ₹5.50 a unit and 4.5 at ₹7 — the range now spans the tariffs KSEB
+     customers actually pay rather than the best of them. */
+  { to: 7, pre: '4–', tight: true, suffix: ' yrs', label: 'Typical payback period' },
 ]
 
 function FeatureArt() {
@@ -78,7 +83,7 @@ export default function Stats() {
           {/* Right: 2×2 stat cards */}
           <div className="stats2__cards">
             {/* The icons were dropped rather than restyled: a rupee glyph beside
-                "₹78,000" and a clock beside "3–5 yrs" restate the number they
+                "₹78,000" and a clock beside "4–7 yrs" restate the number they
                 sit on, and four identical green outline marks in four identical
                 boxes was doing more to date the page than to explain it. */}
             {STATS.map((s, i) => {

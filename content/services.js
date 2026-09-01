@@ -14,8 +14,9 @@
    pages that do face competition.
 
    SOURCING RULES followed throughout:
-     - No prices beyond the ~₹60,000/kW planning figure already
-       published in docs/calculator-logic.md and llms.txt.
+     - No prices beyond the list the client published themselves —
+       3 kW ₹2,15,000, 5 kW ₹3,20,000, 10 kW ₹5,28,000 before subsidy,
+       in SYSTEM_PRICES — and the per-kW range derived from it.
      - No customer counts, testimonials, awards or project claims.
      - No Kerala capacity caps beyond what KSEB publishes, because
        the KSERC 2025 regulations are under a High Court stay.
@@ -44,7 +45,7 @@ export const SERVICE_DETAIL = {
         id: 'subsidy',
         title: ['The subsidy ', 'is genuinely large.'],
         body: [
-          'PM Surya Ghar pays ₹30,000 for each of the first two kilowatts and ₹18,000 for the third, capping at ₹78,000. On an indicative installed cost of about ₹60,000 per kW, that covers a substantial fraction of a 3 kW system.',
+          'PM Surya Ghar pays ₹30,000 for each of the first two kilowatts and ₹18,000 for the third, capping at ₹78,000. On our own price for a 3 kW system, ₹2,15,000 installed, that is a bit over a third of it back.',
           'It is residential-only and it is paid to you, into the bank account on your own application, after the system is commissioned and the net meter is live. Delta never receives it on your behalf. We prepare the KSEB side and sit with you through the national portal registration, which has to be done against your own consumer number.',
         ],
       },

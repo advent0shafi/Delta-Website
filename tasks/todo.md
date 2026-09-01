@@ -1,4 +1,60 @@
-# Task: Brand logos — the eight manufacturers Delta actually fits
+# Task: Real prices on the page, and a calculator that agrees with them
+
+Client gave their own prices: 3 kW ₹2,15,000, 5 kW ₹3,20,000, 10 kW ₹4,50,000,
+3 kW the most popular. Asked to put them where the PM Surya Ghar subsidy tier
+card was.
+
+The three figures were not on one basis — the client confirmed 3 kW and 5 kW
+are before subsidy and 10 kW is after it. Carried as ₹5,28,000 before subsidy,
+which comes back out at exactly ₹4,50,000 in the card's derived line.
+
+## The card
+
+- [x] `SYSTEM_PRICES` in site.config.js — size, price before subsidy, `hot`
+- [x] `SUBSIDY_TIERS` stays: it is the statutory schedule, it feeds the share
+      image and llms.txt, and the card's "after subsidy" line is derived from
+      it rather than typed, so the two cannot drift
+- [x] `subsidyFor()` and `inr()` moved to the config — the schedule was written
+      out twice and the rupee formatted two places
+- [x] Caption and caveat: a published price with no stated basis is a price
+      somebody argues about later
+
+## The calculator, which disagreed by ₹35,000
+
+It costed every system at a flat ₹60,000/kW, so on the same page it said a
+3 kW roof costs ₹1,80,000 under a card saying ₹2,15,000. Client chose to align
+it and to soften the payback claim with it.
+
+- [x] `costFor(kw)` — interpolates the three quoted sizes, holds the 3 kW rate
+      below 3 kW, continues the last segment above 10 kW (₹44,000/kW at 50 kW,
+      rather than freezing at the 10 kW rate)
+- [x] Stats band 3–5 → 4–7 yrs; planning figures ₹60,000/kW → ₹53,000–₹72,000
+- [x] Homepage FAQ, services subsidy copy, calculator methodology, llms.txt,
+      the share image, and docs/calculator-logic.md all moved with it
+
+## Verify
+
+- [x] `costFor` hits all three quoted prices exactly; 10 kW after subsidy is
+      the client's ₹4,50,000 to the rupee
+- [x] Build clean, `seo:check` unchanged at 30 passed / 1 warning / 1 failure
+      (the pre-existing About placeholder)
+- [x] Card and calculator screenshotted at 1280 and 390 px
+
+## Review
+
+Two judgement calls the client should know about:
+
+- **₹5,28,000 for 10 kW is arithmetic, not a quote.** It is their ₹4,50,000
+  plus the ₹78,000 cap. If a 10 kW customer of theirs is not residential, the
+  subsidy is zero and that row is wrong — commercial connections get nothing
+  from PM Surya Ghar.
+- **Payback moved because the real prices are higher than the old assumption
+  at domestic sizes.** 3 kW pays back in 5.7 years at ₹5.50 a unit, 4.5 at ₹7.
+  The published range is 4–7, which spans the tariffs KSEB customers actually
+  pay. The old 3–5 was only reachable at the flat ₹60,000/kW that no longer
+  matches their price list.
+
+# Archived — Task: Brand logos, the eight manufacturers we fit (commit 52360a5)
 
 Client named the brands they deal in: WAAREE, ADANI, MICROTEK, SOLAIRE, UTL,
 EASTMAN, TSUN, DEYE. The site was still carrying the five placeholder names

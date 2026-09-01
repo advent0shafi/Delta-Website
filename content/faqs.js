@@ -111,7 +111,7 @@ export const NET_METERING_FAQS = [
 export const CALCULATOR_FAQS = [
   [
     'How accurate is the estimate?',
-    'It is a planning figure, not a quotation. It assumes about 1,460 kWh generated per kW per year, roughly ₹60,000 per kW installed and about 100 sq ft of usable roof per kW — reasonable averages for on-grid rooftops in Kerala. Your roof\'s orientation, shading and the tariff you actually pay will move the result, which is what a site survey settles.',
+    'It is a planning figure, not a quotation. It assumes about 1,460 kWh generated per kW per year, our own installed prices — from about ₹72,000 per kW on a 3 kW system down to ₹53,000 on a 10 kW one — and about 100 sq ft of usable roof per kW — reasonable averages for on-grid rooftops in Kerala. Your roof\'s orientation, shading and the tariff you actually pay will move the result, which is what a site survey settles.',
   ],
   [
     'Why does the calculator cap my savings at what I consume?',

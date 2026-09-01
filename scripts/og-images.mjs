@@ -99,7 +99,7 @@ const T = {
 const CHIPS = [
   `${SUBSIDY_TIERS.at(-1).amount} subsidy handled`,
   'Up to 90% off your KSEB bill',
-  '3–5 year payback',
+  '4–7 year payback',
 ]
 
 /* The diagonal line motif used by the stats card and the CTA band. */

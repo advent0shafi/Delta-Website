@@ -26,6 +26,10 @@ import {
   SERVICES,
   FAQS,
   SUBSIDY_TIERS,
+  SYSTEM_PRICES,
+  PRICE_CAVEAT,
+  subsidyFor,
+  inr,
   STEPS,
   BRANDS,
   IMAGES,
@@ -347,12 +351,23 @@ Typical disbursement is 30–60 days after commissioning.
 
 ${STEPS_TEXT()}
 
+## System prices
+
+Installed, before subsidy. ${PRICE_CAVEAT.split('. ').slice(1).join('. ')}
+
+${SYSTEM_PRICES.map(
+  (p) =>
+    `- ${p.kw} — ${inr(p.price)} before subsidy, ${inr(
+      p.price - subsidyFor(p.kwValue)
+    )} after it`
+).join('\n')}
+
 ## Indicative economics
 
-- System cost before subsidy: about ₹60,000 per kW
+- System cost before subsidy: ₹53,000–₹72,000 per kW, falling as the system grows
 - Generation assumption for ${AREA.region}: about 1,460 kWh per kW per year
 - Roof area needed: about 100 sq ft per kW
-- Typical payback: 3–5 years
+- Typical payback: 4–7 years
 - Typical bill reduction: 70–90%
 
 These are planning figures used by the on-site savings calculator, not a

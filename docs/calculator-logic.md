@@ -11,7 +11,7 @@ Framework-agnostic: the whole model is pure arithmetic on 5 inputs.
 | --- | --- | --- |
 | `UNITS_PER_KW_YEAR` | `1460` | kWh generated per kW per year (≈ 4 kWh/day — Kerala on-grid assumption) |
 | `UNITS_PER_KW_MONTH` | `1460 / 12` = `121.6667` | kWh per kW per month |
-| `COST_PER_KW` | `60000` | ₹ system cost per kW, **before** subsidy |
+| `SYSTEM_PRICES` | `3 kW ₹2,15,000 · 5 kW ₹3,20,000 · 10 kW ₹5,28,000` | Delta's own installed prices, **before** subsidy. `costFor(kw)` reads them; there is no flat per-kW rate any more |
 | `SQFT_PER_KW` | `100` | Roof area (sq ft) required per kW |
 
 ---
@@ -65,7 +65,7 @@ annualGen     = kw * UNITS_PER_KW_YEAR
 cappedUnits   = min(annualGen, monthlyUnits * 12 || annualGen)
 annualSavings = cappedUnits * rate
 
-systemCost    = kw * COST_PER_KW
+systemCost    = costFor(kw)          // interpolated from SYSTEM_PRICES
 subsidy       = subsidyFor(kw, category)
 netCost       = systemCost - subsidy
 
@@ -196,10 +196,13 @@ Things worth knowing before you reuse this model:
    degradation, or seasonal variation. Fine as a lead-capture estimate; not an
    engineering figure.
 
-6. **Costs are linear at ₹60,000/kW** with no economies of scale, so a 47 kW
-   commercial system is priced at 47 × the 1 kW rate. Real large-system pricing
-   per kW is materially lower — worth a tiered `COST_PER_KW` if you reuse this
-   for commercial quoting.
+6. **Costs come from Delta's own price list,** not a flat rate: `costFor(kw)`
+   in `site.config.js` interpolates the quoted sizes (3 kW ₹2,15,000, 5 kW
+   ₹3,20,000, 10 kW ₹5,28,000, all before subsidy) and continues the last
+   segment above 10 kW, so the rate per kW falls from ₹71,667 to about ₹44,000
+   at 50 kW. Below 3 kW it holds the 3 kW rate rather than extrapolating that
+   line backwards, which would price 1 kW above 2 kW. Sizes outside the quoted
+   range are the model's own arithmetic, not quoted prices.
 
 7. **No O&M, inverter replacement, tariff escalation, or financing** is modelled.
    Payback is a simple undiscounted `netCost / annualSavings`.
@@ -216,8 +219,29 @@ Dependency-free; drop into any JS/TS project.
 ```js
 const UNITS_PER_KW_YEAR = 1460
 const UNITS_PER_KW_MONTH = UNITS_PER_KW_YEAR / 12
-const COST_PER_KW = 60000
 const SQFT_PER_KW = 100
+
+// Delta's price list, before subsidy. Between two quoted sizes costFor
+// interpolates; below the smallest it holds that size's per-kW rate; above
+// the largest it continues the last segment.
+const SYSTEM_PRICES = [
+  { kwValue: 3, price: 215000 },
+  { kwValue: 5, price: 320000 },
+  { kwValue: 10, price: 528000 },
+]
+
+function costFor(kw) {
+  const pts = [...SYSTEM_PRICES].sort((a, b) => a.kwValue - b.kwValue)
+  const first = pts[0]
+  if (kw <= first.kwValue) return (first.price / first.kwValue) * kw
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1]
+    const b = pts[i]
+    if (kw <= b.kwValue || i === pts.length - 1) {
+      return a.price + ((kw - a.kwValue) * (b.price - a.price)) / (b.kwValue - a.kwValue)
+    }
+  }
+}
 
 function subsidyFor(kw, category) {
   if (category !== 'Residential') return 0
@@ -240,7 +264,7 @@ export function compute({ mode, bill, units, roof, category, rate }) {
   const annualGen = kw * UNITS_PER_KW_YEAR
   const cappedUnits = Math.min(annualGen, monthlyUnits * 12 || annualGen)
   const annualSavings = cappedUnits * rate
-  const systemCost = kw * COST_PER_KW
+  const systemCost = costFor(kw)
   const subsidy = subsidyFor(kw, category)
   const netCost = systemCost - subsidy
   const payback = annualSavings > 0 ? netCost / annualSavings : 0
@@ -274,7 +298,7 @@ numbers that need changing:
 | Change this | To adjust |
 | --- | --- |
 | `UNITS_PER_KW_YEAR` | Solar yield for the region (1460 ≈ Kerala) |
-| `COST_PER_KW` | Your price per kW before subsidy |
+| `SYSTEM_PRICES` | Your own quoted sizes and prices before subsidy — `costFor()` reads them |
 | `SQFT_PER_KW` | Panel density / roof-area assumption |
 | `subsidyFor()` | Subsidy scheme and slabs |
 | The `10` / `50` caps | Max system size offered per category |

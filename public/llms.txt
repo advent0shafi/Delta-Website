@@ -56,12 +56,20 @@ Typical disbursement is 30–60 days after commissioning.
 2. **We install** — A clean, certified install by our team. KSEB inspects and fits your net meter.
 3. **You get paid** — Savings start from day one and the subsidy reaches your bank within 30–60 days.
 
+## System prices
+
+Installed, before subsidy. Final price follows a site survey.
+
+- 3 kW — ₹2,15,000 before subsidy, ₹1,37,000 after it
+- 5 kW — ₹3,20,000 before subsidy, ₹2,42,000 after it
+- 10 kW — ₹5,28,000 before subsidy, ₹4,50,000 after it
+
 ## Indicative economics
 
-- System cost before subsidy: about ₹60,000 per kW
+- System cost before subsidy: ₹53,000–₹72,000 per kW, falling as the system grows
 - Generation assumption for Kerala: about 1,460 kWh per kW per year
 - Roof area needed: about 100 sq ft per kW
-- Typical payback: 3–5 years
+- Typical payback: 4–7 years
 - Typical bill reduction: 70–90%
 
 These are planning figures used by the on-site savings calculator, not a

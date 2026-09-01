@@ -2,22 +2,19 @@ import React, { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { SectionHeading, Button } from './common'
 import { useReveal } from '../lib/useReveal'
-
-const inr = (n) =>
-  '₹' + Math.round(n).toLocaleString('en-IN', { maximumFractionDigits: 0 })
+import { costFor, inr, subsidyFor as subsidySchedule } from '../../site.config'
 
 // Kerala on-grid assumptions
 const UNITS_PER_KW_YEAR = 1460 // ~4 kWh/day
 const UNITS_PER_KW_MONTH = UNITS_PER_KW_YEAR / 12
-const COST_PER_KW = 60000 // ₹ before subsidy
 const SQFT_PER_KW = 100
 
+/* The schedule itself lives in site.config.js, beside the price list that
+   also quotes an after-subsidy figure — it was written out twice here and
+   there, and a scheme that changes has to change in one place. Eligibility
+   stays here, because only this component knows the connection category. */
 function subsidyFor(kw, category) {
-  if (category !== 'Residential') return 0
-  if (kw >= 3) return 78000
-  if (kw >= 2) return 60000
-  if (kw >= 1) return 30000
-  return Math.round(kw * 30000)
+  return category === 'Residential' ? subsidySchedule(kw) : 0
 }
 
 function compute({ mode, bill, units, roof, category, rate }) {
@@ -33,7 +30,7 @@ function compute({ mode, bill, units, roof, category, rate }) {
   const annualGen = kw * UNITS_PER_KW_YEAR
   const cappedUnits = Math.min(annualGen, monthlyUnits * 12 || annualGen)
   const annualSavings = cappedUnits * rate
-  const systemCost = kw * COST_PER_KW
+  const systemCost = costFor(kw)
   const subsidy = subsidyFor(kw, category)
   const netCost = systemCost - subsidy
   const payback = annualSavings > 0 ? netCost / annualSavings : 0

@@ -51,7 +51,7 @@ export const CALCULATOR_SECTIONS = [
     eyebrow: 'Step four',
     title: ['What payback ', 'does and does not include.'],
     body: [
-      'Payback is the net cost after subsidy divided by the first year of savings, shown as a range rather than a date. Installed cost is taken at about ₹60,000 per kW before subsidy.',
+      'Payback is the net cost after subsidy divided by the first year of savings, shown as a range rather than a date. Installed cost comes from Delta\'s own price list — ₹2,15,000 for 3 kW, ₹3,20,000 for 5 kW and ₹5,28,000 for 10 kW before subsidy — interpolated for the sizes in between, which is why the rate per kilowatt falls as the system grows.',
       'Two things it does not model. Electricity tariffs rise over time, which shortens real payback. Panels degrade slowly, which lengthens it. They pull in opposite directions and broadly offset over the period that matters, but it is worth knowing that neither is in the arithmetic.',
       'Nothing here is a quotation. Orientation, shading, roof condition and the tariff you actually pay all move the result, which is exactly what a site survey is for.',
     ],
