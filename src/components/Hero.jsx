@@ -46,7 +46,7 @@ export default function Hero() {
 
       <div className="container hero__inner">
         <span className="eyebrow hero__eyebrow hero__rise">
-          On-grid solar · Since 2018
+          On-grid solar · Since 2017
         </span>
 
         <h1 className="hero__title" id="hero-title">

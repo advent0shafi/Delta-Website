@@ -36,7 +36,7 @@ export const ROUTES = [
     path: '/about/',
     title: 'About Delta Energy Solutions, Malappuram | Rooftop Solar',
     description:
-      'Rooftop solar across Malappuram district since 2018 — how Delta sizes a system, which equipment it fits, and how the KSEB paperwork is handled.',
+      'Rooftop solar across Kerala since 2017 — Delta\'s vision and mission, how a system is sized, which equipment it fits, and how the KSEB paperwork is handled.',
     priority: '0.7',
   },
   {

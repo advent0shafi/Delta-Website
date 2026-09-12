@@ -328,7 +328,7 @@ export default HOME_FAQS
 export const ABOUT_FAQS = [
   [
     'What areas does Delta cover?',
-    'Malappuram district and the towns around it — Malappuram, Manjeri, Kottakkal, Tirur and Perinthalmanna. Staying inside one district is deliberate: it means someone can reach a fault the same week, which matters more over twenty-five years than anything on a specification sheet.',
+    'Malappuram district and the towns around it — Malappuram, Manjeri, Kottakkal, Tirur and Perinthalmanna — with larger projects in Kozhikode and across Kerala. Proximity is still the point: someone reaching a fault the same week matters more over twenty-five years than anything on a specification sheet.',
   ],
   [
     'Do you handle the KSEB and subsidy paperwork?',

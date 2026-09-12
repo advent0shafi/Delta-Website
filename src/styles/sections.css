@@ -2048,37 +2048,70 @@
   margin-top: clamp(34px, 4.4vw, 56px);
 }
 
+/* Two columns at every width, never one.
+
+   There are exactly two owners and they hold the same title, so the pair is
+   the unit — stacking them on a phone turns equal partners into a ranked
+   list. Two always fit side by side, which is why this needs no breakpoint.
+
+   Capped at 660px rather than filling the 1240px container: at full width
+   each portrait would be 600px tall and the section would read as a
+   photography page. */
 .about__cards {
   display: grid;
-  gap: clamp(16px, 2.4vw, 22px);
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 2.4vw, 26px);
+  max-width: 660px;
 }
 
+/* No box. Every reference for this pattern — Dropbox, Hasselblad, Kudos —
+   sets the portrait straight onto the page ground and lets the photograph
+   be the card. A border and a tinted panel around a picture is the thing
+   that makes a team section look bought rather than made. */
 .about__card {
-  background: var(--paper);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--r-lg);
-  padding: clamp(22px, 3vw, 28px);
   display: flex;
   flex-direction: column;
-  gap: 7px;
 }
 
 .about__name {
   font-family: var(--display);
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: clamp(1rem, 2.3vw, 1.2rem);
   color: var(--ink);
-  margin: 0;
-  letter-spacing: -0.01em;
+  margin: 14px 0 0;
+  letter-spacing: -0.012em;
+  /* Splits "Muhammed Nawaf K" as two even lines on a phone instead of
+     dropping a lone "K" onto the second. */
+  text-wrap: balance;
 }
 
 .about__role {
   font-family: var(--body);
   font-weight: 600;
-  font-size: 0.74rem;
-  letter-spacing: 0.02em;
+  font-size: 0.76rem;
+  letter-spacing: 0.015em;
+  /* Ink, not the forest blue this first used. A saturated colour on a short
+     line directly under a name reads as a link, and nothing here is
+     clickable. The designation stays prominent through weight instead. */
+  color: var(--ink-2);
+  margin-top: 4px;
+}
+
+/* Qualifications as one quiet line, middot-separated. They were a ticked
+   list, which put four green checkmarks directly above the credentials list
+   that already uses that mark — the same device twice in one screen, and it
+   made a portrait plate look like a feature comparison. The difference
+   between the two partners still shows: one line is longer than the other. */
+.about__quals {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
   color: var(--mute);
+  text-wrap: pretty;
+}
+.about__quals span + span::before {
+  content: ' · ';
+  color: var(--mute-2);
 }
 
 .about__bio {
@@ -2116,27 +2149,128 @@
   rotate: -45deg;
 }
 
-/* Team portraits. Square because the source crops are square, and a circle
-   would cut the shoulders out of a seated portrait. */
+/* Team portraits. */
+/* 4:5 plate at the full column width. The portraits are shot on white, so
+   against the cream section they read as a lit plate rather than a cut-out —
+   the same figure-and-ground trick Hasselblad uses in reverse, where grey
+   plates sit on a white page. */
 .about__photo {
-  width: 84px;
-  height: 84px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
   border-radius: var(--r-md);
   object-fit: cover;
-  margin-bottom: 4px;
-  background: var(--paper-2);
+  background: var(--white);
 }
 /* Fallback for a member with no photograph yet — a designed absence rather
    than a gap or a broken image. */
+/* At phone width each column is about 160px, so the same type that sits on
+   one line on a desktop breaks three times here. Shaving the two lines under
+   the name keeps the wrap to two. */
+@media (max-width: 560px) {
+  .about__role {
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+  .about__quals {
+    font-size: 0.82rem;
+  }
+  /* One per line. Middot-joined, the wrap fell mid-credential and left
+     "B-" stranded at the end of a line. */
+  .about__quals span {
+    display: block;
+  }
+  .about__quals span + span::before {
+    content: none;
+  }
+}
+
 .about__photo--mono {
   display: grid;
   place-items: center;
   font-family: var(--display);
   font-weight: 600;
-  font-size: 24px;
+  font-size: clamp(38px, 7vw, 62px);
   letter-spacing: 0.02em;
   color: var(--forest);
   background: var(--paper-3);
+}
+
+/* ==========================================================
+   PURPOSE — vision & mission
+   ==========================================================
+   Client-supplied copy (PURPOSE in content/about.js), and the only
+   section that runs on the navy band. Heading rail left, the two
+   statements right, so the statements are read as a pair rather
+   than as two more cards in a stack.
+   ========================================================== */
+
+.purpose__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(30px, 4.5vw, 56px);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .purpose__grid {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(44px, 6vw, 92px);
+  }
+  /* The rail stays put while the statements scroll past it — the block is
+     short enough that both ends stay on screen together. */
+  .purpose__head {
+    position: sticky;
+    top: 108px;
+  }
+}
+
+.purpose__head .lead {
+  margin-top: clamp(14px, 2vw, 20px);
+  max-width: 42ch;
+}
+
+.purpose__cards {
+  display: grid;
+  gap: clamp(18px, 2.6vw, 26px);
+}
+
+.purpose__card {
+  padding: clamp(24px, 3.4vw, 36px) 0 0;
+  /* A hairline above each statement rather than a box around it. Two boxes
+     on a coloured band would read as tiles; the rule reads as a document. */
+  border-top: 1px solid var(--line-dark);
+}
+.purpose__card:first-child {
+  border-top-color: var(--green);
+}
+
+.purpose__label {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--green-300);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.purpose__stmt {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.12rem, 2.5vw, 1.46rem);
+  line-height: 1.44;
+  letter-spacing: -0.012em;
+  color: #fff;
+  max-width: 30ch;
+  text-wrap: pretty;
+}
+@media (min-width: 900px) {
+  .purpose__stmt {
+    max-width: 34ch;
+  }
 }
 
 /* Project spec — label over value, the pattern the Lugano teardown flagged

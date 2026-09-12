@@ -33,7 +33,7 @@ export const SITE = {
     'On-grid rooftop solar with KSEB net metering and the ₹78,000 PM Surya Ghar subsidy handled for you.',
   lang: 'en-IN',
   locale: 'en_IN',
-  foundingYear: 2018,
+  foundingYear: 2017,
   themeColor: '#0E3A4A',
   backgroundColor: '#F4F1EA',
 }

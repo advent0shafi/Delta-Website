@@ -3,10 +3,11 @@ import { childHeading, SectionHeading } from './common'
 import { useReveal } from '../lib/useReveal'
 import { ABOUT } from '../../content/about'
 
-/* Timeline, team and credentials. All placeholder content — the switch is
-   ABOUT.isPlaceholder in content/about.js, which also holds the checklist of
-   what the client has to supply before any of it can be published as fact. */
-/* First letter of each of the first two words — "Installations Manager" -> IM. */
+/* Timeline, team and credentials. The two partner portraits are real; the
+   milestone dates and credentials around them are still placeholder. The
+   switch is ABOUT.isPlaceholder in content/about.js, which also holds the
+   checklist of what the client has to supply before any of it is fact. */
+/* First letter of each of the first two words — "Anita Menon" -> AM. */
 const initials = (name) =>
   name
     .split(/\s+/)
@@ -43,36 +44,48 @@ export default function Milestones({ headingAs = 'h2' }) {
         </ol>
 
         <div className="about__team">
-          <ItemTitle className="about__sub" id="about-team">The team</ItemTitle>
+          <ItemTitle className="about__sub" id="about-team">Who runs Delta</ItemTitle>
           <div className="about__cards" aria-labelledby="about-team">
             {ABOUT.team.map((m) => (
-              <article className="about__card reveal" key={m.name}>
+              /* Keyed on `id`, not `name`: both partners hold the same
+                 designation, and while that designation is standing in for
+                 their names the two keys would otherwise collide. */
+              <article className="about__card reveal" key={m.id}>
                 {m.photo ? (
-                  /* Alt describes the picture, not an identity. These are
-                     stand-in portraits, so naming them as Delta staff in the
-                     accessibility tree would assert exactly the thing
-                     content/about.js says is not true. */
+                  /* Empty alt. The name is in the heading immediately below,
+                     so repeating it here only reads it out twice. */
                   <img
                     className="about__photo"
                     src={m.photo}
                     alt=""
-                    width="480"
-                    height="480"
+                    width="720"
+                    height="900"
                     loading="lazy"
                     decoding="async"
                   />
                 ) : (
-                  /* Only two portraits were supplied for three roles. A
-                     monogram is a designed absence rather than a broken
-                     image, and it is what every member falls back to once
-                     real photographs replace the stand-ins unevenly. */
+                  /* A monogram is a designed absence rather than a broken
+                     image — the fallback for anyone added later without a
+                     photograph. */
                   <span className="about__photo about__photo--mono" aria-hidden="true">
                     {initials(m.name)}
                   </span>
                 )}
                 <h4 className="about__name">{m.name}</h4>
                 <span className="about__role">{m.role}</span>
-                <p className="about__bio">{m.bio}</p>
+                {/* Spans rather than a joined string, because the separator
+                    changes with the viewport: a middot on a wide card, a line
+                    break on a phone. CSS decides which; the data stays a
+                    list either way. */}
+                {m.quals?.length > 0 && (
+                  <p className="about__quals">
+                    {m.quals.map((q) => (
+                      <span key={q}>{q}</span>
+                    ))}
+                  </p>
+                )}
+                {/* Optional. Two identifiable people get no invented bio. */}
+                {m.bio && <p className="about__bio">{m.bio}</p>}
               </article>
             ))}
           </div>

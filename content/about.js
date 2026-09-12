@@ -30,13 +30,55 @@
    which lists exactly what to ask the client for.
    ============================================================ */
 
+/* ============================================================
+   PURPOSE — CLIENT-SUPPLIED, REAL
+   ============================================================
+
+   Unlike everything below it, this is not placeholder. The two
+   statements are the client's own words, supplied verbatim, and
+   the lead is the closing sentence of the company description
+   they sent with them.
+
+   It is a separate export precisely so ABOUT.isPlaceholder
+   cannot be read as covering it. This content is confirmed and
+   publishable as it stands; the story, milestones, team and
+   credentials below still are not.
+
+   The same message established the founding year as 2017, which
+   is why nothing in this file says 2018 any more.
+   ============================================================ */
+
+export const PURPOSE = {
+  lead:
+    'Delta is committed to promoting green energy solutions that drive sustainable development and deliver long-term value to our clients.',
+
+  /* Rendered as two cards. `label` is the heading a screen reader
+     announces, so it stays the plain word rather than a slogan. */
+  pillars: [
+    {
+      id: 'vision',
+      label: 'Vision',
+      body: 'To lead the transition toward a sustainable future by promoting green energy, reducing carbon emissions, and driving innovative development within the renewable energy sector.',
+    },
+    {
+      id: 'mission',
+      label: 'Mission',
+      body: 'To deliver reliable, high-quality solar solutions that empower communities and businesses across Kerala while actively minimising environmental impact.',
+    },
+  ],
+}
+
 export const ABOUT = {
   isPlaceholder: true,
 
   /* ---------- the story ---------- */
 
+  /* REAL — the client's own company description, minus the word
+     "premier" (an unsourced superlative the rest of the site does not
+     use about itself) and minus its closing sentence, which is now
+     PURPOSE.lead above. Every claim they made is still here. */
   intro:
-    'Delta Energy Solutions has been fitting rooftop solar across Malappuram district since 2018 — homes, shops and factories, on-grid and hybrid, with the KSEB paperwork handled end to end.',
+    'Established in 2017, Delta Energy Solutions is an MNRE-registered vendor dedicated to advancing solar and renewable energy infrastructure across Kerala. Recognised among the top 10 solar providers in Malappuram, we have rapidly expanded to execute high-quality, large-scale projects throughout the state, including major operations in Malappuram and Kozhikode.',
 
   story: [
     {
@@ -44,7 +86,7 @@ export const ABOUT = {
       eyebrow: 'Why we started',
       title: ['A bill problem, ', 'not a technology problem.'],
       body: [
-        'Delta began in 2018 with a simple observation: rooftop solar had become genuinely affordable in Kerala, and almost nobody was installing it. The technology was not the obstacle. The obstacle was that going solar meant navigating KSEB feasibility, a national subsidy portal, a net-metering application and an inspection — and most households gave up somewhere in the middle.',
+        'Delta began in 2017 with a simple observation: rooftop solar had become genuinely affordable in Kerala, and almost nobody was installing it. The technology was not the obstacle. The obstacle was that going solar meant navigating KSEB feasibility, a national subsidy portal, a net-metering application and an inspection — and most households gave up somewhere in the middle.',
         'So the company was built around the paperwork as much as the panels. That is still the part customers tell us made the difference.',
       ],
     },
@@ -60,9 +102,10 @@ export const ABOUT = {
     {
       id: 'where',
       eyebrow: 'Where we work',
-      title: ['Malappuram district, ', 'and the towns around it.'],
+      title: ['Malappuram and Kozhikode, ', 'and across Kerala.'],
       body: [
-        'Delta works across Malappuram, Manjeri, Kottakkal, Tirur and Perinthalmanna. Staying within one district is a deliberate choice: it means a technician can reach a fault the same week, which matters far more over a system\'s twenty-five year life than anything on a specification sheet.',
+        'The base is Malappuram district — Manjeri, Kottakkal, Tirur and Perinthalmanna — and the largest projects now run out of Malappuram and Kozhikode, with work across the rest of the state.',
+        'Proximity still decides what ownership feels like. A technician who can reach a fault the same week matters far more over a system\'s twenty-five year life than anything on a specification sheet, so the map grows where that promise can be kept.',
       ],
     },
   ],
@@ -70,7 +113,7 @@ export const ABOUT = {
   /* ---------- MOCK: invented milestones ---------- */
 
   milestones: [
-    ['2018', 'Delta Energy Solutions founded in Malappuram, starting with residential rooftop installations.'],
+    ['2017', 'Delta Energy Solutions founded in Malappuram, starting with residential rooftop installations.'],
     ['2020', 'First commercial installations — shops and small offices across Manjeri and Kottakkal.'],
     ['2022', 'Registered as a vendor under the national rooftop solar programme, filing subsidy applications in-house.'],
     ['2024', 'PM Surya Ghar launches; Delta begins handling the new subsidy route end to end for residential customers.'],
@@ -82,49 +125,49 @@ export const ABOUT = {
      numbers from the client before this page goes live. */
 
   numbers: [
-    ['Since 2018', 'Installing across Malappuram district'],
+    ['Since 2017', 'Installing across Kerala'],
     ['On-grid, hybrid & EV', 'Residential, commercial and industrial'],
     ['KSEB paperwork', 'Filed end to end, in-house'],
     ['Tier-1 equipment', 'Named in the quote before you commit'],
   ],
 
-  /* ---------- MOCK: invented people ----------
-     These are not real individuals, and the portraits are STAND-INS supplied
-     for the mockup — they are not photographs of Delta staff.
+  /* ---------- the two owners ----------
 
-     That distinction matters more than the invented dates elsewhere in this
-     file. Publishing a real person's face beside "Founder & Managing Director"
-     of a real company misrepresents that person, not just the company, so
-     these two images must be replaced with actual staff photographs (with
-     their consent) before ABOUT.isPlaceholder can become false.
+     Delta is a partnership firm, not a company — the fourth character of
+     the PAN inside CONTACT.gstin is "F". So the designation is Partner,
+     never Director: "Managing Director" is an office under the Companies
+     Act that a partnership firm cannot hold. Both men own and run the
+     firm equally, which is why both read "Co-founder & Managing Partner"
+     rather than one of them being singled out as managing.
 
-     `photo` is optional: a member without one falls back to a monogram, which
-     is what the third slot uses since only two portraits were supplied.
+     Names, portraits and qualifications are all client-supplied and real.
+     Order follows the order the client introduced them in; it carries no
+     seniority and either entry can move.
 
-     `role` reads "Name to follow" rather than a shouted PLACEHOLDER banner.
-     The card has to be presentable — it exists to be shown to the client —
-     and the loud version wrapped onto two lines on every card while being
-     inaccurate for the two that now have a picture. The real guard against
-     this shipping is `isPlaceholder` and the seo:check failure it drives,
-     not a caption. */
+     `photo`, `quals` and `bio` are optional. A member without a photo
+     falls back to a monogram. `bio` is empty for both on purpose: the
+     client has not described how the two divide the work, and inventing a
+     split would attach a fabricated claim to a real, recognisable face.
+     `quals` carries only what was actually supplied — stated professions
+     and licences, not a degree nobody named. */
 
   team: [
     {
-      name: 'Founder & Managing Director',
-      role: 'Name to follow',
-      photo: '/team/placeholder-1.jpg',
-      bio: 'Leads system design and customer consultation. Background in electrical engineering, with rooftop solar work across Malappuram district since 2018.',
+      id: 'shuhaib',
+      name: 'Shuhaib M',
+      role: 'Co-founder & Managing Partner',
+      /* B-class is a Kerala Electrical Inspectorate contractor licence, and
+         the most load-bearing credential on this page: it is what lets the
+         firm carry out the wiring work its own installations depend on. */
+      quals: ['Electrical Engineer', 'B-Class Electrical Contractor'],
+      photo: '/team/shuhaib-m.jpg',
     },
     {
-      name: 'Technical Lead',
-      role: 'Name to follow',
-      photo: '/team/placeholder-2.jpg',
-      bio: 'Responsible for site assessment, system sizing and the KSEB technical documentation, from feasibility through to the inspection.',
-    },
-    {
-      name: 'Installations Manager',
-      role: 'Name to follow',
-      bio: 'Runs the installation crews, mounting structure specification and post-commissioning service visits.',
+      id: 'nawaf',
+      name: 'Muhammed Nawaf K',
+      role: 'Co-founder & Managing Partner',
+      quals: ['Electrical Engineer'],
+      photo: '/team/muhammed-nawaf-k.jpg',
     },
   ],
 
@@ -141,10 +184,11 @@ export const ABOUT = {
      become false. Rendered nowhere; this is a checklist for whoever
      picks the page up. */
   needsFromClient: [
-    'Real founding year and the actual founding story',
+    'The actual founding story — the founding year, 2017, is confirmed',
     'Milestone dates that happened',
     'Project counts, total kW installed, units generated',
-    'Team names, roles, and REAL staff photographs with consent to publish — the two portraits currently shown are stand-ins, not Delta staff',
+    'A one-line bio for each partner, if they want one — names, portraits and qualifications are all confirmed',
+    'The MNRE registration number, and a citable source for the top-10 ranking',
     'Registration and empanelment numbers that can be verified',
     'Whether the five-year workmanship warranty is accurate',
   ],

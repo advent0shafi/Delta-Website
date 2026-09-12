@@ -735,3 +735,165 @@ properties compose instead of competing.
   `hello@deltaenergy.in`). No GSTIN, no Google Maps embed.
 - `src/components/Subsidy.jsx:34` still reads "We handle the paperwork ->",
   which Audio 6 asked to remove.
+
+---
+
+# Vision & Mission (client-supplied copy)
+
+The client sent a real About paragraph plus Vision and Mission statements.
+Until now everything in `content/about.js` was placeholder.
+
+- [x] Add a `PURPOSE` export to `content/about.js` — client's own words,
+      kept separate from the placeholder block so `isPlaceholder` cannot be
+      read as covering it.
+- [x] New `Purpose` section component + CSS (dark band, two statements).
+- [x] Render it on `/about/` and on the homepage.
+- [x] Replace the invented `ABOUT.intro` with the client's paragraph.
+- [x] Founding year 2017, not 2018 — `site.config.js`, `site.routes.js`,
+      `Hero.jsx`, and the four places inside `content/about.js`.
+- [x] Rewrite the "Where we work" block: the client works across Kerala with
+      operations in Malappuram AND Kozhikode, contradicting the current copy.
+- [x] Regenerate SEO artefacts, build, verify.
+
+## Review
+
+`PURPOSE` is a **separate export** from `ABOUT`, not a field inside it. That
+was the whole design decision. `ABOUT.isPlaceholder` is the gate that fails
+`seo:check`, and folding real client copy under a flag that says "none of this
+is true" would have made the flag meaningless in both directions.
+
+The section is the only one on the site using `.section--forest`. That is
+deliberate and documented in `Purpose.jsx`: a statement of intent is the one
+block on the page arguing from nothing but intent, so it gets colour where
+every other section gets evidence. It renders identically on `/` (between the
+project rail and the subsidy block) and on `/about/` (under the story blocks).
+
+Three things followed from the copy rather than being asked for:
+
+1. **2017, not 2018.** The client's message establishes the founding year.
+   Fixed in `site.config.js` (which drives `foundingDate` in the JSON-LD),
+   `site.routes.js`, the hero badge, and four places in `content/about.js`.
+   `npm run seo:gen` regenerated `index.html`.
+2. **`ABOUT.intro` replaced.** The invented opener is gone; the client's own
+   paragraph is there, minus the word "premier" and minus its closing
+   sentence, which is now `PURPOSE.lead`.
+3. **"Where we work" rewritten.** It claimed single-district coverage was a
+   deliberate choice, which directly contradicted "across Kerala ... including
+   major operations in Malappuram and Kozhikode".
+
+Still open, flagged not fixed: `SITE.title`, `SITE.description` and `AREA` all
+scope the business to Malappuram district. If Kozhikode and the wider state
+are now real markets, that is an SEO decision, not a copy edit.
+
+`npm run seo:check`: 30 passed, 1 warning, 1 failure — the same pre-existing
+About-placeholder failure, since the team, milestones and credentials are
+still invented.
+
+
+---
+
+# The two owners
+
+Both partners now appear on `/about/` under "Who runs Delta", using the
+portraits the client supplied.
+
+- [x] Crop both uploads to 480x480 head-and-shoulders, save as
+      `public/team/partner-1.jpg` / `partner-2.jpg`.
+- [x] Delete `placeholder-1.jpg` / `placeholder-2.jpg` — the stand-in
+      portraits `content/about.js` warned were not Delta staff. Nothing
+      referenced them once the team list changed, and leaving them in
+      `public/` would have kept shipping them into `dist/`.
+- [x] Team list cut from three to two. The third card, an invented
+      "Installations Manager", cannot stand beside two real faces.
+- [x] Both designated **Co-founder & Managing Partner**.
+- [x] `key={m.id}`, not `key={m.name}` — identical designations would have
+      collided as React keys.
+- [x] `bio` made optional and left empty for both.
+- [x] Larger portraits and a 720px cap on the card grid, since the cards no
+      longer carry a paragraph to fill them.
+
+## On the designation
+
+`CONTACT.gstin` is `32AAPFD3008C1Z1`. The embedded PAN is `AAPFD3008C` and its
+fourth character, `F`, means the entity is a **firm** — a partnership, not a
+private limited company. That settles the wording:
+
+- **Managing Director is wrong.** It is an office created by the Companies
+  Act 2013 and appointed by a board. A partnership firm has neither. The card
+  said "Founder & Managing Director" until now.
+- **Partner is right.** "Managing Partner" is the ordinary Indian designation
+  for a partner charged with running the firm, and a deed may name more than
+  one.
+- **Co-founder, not Founder.** Two people each described as "Founder" reads as
+  two separate claims to have founded it alone.
+
+Open: neither partner's name has been supplied, so the designation is standing
+in as the card heading. Swapping `name` and `role` in `content/about.js` is the
+whole fix when the names arrive.
+
+
+---
+
+# Both partners named
+
+- [x] **Shuhaib M** — Co-founder & Managing Partner. Electrical Engineer,
+      B-Class Electrical Contractor. `/team/shuhaib-m.jpg`.
+- [x] **Muhammed Nawaf K** — Co-founder & Managing Partner. Electrical
+      Engineer. `/team/muhammed-nawaf-k.jpg`.
+- [x] Portrait files renamed off `partner-N.jpg` onto the names.
+- [x] `quals` is an array, not a string, and renders as a ticked list. One
+      partner holds the contractor licence and the other does not, so a
+      comma-joined line would have flattened a real difference.
+
+Card order follows the order the client introduced them. It carries no
+seniority and either entry can move.
+
+The **B-Class Electrical Contractor** licence is the strongest verifiable
+credential on the page — a Kerala Electrical Inspectorate licence covering the
+wiring work the installations depend on. It is worth more prominence than one
+line on a team card; consider surfacing it in the credentials list or the
+trust strip once the client confirms the licence number.
+
+`npm run seo:check` is unchanged: 30 passed, 1 warning, 1 failure. The failure
+is still `ABOUT.isPlaceholder`, which now guards only the milestone dates, the
+credentials list and the project figures.
+
+
+---
+
+# Team cards redesigned against five references
+
+References supplied: Dropbox "Our team", Kudos "Small team. Big standards.",
+Hasselblad "Judges", a "Meet the mentors" grid, and Anveril "Leadership".
+
+What all five share, and what Delta was doing instead:
+
+| | The five references | Delta before |
+| --- | --- | --- |
+| Portrait | Full column width, portrait aspect | 116px rounded avatar |
+| Card chrome | None. Photo sits on the page ground | Border, tinted panel, padding |
+| Text | Under the photo, left aligned | Under the avatar, inside the box |
+
+Every one of them lets the photograph be the card. None draws a box around a
+person. The avatar-in-a-panel pattern Delta had is the one shape a team
+section can take that reads as bought rather than made.
+
+- [x] Re-cropped both portraits to 4:5 at 720x900, trimming width only. The
+      photographer framed head, hand and suit together and that composition
+      is worth keeping.
+- [x] Portrait now fills the column at `aspect-ratio: 4/5`.
+- [x] Card chrome removed entirely — no border, no panel, no padding.
+- [x] **Two columns at every width, no breakpoint.** Two items always fit as
+      a pair. Stacking equal partners on a phone turns them into a ranked
+      list, which is the one thing the layout must not say.
+- [x] Pair capped at 660px, near the 64ch measure the timeline above already
+      uses, so the whole section shares one left-hand edge and one width.
+- [x] Designation moved off forest blue onto ink. A saturated colour on a
+      short line under a name reads as a link and nothing here is clickable.
+- [x] Qualifications: middot-separated on a wide card, one per line under
+      560px. Joined, the phone wrap stranded "B-" at the end of a line.
+- [x] `text-wrap: balance` on the name, so "Muhammed Nawaf K" splits evenly
+      rather than dropping a lone "K".
+
+Checked at 390px, 768px and 1280px. 768px is where it is strongest: the pair
+nearly fills the container.

@@ -91,11 +91,15 @@ where one is invented.
 
 ---
 
-## 4. Team portraits — already supplied
+## 4. Team portraits — done
 
-`public/team/placeholder-1.jpg` and `-2.jpg` are the two portraits you sent.
-Still needed: a third for the Installations Manager (currently a monogram), and
-confirmation that these are Delta staff who have consented to appear. See
+`public/team/shuhaib-m.jpg` and `muhammed-nawaf-k.jpg` are the two owners,
+cropped to 480x480 from the portraits the client supplied. The earlier
+stand-in images have been deleted, and the team section shows these two
+people only.
+
+Nothing further is needed here. Names, designations and qualifications are all
+confirmed; a one-line bio each is optional and is the only open item. See
 `content/about.js`.
 
 ---
