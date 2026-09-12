@@ -1,0 +1,99 @@
+# Deploys the marketing site to the VPS on every push to main.
+#
+# The site is static files, so a deploy is a file copy: build here, rsync
+# the result into a fresh release directory on the server, then swap one
+# symlink. Nothing on the server restarts and nginx is never reloaded. The
+# ERP containers on the same box are out of this job's reach entirely: the
+# deploy user owns /srv/delta-site and nothing else.
+#
+# Secrets:
+#   DEPLOY_SSH_KEY      private key for the `deploy` user on the VPS
+#   DEPLOY_KNOWN_HOSTS  the server's ed25519 host key line, pinned so a
+#                       man-in-the-middle cannot stand in for the box
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - 'tasks/**'
+      - 'research/**'
+      - '**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  DEPLOY_HOST: 200.97.163.238
+  DEPLOY_USER: deploy
+  SITE_ROOT: /srv/delta-site
+  SITE_URL: https://deltaenergysolution.com
+  KEEP_RELEASES: 5
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # The launch gate. This fails while content/about.js is placeholder,
+      # and that is deliberate: it is the only thing standing between
+      # invented milestone dates and a real business's domain.
+      - run: npm run seo:check
+
+      - name: Install deploy key
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+
+      - name: Upload release
+        id: upload
+        run: |
+          RELEASE="$(date -u +%Y%m%dT%H%M%SZ)-${GITHUB_SHA::7}"
+          echo "release=$RELEASE" >> "$GITHUB_OUTPUT"
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:$SITE_ROOT/releases/$RELEASE/"
+
+      # A symlink rename is atomic. A visitor gets the whole old release or
+      # the whole new one, never old HTML asking for asset hashes that are
+      # not there any more.
+      - name: Activate release
+        env:
+          RELEASE: ${{ steps.upload.outputs.release }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "set -e
+             cd '$SITE_ROOT'
+             rm -f current.new
+             ln -s 'releases/$RELEASE' current.new
+             mv -Tf current.new current
+             ls -1dt releases/* | tail -n +$((KEEP_RELEASES + 1)) | xargs -r rm -rf"
+
+      # /about/ is the check that matters. If try_files misses the
+      # $uri/index.html step, nginx serves the homepage shell there instead,
+      # and the homepage does not contain this heading.
+      - name: Smoke test
+        run: |
+          curl -fsS --retry 5 --retry-delay 2 "$SITE_URL/" -o /dev/null
+          curl -fsS "$SITE_URL/about/" | grep -q 'Who runs Delta'
+          echo "ok: $SITE_URL is serving release ${{ steps.upload.outputs.release }}"

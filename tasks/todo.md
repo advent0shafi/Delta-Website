@@ -897,3 +897,26 @@ section can take that reads as bought rather than made.
 
 Checked at 390px, 768px and 1280px. 768px is where it is strongest: the pair
 nearly fills the container.
+
+---
+
+# Hosting: the decision and the pipeline
+
+Decided against a container, host nginx, and pm2. The site is static files;
+the only nginx that can own 443 is the ERP's `delta-nginx`; and pm2 would
+supervise a Node process that does not exist.
+
+- [x] `deploy/server-setup.sh`: idempotent one-time setup. Deploy user
+      confined to `/srv/delta-site`, compose *override* so the ERP's file is
+      never edited, HTTP-only bootstrap block, separate `deltasite` cert,
+      `nginx -t` in a throwaway container before the real block goes live,
+      ERP health asserted before and after every risky step.
+- [x] `.github/workflows/deploy.yml`: build, seo:check gate, rsync into a
+      release dir, atomic symlink swap, keep five, smoke test `/about/`.
+- [x] Secrets `DEPLOY_SSH_KEY` and `DEPLOY_KNOWN_HOSTS` set via `gh`. Host
+      key pinned. Public key kept out of the repo (the classifier objected,
+      and it is better in the operator's hands anyway).
+- [x] Templates now serve from `/srv/delta-site/current`.
+
+Open: the gate blocks the pipeline until the About placeholder is resolved,
+and the contact form still sends nothing.

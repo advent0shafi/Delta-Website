@@ -1,170 +1,121 @@
 # Deploying to deltaenergysolution.com
 
-## What the server actually is
+## The design
+
+Static files, served by the nginx the ERP already runs, from a read-only
+mount at `/srv/delta-site`. A deploy is a file copy: GitHub Actions builds
+the site, uploads it into a fresh release directory, and swaps one symlink.
+Nothing on the server restarts. nginx is never reloaded. The deploy user can
+write to `/srv/delta-site` and nowhere else, so a leaked key cannot reach
+the ERP.
+
+The apex gets its own certificate, `deltasite`, renewed by the certbot loop
+that is already running. The one nginx change this needs is made once, and
+the rendered config is tested in a throwaway container before it goes live.
+
+No new container. The site has no process to run, and a second nginx behind
+the first would only add a hop.
+
+## What the server is
 
 | | |
 | --- | --- |
 | IP | `200.97.163.238` (Hostinger, host `srv1814139`, Ubuntu) |
 | DNS | apex A record → that IP; `www` CNAME → apex. Nothing to change. |
-| Ports 80/443 | owned by the **`delta-nginx` container**, not by the host |
-| Host nginx | not installed. `/etc/nginx` does not exist. |
-| Stack | `/root/Delta-MVP/backend/docker-compose.yml` — nginx, frontend (Next.js :3001), backend (:8000), postgres, onlyoffice, certbot |
-| nginx config | envsubst templates in `deploy/nginx/templates`, rendered into `/etc/nginx/conf.d` at container start |
-| Certificate | one cert named `delta`, covering `app.` `api.` `office.` |
-| Renewal | the certbot container loops `certbot renew --webroot -w /var/www/certbot` every 12h |
+| Ports 80/443 | owned by the **`delta-nginx` container**. No host nginx, no `/etc/nginx`. |
+| Stack | `/root/Delta-MVP/backend/docker-compose.yml`: nginx, frontend (Next.js :3001), backend (:8000), postgres, onlyoffice, certbot |
+| nginx config | envsubst templates in `deploy/nginx/templates`, rendered into `/etc/nginx/conf.d` when the container starts |
+| Certificates | `delta` covers `app.` `api.` `office.`; `deltasite` covers the apex and `www` |
+| Renewal | the certbot container loops `certbot renew --webroot` every 12h, and renews both |
 
-Host `certbot` and a host nginx server block are both wrong here. Ignore any
-advice that starts with `certbot --nginx`.
+## One-time setup
 
-## Why the apex is broken today
-
-No server block declares `default_server`, so nginx falls back to the first
-block in file order. On port 443 that is the `app.` block — which is exactly
-what a request to the bare domain gets: the Next.js app, behind a certificate
-that does not name the apex. Hence the browser warning.
-
-Giving the apex its own server block fixes that. The app's blocks are never
-opened.
-
-## The certificate decision
-
-The apex gets **its own certificate**, named `deltasite`, not three extra
-names bolted onto `delta`.
-
-Reissuing `delta` with five names would put `app.`, `api.` and `office.` at
-risk of a failure that currently cannot touch them. Two certificates cannot
-fail together, and the renewal loop already in place renews both without any
-change.
-
-## Runbook
-
-Order matters. An nginx block naming a certificate file that is not on disk
-does not degrade — nginx refuses to start, and in this stack that takes the
-app down too. So: HTTP first, certificate second, HTTPS third.
-
-### 1. Build the site on the server
-
-No Node on the host and none needed — build in a throwaway container.
+On the VPS, as root:
 
 ```bash
-cd /root
-git clone https://github.com/advent0shafi/Delta-Website.git delta-site
-cd delta-site
-docker run --rm -v "$PWD":/app -w /app node:20-alpine \
-  sh -c "npm ci && npm run build"
+git clone https://github.com/advent0shafi/Delta-Website.git /root/delta-site-setup
+bash /root/delta-site-setup/deploy/server-setup.sh 'ssh-ed25519 AAAA...'
 ```
 
-`dist/` is the entire site. Static files, no process, no database.
+The argument is the public half of the GitHub Actions deploy key. It is kept
+out of this repository on purpose; whoever runs the script pastes it in.
 
-### 2. Put the build where nginx can reach it
+The script is idempotent and stops the moment the ERP stops answering. In
+order it: creates the `deploy` user; drops a `docker-compose.override.yml`
+beside the ERP's compose file so that file is never edited; installs an
+HTTP-only nginx block; recreates `delta-nginx` (the ERP blips for a second
+here, and only here); issues the `deltasite` certificate; installs the real
+block after `nginx -t` passes in a throwaway container; restarts nginx; and
+verifies that both the site and `app.` answer.
+
+The two secrets the workflow needs, `DEPLOY_SSH_KEY` and
+`DEPLOY_KNOWN_HOSTS`, are already set on the repository. The host key is
+pinned, so the runner refuses to talk to anything impersonating the box.
+
+Then push to `main`, or run the Deploy workflow by hand from the Actions tab.
+
+## What a deploy does
+
+`.github/workflows/deploy.yml`, on every push to `main`:
+
+1. `npm ci`, `npm run build`, `npm run seo:check`. The check is the launch
+   gate. It fails while `content/about.js` is placeholder, and a failing
+   gate stops the deploy before anything is uploaded.
+2. rsync `dist/` to `/srv/delta-site/releases/<timestamp>-<sha>/`.
+3. Point the `current` symlink at it with an atomic rename. Keep the last
+   five releases, delete the rest.
+4. Fetch `/about/` and check for its own heading. If `try_files` ever loses
+   the `$uri/index.html` step, nginx serves the homepage shell there
+   instead, and this catches it.
+
+Concurrency is serialised, so two pushes in quick succession deploy in order
+rather than racing.
+
+## Rollback
+
+Instant, no restart, on the server:
 
 ```bash
-mkdir -p /root/Delta-MVP/backend/deploy/data/www/delta-site
-rsync -a --delete /root/delta-site/dist/ \
-  /root/Delta-MVP/backend/deploy/data/www/delta-site/
+cd /srv/delta-site && ls -1dt releases/
+ln -s releases/<an older one> current.new && mv -Tf current.new current
 ```
 
-If `rsync` is missing: `cp -a /root/delta-site/dist/. /root/Delta-MVP/backend/deploy/data/www/delta-site/`
+Or re-run the Deploy workflow on an older commit from the Actions tab.
 
-### 3. Mount it into the nginx container
-
-In `/root/Delta-MVP/backend/docker-compose.yml`, under the nginx service's
-`volumes:`, add one line beside the existing mounts:
-
-```yaml
-      - ./deploy/data/www/delta-site:/srv/delta-site:ro
-```
-
-Read-only, and at `/srv` rather than `/usr/share/nginx` so it cannot shadow
-anything the image ships.
-
-### 4. Install the bootstrap block, HTTP only
+## Undo everything
 
 ```bash
-cp /root/delta-site/deploy/nginx/deltasite-bootstrap.conf.template \
-   /root/Delta-MVP/backend/deploy/nginx/templates/deltasite.conf.template
 cd /root/Delta-MVP/backend
+rm deploy/nginx/templates/deltasite.conf.template docker-compose.override.yml
 docker compose up -d nginx
+userdel -r deploy && rm -rf /srv/delta-site
 ```
 
-Recreating nginx picks up the new mount and re-renders the templates. Expect
-one or two seconds where every site refuses connections, the app included.
+The certificate can stay; certbot will keep renewing it harmlessly.
 
-Check both before going further:
+## What can take what down
 
-```bash
-curl -sI http://deltaenergysolution.com/ | head -1        # expect 200
-curl -sI https://app.deltaenergysolution.com/ | head -1   # expect 200, unchanged
-```
+| What fails | Marketing site | ERP |
+| --- | --- | --- |
+| A bad site deploy | Old release keeps serving; rollback is one symlink | Untouched. Deploys never restart anything. |
+| An ERP container crashes | Still serving | That container is down |
+| `delta-nginx` config broken | Unreachable | Unreachable, though still running |
+| Host down | Down | Down |
 
-### 5. Issue the certificate
-
-```bash
-cd /root/Delta-MVP/backend
-docker compose config --services          # confirm the certbot service name
-docker compose run --rm --entrypoint certbot certbot certonly \
-  --webroot -w /var/www/certbot \
-  --cert-name deltasite \
-  -d deltaenergysolution.com -d www.deltaenergysolution.com \
-  --email deltampm@gmail.com --agree-tos --no-eff-email
-```
-
-`--cert-name deltasite` is what keeps this separate from `delta`. Without it
-certbot names the certificate after the first domain, which still works but
-makes the two harder to tell apart later.
-
-### 6. Switch to the real block
-
-```bash
-cp /root/delta-site/deploy/nginx/deltasite.conf.template \
-   /root/Delta-MVP/backend/deploy/nginx/templates/deltasite.conf.template
-cd /root/Delta-MVP/backend
-docker compose restart nginx
-```
-
-A restart is enough here — only the template changed, and the entrypoint
-re-renders on start.
-
-### 7. Verify
-
-```bash
-curl -sI https://deltaenergysolution.com/ | head -1            # 200
-curl -sI https://www.deltaenergysolution.com/ | head -2        # 301 to apex
-curl -sI https://deltaenergysolution.com/about/ | head -1      # 200, not a fallback
-curl -sI https://app.deltaenergysolution.com/ | head -1        # 200, untouched
-```
-
-The `/about/` check is the one that matters. A 200 that returns the homepage
-means `try_files` missed the `$uri/index.html` step and the prerendered HTML
-is being thrown away.
-
-### Rollback
-
-```bash
-rm /root/Delta-MVP/backend/deploy/nginx/templates/deltasite.conf.template
-cd /root/Delta-MVP/backend && docker compose restart nginx
-```
-
-The apex goes back to hitting the app block. Nothing else is affected at any
-point in this runbook.
-
-## Redeploying later
-
-Steps 1 and 2 only:
-
-```bash
-cd /root/delta-site && git pull
-docker run --rm -v "$PWD":/app -w /app node:20-alpine sh -c "npm ci && npm run build"
-rsync -a --delete dist/ /root/Delta-MVP/backend/deploy/data/www/delta-site/
-```
-
-No nginx restart. The files are served straight off the mount.
+The nginx row is why the setup script runs `nginx -t` in a throwaway
+container before restarting the real one. After setup, no routine operation
+on either side touches that config again.
 
 ## Before this counts as launched
 
-- `npm run seo:check` still fails on `ABOUT.isPlaceholder`. The milestone
-  dates, the credentials list and the project figures on `/about/` are
-  invented. That gate exists to stop exactly this reaching a real domain.
+- **The pipeline is blocked by the About page.** `seo:check` fails on
+  `ABOUT.isPlaceholder`: the milestone dates, the credentials list and the
+  project figures are invented. Either supply real ones or remove those
+  sections so the page carries only confirmed facts. Until then the workflow
+  stops at the gate, by design.
+- **The contact form sends nothing.** It validates two fields and shows a
+  success message. No email, no API call, no WhatsApp. Every lead it takes is
+  lost. Wire it before launch; a WhatsApp handoff needs no backend.
 - Submit `https://deltaenergysolution.com/sitemap.xml` in Google Search
   Console.
 - Add the Google Business Profile URL to `CONTACT.sameAs` in

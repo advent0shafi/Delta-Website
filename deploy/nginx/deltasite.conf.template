@@ -53,7 +53,10 @@ server {
     ssl_certificate     /etc/letsencrypt/live/deltasite/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/deltasite/privkey.pem;
 
-    root /srv/delta-site;
+    # `current` is a symlink the deploy pipeline swaps atomically. nginx
+    # resolves it per request, so a visitor sees the whole old release or
+    # the whole new one, never a mix.
+    root /srv/delta-site/current;
     index index.html;
 
     # Routes are prerendered as directories — /about/index.html,
