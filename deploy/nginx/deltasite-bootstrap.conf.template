@@ -1,0 +1,27 @@
+# Delta Energy Solutions — marketing site, BOOTSTRAP (HTTP only).
+#
+# Install this one FIRST, before any certificate exists. It serves the site
+# over plain HTTP and, more importantly, answers the ACME challenge so a
+# certificate can be issued for these two names.
+#
+# An nginx server block that names a certificate file which is not on disk
+# yet does not fail quietly — nginx refuses to start, and in this stack that
+# takes app, api and office down with it. Hence two files: this, then the
+# real one once the certificate exists.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name deltaenergysolution.com www.deltaenergysolution.com;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    root /srv/delta-site;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ $uri/index.html /index.html;
+    }
+}

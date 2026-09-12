@@ -1,137 +1,171 @@
 # Deploying to deltaenergysolution.com
 
-## What the DNS says today
+## What the server actually is
 
 | | |
 | --- | --- |
-| Server IP | `200.97.163.238` |
-| `deltaenergysolution.com` | A record → `200.97.163.238` |
-| `www.deltaenergysolution.com` | CNAME → `deltaenergysolution.com` |
-| Nameservers | `pixel.dns-parking.com`, `byte.dns-parking.com` (Hostinger) |
-| Web server | nginx 1.27.5 |
+| IP | `200.97.163.238` (Hostinger, host `srv1814139`, Ubuntu) |
+| DNS | apex A record → that IP; `www` CNAME → apex. Nothing to change. |
+| Ports 80/443 | owned by the **`delta-nginx` container**, not by the host |
+| Host nginx | not installed. `/etc/nginx` does not exist. |
+| Stack | `/root/Delta-MVP/backend/docker-compose.yml` — nginx, frontend (Next.js :3001), backend (:8000), postgres, onlyoffice, certbot |
+| nginx config | envsubst templates in `deploy/nginx/templates`, rendered into `/etc/nginx/conf.d` at container start |
+| Certificate | one cert named `delta`, covering `app.` `api.` `office.` |
+| Renewal | the certbot container loops `certbot renew --webroot -w /var/www/certbot` every 12h |
 
-Both names already point at the server, so no DNS change is needed.
+Host `certbot` and a host nginx server block are both wrong here. Ignore any
+advice that starts with `certbot --nginx`.
 
-## Two things block launch
+## Why the apex is broken today
 
-### 1. The TLS certificate does not cover this domain
+No server block declares `default_server`, so nginx falls back to the first
+block in file order. On port 443 that is the `app.` block — which is exactly
+what a request to the bare domain gets: the Next.js app, behind a certificate
+that does not name the apex. Hence the browser warning.
 
-The certificate the server presents on port 443 is a Let's Encrypt cert
-issued for:
+Giving the apex its own server block fixes that. The app's blocks are never
+opened.
 
-```
-CN  = app.deltaenergysolution.com
-SAN = api.deltaenergysolution.com, app.deltaenergysolution.com,
-      office.deltaenergysolution.com
-```
+## The certificate decision
 
-Neither the apex nor `www` is on it. So `https://deltaenergysolution.com`
-fails certificate validation in every browser, and `http://` 301-redirects
-straight into that failure. Right now a visitor to the bare domain gets a
-full-page security warning, not the site.
+The apex gets **its own certificate**, named `deltasite`, not three extra
+names bolted onto `delta`.
 
-Fix on the server:
+Reissuing `delta` with five names would put `app.`, `api.` and `office.` at
+risk of a failure that currently cannot touch them. Two certificates cannot
+fail together, and the renewal loop already in place renews both without any
+change.
 
-```bash
-certbot --nginx -d deltaenergysolution.com -d www.deltaenergysolution.com
-```
+## Runbook
 
-That adds a second certificate; it does not touch the existing
-app/api/office one.
+Order matters. An nginx block naming a certificate file that is not on disk
+does not degrade — nginx refuses to start, and in this stack that takes the
+app down too. So: HTTP first, certificate second, HTTPS third.
 
-### 2. The apex is being served by something else
+### 1. Build the site on the server
 
-A Next.js application answers on this IP — `app.` serves it, `office.`
-redirects, `api.` returns 404 — and the apex currently falls through to
-nginx's default server block and serves that same app. It needs its own
-server block before the static site can appear there.
-
-## Build and upload
+No Node on the host and none needed — build in a throwaway container.
 
 ```bash
-npm ci
-npm run build      # vite build + prerender, output in dist/
-npm run seo:check  # must pass before going live
+cd /root
+git clone https://github.com/advent0shafi/Delta-Website.git delta-site
+cd delta-site
+docker run --rm -v "$PWD":/app -w /app node:20-alpine \
+  sh -c "npm ci && npm run build"
 ```
 
-`dist/` is the whole site: static files, no Node process, no database.
-Copy its contents to the web root, for example:
+`dist/` is the entire site. Static files, no process, no database.
+
+### 2. Put the build where nginx can reach it
 
 ```bash
-rsync -av --delete dist/ user@200.97.163.238:/var/www/deltaenergysolution/
+mkdir -p /root/Delta-MVP/backend/deploy/data/www/delta-site
+rsync -a --delete /root/delta-site/dist/ \
+  /root/Delta-MVP/backend/deploy/data/www/delta-site/
 ```
 
-## nginx server block
+If `rsync` is missing: `cp -a /root/delta-site/dist/. /root/Delta-MVP/backend/deploy/data/www/delta-site/`
 
-Routes are prerendered as directories (`/about/index.html`,
-`/services/residential/index.html` and so on), so `try_files` must fall
-back to `$uri/index.html` before it falls back to the SPA entry point.
-Without the directory step, a direct hit on `/about/` would serve the
-homepage shell and lose its prerendered HTML — which is the whole reason
-that HTML exists.
+### 3. Mount it into the nginx container
 
-```nginx
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name deltaenergysolution.com www.deltaenergysolution.com;
+In `/root/Delta-MVP/backend/docker-compose.yml`, under the nginx service's
+`volumes:`, add one line beside the existing mounts:
 
-    ssl_certificate     /etc/letsencrypt/live/deltaenergysolution.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/deltaenergysolution.com/privkey.pem;
-
-    root /var/www/deltaenergysolution;
-    index index.html;
-
-    # www -> apex. site.config.js sets the canonical origin to the apex,
-    # so every canonical, og:url and JSON-LD @id on the site names it.
-    # A second host serving the same pages without this redirect splits
-    # the domain in two as far as a crawler is concerned.
-    if ($host = www.deltaenergysolution.com) {
-        return 301 https://deltaenergysolution.com$request_uri;
-    }
-
-    location / {
-        try_files $uri $uri/ $uri/index.html /index.html;
-    }
-
-    # Fingerprinted filenames — safe to cache for a year.
-    location /assets/ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-
-    # Never cache the HTML: it carries the JSON-LD and the canonical tag,
-    # and a stale copy outlives the next deploy.
-    location ~* \.html$ {
-        expires -1;
-        add_header Cache-Control "no-cache";
-    }
-
-    # These are regenerated by npm run seo:gen on every build.
-    location ~ ^/(robots\.txt|sitemap\.xml|llms\.txt|humans\.txt|site\.webmanifest)$ {
-        expires 1h;
-    }
-
-    gzip on;
-    gzip_types text/css application/javascript image/svg+xml application/json;
-}
-
-server {
-    listen 80;
-    listen [::]:80;
-    server_name deltaenergysolution.com www.deltaenergysolution.com;
-    return 301 https://deltaenergysolution.com$request_uri;
-}
+```yaml
+      - ./deploy/data/www/delta-site:/srv/delta-site:ro
 ```
 
-## After the first deploy
+Read-only, and at `/srv` rather than `/usr/share/nginx` so it cannot shadow
+anything the image ships.
 
-- Submit `https://deltaenergysolution.com/sitemap.xml` in Google Search
-  Console, and verify the property.
-- Add the Google Business Profile URL to `CONTACT.sameAs` in
-  `site.config.js`. `seo:check` warns about it on every run: without it
-  Google has nothing connecting the site to the business listing.
+### 4. Install the bootstrap block, HTTP only
+
+```bash
+cp /root/delta-site/deploy/nginx/deltasite-bootstrap.conf.template \
+   /root/Delta-MVP/backend/deploy/nginx/templates/deltasite.conf.template
+cd /root/Delta-MVP/backend
+docker compose up -d nginx
+```
+
+Recreating nginx picks up the new mount and re-renders the templates. Expect
+one or two seconds where every site refuses connections, the app included.
+
+Check both before going further:
+
+```bash
+curl -sI http://deltaenergysolution.com/ | head -1        # expect 200
+curl -sI https://app.deltaenergysolution.com/ | head -1   # expect 200, unchanged
+```
+
+### 5. Issue the certificate
+
+```bash
+cd /root/Delta-MVP/backend
+docker compose config --services          # confirm the certbot service name
+docker compose run --rm --entrypoint certbot certbot certonly \
+  --webroot -w /var/www/certbot \
+  --cert-name deltasite \
+  -d deltaenergysolution.com -d www.deltaenergysolution.com \
+  --email deltampm@gmail.com --agree-tos --no-eff-email
+```
+
+`--cert-name deltasite` is what keeps this separate from `delta`. Without it
+certbot names the certificate after the first domain, which still works but
+makes the two harder to tell apart later.
+
+### 6. Switch to the real block
+
+```bash
+cp /root/delta-site/deploy/nginx/deltasite.conf.template \
+   /root/Delta-MVP/backend/deploy/nginx/templates/deltasite.conf.template
+cd /root/Delta-MVP/backend
+docker compose restart nginx
+```
+
+A restart is enough here — only the template changed, and the entrypoint
+re-renders on start.
+
+### 7. Verify
+
+```bash
+curl -sI https://deltaenergysolution.com/ | head -1            # 200
+curl -sI https://www.deltaenergysolution.com/ | head -2        # 301 to apex
+curl -sI https://deltaenergysolution.com/about/ | head -1      # 200, not a fallback
+curl -sI https://app.deltaenergysolution.com/ | head -1        # 200, untouched
+```
+
+The `/about/` check is the one that matters. A 200 that returns the homepage
+means `try_files` missed the `$uri/index.html` step and the prerendered HTML
+is being thrown away.
+
+### Rollback
+
+```bash
+rm /root/Delta-MVP/backend/deploy/nginx/templates/deltasite.conf.template
+cd /root/Delta-MVP/backend && docker compose restart nginx
+```
+
+The apex goes back to hitting the app block. Nothing else is affected at any
+point in this runbook.
+
+## Redeploying later
+
+Steps 1 and 2 only:
+
+```bash
+cd /root/delta-site && git pull
+docker run --rm -v "$PWD":/app -w /app node:20-alpine sh -c "npm ci && npm run build"
+rsync -a --delete dist/ /root/Delta-MVP/backend/deploy/data/www/delta-site/
+```
+
+No nginx restart. The files are served straight off the mount.
+
+## Before this counts as launched
+
 - `npm run seo:check` still fails on `ABOUT.isPlaceholder`. The milestone
   dates, the credentials list and the project figures on `/about/` are
-  invented. That gate exists to stop exactly this going live under a real
-  business's name.
+  invented. That gate exists to stop exactly this reaching a real domain.
+- Submit `https://deltaenergysolution.com/sitemap.xml` in Google Search
+  Console.
+- Add the Google Business Profile URL to `CONTACT.sameAs` in
+  `site.config.js`. `seo:check` warns on every run without it.

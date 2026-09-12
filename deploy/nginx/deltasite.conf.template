@@ -1,0 +1,83 @@
+# Delta Energy Solutions — marketing site.
+#
+# Static files only: no upstream, no proxy_pass. Nothing here touches the
+# app stack — frontend, backend, db and onlyoffice keep their own server
+# blocks and their own certificate.
+#
+# The certificate is deliberately its own (`deltasite`) rather than extra
+# names added to `delta`. Reissuing a shared certificate to add a name puts
+# the working hosts at risk of the same failure; two certificates cannot
+# fail together.
+#
+# Renewal needs no new cron. The certbot container already runs
+# `certbot renew --webroot -w /var/www/certbot` every twelve hours, and that
+# renews every certificate it holds — provided the acme-challenge location
+# below stays above the redirect.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name deltaenergysolution.com www.deltaenergysolution.com;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://deltaenergysolution.com$request_uri;
+    }
+}
+
+# www -> apex. site.config.js sets the canonical origin to the apex, so every
+# canonical tag, og:url and JSON-LD @id on the site names it. Serving the
+# same pages on both hosts without this redirect splits the domain in two as
+# far as a crawler is concerned.
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name www.deltaenergysolution.com;
+
+    ssl_certificate     /etc/letsencrypt/live/deltasite/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/deltasite/privkey.pem;
+
+    return 301 https://deltaenergysolution.com$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name deltaenergysolution.com;
+
+    ssl_certificate     /etc/letsencrypt/live/deltasite/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/deltasite/privkey.pem;
+
+    root /srv/delta-site;
+    index index.html;
+
+    # Routes are prerendered as directories — /about/index.html,
+    # /services/residential/index.html and so on. try_files has to reach
+    # $uri/index.html BEFORE the SPA fallback, or a direct hit on /about/
+    # serves the homepage shell and throws away the prerendered HTML that
+    # exists for crawlers in the first place.
+    location / {
+        try_files $uri $uri/ $uri/index.html /index.html;
+    }
+
+    # Filenames are content-hashed by Vite, so a year is safe.
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # Never cache the HTML. It carries the canonical tag and the JSON-LD,
+    # and a stale copy outlives the next deploy.
+    location ~* \.html$ {
+        expires -1;
+        add_header Cache-Control "no-cache";
+    }
+
+    gzip on;
+    gzip_types text/css application/javascript image/svg+xml application/json;
+}
