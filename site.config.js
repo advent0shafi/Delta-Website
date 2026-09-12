@@ -20,7 +20,7 @@
 /* ---------- identity ---------- */
 
 export const SITE = {
-  origin: 'https://www.deltaenergy.in',
+  origin: 'https://deltaenergysolution.com',
   name: 'Delta Energy Solutions',
   legalName: 'Delta Energy Solutions',
   /* <title> and og:title */
