@@ -23,8 +23,8 @@ the first would only add a hop.
 | IP | `200.97.163.238` (Hostinger, host `srv1814139`, Ubuntu) |
 | DNS | apex A record → that IP; `www` CNAME → apex. Nothing to change. |
 | Ports 80/443 | owned by the **`delta-nginx` container**. No host nginx, no `/etc/nginx`. |
-| Stack | `/root/Delta-MVP/backend/docker-compose.yml`: nginx, frontend (Next.js :3001), backend (:8000), postgres, onlyoffice, certbot |
-| nginx config | envsubst templates in `deploy/nginx/templates`, rendered into `/etc/nginx/conf.d` when the container starts |
+| Stack | `/root/Delta-MVP/backend/deploy/docker-compose.yml`, project `delta-onlyoffice`, always run with `--env-file .env`: nginx, frontend (Next.js :3001), backend (:8000), postgres, onlyoffice, certbot. (`backend/docker-compose.yml` one level up is an old dev file that nothing uses.) |
+| nginx config | one envsubst template, `default.conf.template`, rendered into `/etc/nginx/conf.d` when the container starts. It sorts before `deltasite.conf` and stays nginx's default server for unknown hostnames. |
 | Certificates | `delta` covers `app.` `api.` `office.`; `deltasite` covers the apex and `www` |
 | Renewal | the certbot container loops `certbot renew --webroot` every 12h, and renews both |
 
@@ -95,13 +95,54 @@ Or re-run the Deploy workflow on an older commit from the Actions tab.
 ## Undo everything
 
 ```bash
-cd /root/Delta-MVP/backend
-rm deploy/nginx/templates/deltasite.conf.template docker-compose.override.yml
-docker compose up -d nginx
+cd /root/Delta-MVP/backend/deploy
+rm nginx/templates/deltasite.conf.template docker-compose.override.yml
+docker compose --env-file .env up -d --no-deps nginx
 userdel -r deploy && rm -rf /srv/delta-site
 ```
 
 The certificate can stay; certbot will keep renewing it harmlessly.
+
+## Living beside the ERP's own deploys
+
+Confirmed against the ERP repository (by the session that maintains it):
+
+- **The two site files survive ERP deploys.** The ERP's `deploy.sh` runs
+  `git reset --hard origin/main` then `docker compose up -d --build`. It
+  never runs `git clean`, never deletes the directory, never re-clones.
+  Untracked files are untouched. The one way to lose them: someone commits
+  a file at either path in the ERP repo, and `reset --hard` overwrites.
+  Adding both paths to the ERP's `.gitignore` closes that.
+- **The override rides along with every future ERP deploy.** `deploy.sh`
+  runs compose with no `-f`, so the override is auto-merged from then on.
+  That keeps the site up across ERP deploys. It also means a broken
+  override would break ERP deploys, which is why the setup script validates
+  it with `docker compose config` before the restart.
+- **Certificate renewal has a gap, and it is the ERP's gap too.** The
+  certbot container renews both certificates every twelve hours, but
+  nothing reloads nginx afterwards except the last line of the ERP's
+  `deploy.sh`. nginx keeps serving the old certificate until the next ERP
+  deploy. Renewal happens thirty days before expiry, so any ERP deploy in
+  that window is enough, and the ERP deploys on every push. If that ever
+  goes quiet, a daily graceful reload costs nothing and fixes it for both
+  certificates:
+
+  ```
+  0 4 * * * cd /root/Delta-MVP/backend/deploy && docker compose --env-file .env exec -T nginx nginx -s reload
+  ```
+
+- **Never run the setup script during an ERP deploy.** Two things
+  recreating containers at once is the one real hazard. The script checks
+  for a running `deploy.sh` at the start and again just before the restart.
+- **The bare domain currently falls through to the ERP by accident**, and
+  nothing in the ERP relies on it: its canonical URL, allowed hosts and
+  CORS all name `app.` only. Taking the apex over breaks nothing.
+- **The ERP already has a public marketing site** at
+  `app.deltaenergysolution.com`, with a landing page, a solar savings
+  calculator and a sitemap, and it is indexed. Once this site is live the
+  two will compete in search for the same business. That is a decision for
+  the owner, not a hosting problem: either the app's landing page stops
+  being indexed, or it redirects its marketing content to the apex.
 
 ## What can take what down
 

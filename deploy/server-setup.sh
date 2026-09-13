@@ -28,10 +28,13 @@
 #      fail together.
 #   3. A docker-compose.override.yml beside the ERP's compose file, mounting
 #      /srv/delta-site read-only into nginx. The ERP's own file is never
-#      edited. The compose project, tool version and config files are read
-#      off the running container rather than assumed, because guessing a
-#      different project name would create a second nginx that fights the
-#      first for port 443.
+#      edited. The compose project, tool version, config files and .env are
+#      read off the running container rather than assumed, because guessing
+#      a different project name would create a second nginx that fights the
+#      first for port 443. (Production is backend/deploy/, project
+#      delta-onlyoffice, always run with --env-file .env. backend/ holds an
+#      older dev compose file that nothing uses. The labels get this right;
+#      a hardcoded path would not have.)
 #   4. The site's nginx block into the templates directory.
 #   5. `nginx -t` on the rendered config in a throwaway container on the
 #      compose network, so the ERP's upstream names resolve. A block naming
@@ -90,6 +93,15 @@ for f in "${CFGS[@]}"; do
   [ -f "$f" ] || die "compose file $f (from the container's labels) is missing"
   DC+=(-f "$f")
 done
+# The ERP's deploy.sh always passes --env-file .env. Match it, so ${DOMAIN}
+# and friends interpolate exactly as they do on every production deploy.
+[ -f "$ERP/.env" ] && DC+=(--env-file "$ERP/.env")
+
+# The ERP deploys itself from GitHub Actions by running deploy.sh over SSH,
+# which recreates containers and reloads nginx. Two things doing that at
+# once is the one real hazard here, so refuse to overlap with it.
+erp_deploying() { pgrep -f 'backend/deploy/deploy.sh' >/dev/null 2>&1; }
+erp_deploying && die "the ERP's own deploy.sh is running right now. Wait for it to finish, then rerun."
 
 TEMPLATES="$(mount_src /etc/nginx/templates)"
 CERTBOT_CONF="$(mount_src /etc/letsencrypt)"
@@ -178,8 +190,12 @@ fi
 
 # --- 6 ------------------------------------------------------------------
 say "6. recreate $SERVICE (the one restart: the ERP blips for a second here)"
+erp_deploying && die "the ERP's deploy.sh started while this script was running. Nothing has been restarted; rerun when it finishes."
 "${DC[@]}" up -d --no-deps "$SERVICE"
 sleep 3
+docker inspect "$NGINX_CONTAINER" --format '{{.State.Status}} restarts={{.RestartCount}}' \
+  | grep -q '^running' || die "$NGINX_CONTAINER is not running after the recreate. Roll back with:
+  rm -f $TEMPLATES/deltasite.conf.template $ERP/docker-compose.override.yml && cd $ERP && ${DC[*]} up -d --no-deps $SERVICE"
 
 # --- 7 ------------------------------------------------------------------
 say "7. verify"
