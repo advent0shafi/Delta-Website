@@ -1,10 +1,26 @@
 # Lead capture API — contract agreed, 2026-09-13
 
-Status: **the ERP side is building it** (approved in the Delta-MVP session,
-per that session; Delta's own ERP organisation is the pilot, this site the
-first consumer). **Nothing is wired on this site yet.** The form changes
-here wait for two things: the owner's go in this session, and the ERP
-session confirming the endpoint is deployed and issuing the site's key.
+Status: **the endpoint is live on production** (deployed 13 September 2026
+with the owner's approval in the Delta-MVP session; verified from outside:
+unknown key → 404, text/plain → 415, oversized body → 413, GET → 405, no
+CORS header for an unknown key; apex, app, api and office all still 200).
+**Delta has no key yet and nothing is wired on this site.** Two things
+remain, in order:
+
+1. The owner signs in to Delta's organisation in the ERP → Settings →
+   Website leads → Add website `https://deltaenergysolution.com`, adding
+   `https://www.deltaenergysolution.com` as a second address. That produces
+   the key and the exact intake URL.
+2. With the owner's go here, wire the form as described below.
+
+Limits per website: 10 submissions an hour, 30 overall per hour across
+addresses, nginx 30/min with a burst of 20, a default daily cap of 200
+(adjustable in Settings). Repeat submissions from the same mobile within
+24 hours merge into one lead. Test with real ten-digit mobiles.
+
+Correction from the ERP side: a 404 for an unknown or disabled key is also
+opaque to `fetch` (no CORS header without a matching website). The
+WhatsApp fallback covers it.
 
 ## The agreed contract
 
