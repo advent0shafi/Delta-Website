@@ -92,17 +92,27 @@ machine, not pushed). Two commits on top of its main, to be merged
 3. Run this repo's `server-setup.sh` (step 1 above) if not already done.
    The certificate must exist before the next merge.
 
-4. `e2e446e` — the mount line under `services.nginx.volumes`, this repo's
+4. `485e56d` — the mount line under `services.nginx.volumes`, this repo's
    `deltasite.conf.template` copied verbatim (the ERP session re-copies it
-   after any change here; compare with `cmp`), and comment-only updates to
-   the ERP's own template header. This deploy recreates nginx, and the new
-   check now runs first.
+   after any change here and confirms with `cmp`; the hash moves each time
+   it does), and comment-only updates to the ERP's own template header.
+   This deploy recreates nginx, and the new check now runs first.
 
 What the ERP session verified before handing over: its CI's compose check
 passes with the mount read-only; the image's envsubst leaves the template
 byte-identical; and a real nginx with both templates served the apex, the
 prerendered `/about/`, the `www` and `http` redirects, the ACME path, the
-right certificate per SNI, and left `app`, `api` and `office` unchanged.
+right certificate per SNI, one `Cache-Control` per response, dotfiles
+denied (including a dotted `.html`, and not ordinary names like
+`app.abc.min.js`), and left `app`, `api` and `office` unchanged.
+
+**Do not edit the template for cosmetic reasons.** Every change moves the
+ERP's branch, which copies it byte for byte. One consequence of the dotfile
+rule to remember rather than fix now: it denies everything under
+`/.well-known/` over https. If the site ever publishes `security.txt`,
+`assetlinks.json` or `apple-app-site-association`, add
+`location ^~ /.well-known/ { ... }` above the deny rule, and tell the ERP
+session to re-copy.
 
 ### Step 3 — push to this repository's `main`
 
