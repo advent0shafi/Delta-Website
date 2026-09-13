@@ -1,7 +1,62 @@
-# Lead capture API — parked, 2026-09-13
+# Lead capture API — contract agreed, 2026-09-13
 
-Status: **not being built yet.** Recorded here so the requirement and the
-reasoning survive until it is picked up.
+Status: **the ERP side is building it** (approved in the Delta-MVP session,
+per that session; Delta's own ERP organisation is the pilot, this site the
+first consumer). **Nothing is wired on this site yet.** The form changes
+here wait for two things: the owner's go in this session, and the ERP
+session confirming the endpoint is deployed and issuing the site's key.
+
+## The agreed contract
+
+- `POST https://api.deltaenergysolution.com/api/v2/intake/<key>/` — exact
+  path, trailing slash. `<key>` is a publishable per-website key
+  (`lk_` + 32 chars) created in the ERP under Settings → Website leads. It
+  is public by design; it will live in this site's bundle.
+- Body: `application/json` (our case, via `fetch`) or
+  `application/x-www-form-urlencoded` (plain forms). Multipart → 415. Max
+  16 KB.
+- Public fields, fixed: `name` (required, ≤120) · `mobile` (required;
+  10-digit Indian mobile; `+91`/`91`/`0` prefixes and spaces accepted) ·
+  `email` (optional) · `town` (optional, ≤120) · `bill_range` (optional,
+  one of the keys below; empty or missing = not given; unknown → 422) ·
+  `message` (optional, ≤2000) · `page_url` (optional) · `source`
+  (optional, ≤60, free text: `contact`, `calculator`, `home`) ·
+  `leave_blank` (honeypot; keep empty, hidden off-screen, `tabindex=-1`,
+  `autocomplete=off`; never name a honeypot "website" or "company"). Unknown
+  fields ignored.
+- `bill_range` keys ↔ our labels: `under_500` "Under ₹500" · `500_1000`
+  "₹500–₹1,000" · `1000_2000` "₹1,000–₹2,000" · `2000_5000`
+  "₹2,000–₹5,000" · `over_5000` "Above ₹5,000".
+- Responses: `201 {"ok": true}` (also for a honeypot hit, so bots learn
+  nothing) · `422 {"detail","errors"}` · `403` origin not on the key's
+  list · `429` throttled or daily cap, immediate, no tarpit · `404`
+  unknown or disabled key. Plain-form posts get a 303 to a per-key
+  thank-you URL.
+- CORS: `Access-Control-Allow-Origin` for the origins listed on the key
+  (apex and www both listed), on every Django response including errors.
+  Two cases stay opaque to `fetch` by design: a 403 for an unlisted
+  origin, and a 429 from nginx's `limit_req` burst guard, which answers
+  before Django.
+
+## What this site will do when wired
+
+- Map our form fields: `name`→`name`, `phone`→`mobile` (stripped to ten
+  digits), `town`→`town`, `bill` label→`bill_range` key,
+  `message`→`message`; add `page_url` from `location.href`, `source` per
+  CTA, `leave_blank` empty.
+- On `201`: the existing success state. On anything else, including an
+  opaque network error: open WhatsApp with the same fields prefilled, so
+  a rate limit or an outage never loses the lead.
+- Track `quote` (API success) and `whatsapp` (fallback or direct tap) as
+  analytics events.
+
+Prerequisite ERP security fixes (spoofable-IP throttle, shared sign-in
+bucket, sliding window, a 91-prefix validation bug) were reported as
+merging and deploying on 13 September 2026.
+
+---
+
+## The original requirement (kept for the record)
 
 ## The requirement, in the owner's words
 
