@@ -946,3 +946,41 @@ and the contact form still sends nothing.
 Pushed back on: the bypass publishes invented milestones and credentials
 under Delta's name. Stated twice; the owner reaffirmed. Documented in the
 workflow comment, the check's own output, and docs/deploy.md.
+
+---
+
+# SEO audit (2026-09-13)
+
+Site is live. Owner wants a full audit as an artifact report: per-page
+inventory, Open Graph, links, AI-era readiness, gaps, prioritised actions.
+
+- [x] Crawl every route on the live site: head tags, OG/Twitter, JSON-LD,
+      headings, images/alt, internal links, word count, robots, lang.
+- [x] Site-level files: robots.txt, sitemap.xml, llms.txt, manifest,
+      og.jpg dimensions, favicons, 404 behaviour, redirects, headers.
+- [x] PageSpeed Insights (mobile + desktop) for the key pages.
+- [x] Baseline from the repo's own tooling and prior study (subagent).
+- [x] AI-era: llms.txt quality, entity/sameAs, structured-data coverage,
+      question-shaped content, freshness, E-E-A-T signals, competing
+      `app.` site.
+- [x] Local SEO: NAP consistency, GBP link, geographic scope mismatch.
+- [x] Artifact report: inventory, gaps ranked by impact, action plan.
+
+Report: https://claude.ai/code/artifact/75891326-0e74-4a46-8112-93c9132c4385
+
+Method notes. PageSpeed's keyless API hit its daily quota mid-audit, so
+Lighthouse 12 was run locally against the live site with the same engine
+and throttling (four page/device pairs; the machine's earlyoom killed the
+first batch, a leaner Chrome flag set got through). Key correction from
+the raw data: the LCP element on every page is the hero/lead paragraph,
+held invisible by the GSAP entrance animation until the bundle runs, not
+the video. The video is 75% of homepage transfer but not the LCP.
+
+Headline findings, ranked in the report: soft 404s (every unknown URL is
+a 200 homepage); no analytics or Search Console; contact form discards
+leads; no GBP link / sameAs empty / postcode mismatch / no geo / no
+reviews; docsun indexed on app. with a competing calculator; invented
+About content live; stock photos captioned as real installs and a wind-
+turbine hero; geography inconsistent with no Kozhikode page; one OG image
+for 13 pages; only 13 pages (no pricing page, no guides, no Malayalam);
+schema lacks breadcrumbs, founders, offers, dates; flat internal linking.
