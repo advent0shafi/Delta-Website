@@ -373,9 +373,18 @@ function checkLaunch() {
      company's name is a worse failure than publishing nothing, so it holds the
      gate shut exactly like the placeholder phone number does. */
   if (ABOUT.isPlaceholder) {
-    fail(
+    /* SEO_ALLOW_PLACEHOLDER turns this one failure into a warning. It exists
+       because the owner decided, on 2026-09-13, to publish with the invented
+       sections still in place rather than wait for real data or cut them.
+       The deploy workflow sets it. Nothing else here is relaxed by it: the
+       canonical, structured-data, heading and asset checks fail the build
+       exactly as before, and this branch still prints what is still owed. */
+    const report = process.env.SEO_ALLOW_PLACEHOLDER ? warn : fail
+    report(
       'LAUNCH',
-      'the About page is still mock content',
+      process.env.SEO_ALLOW_PLACEHOLDER
+        ? 'the About page is still mock content — PUBLISHING ANYWAY (SEO_ALLOW_PLACEHOLDER is set)'
+        : 'the About page is still mock content',
       [
         'content/about.js is placeholder: the founding story, milestone',
         '       dates, team and credentials are all invented.',

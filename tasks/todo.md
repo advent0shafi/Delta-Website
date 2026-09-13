@@ -920,3 +920,29 @@ supervise a Node process that does not exist.
 
 Open: the gate blocks the pipeline until the About placeholder is resolved,
 and the contact form still sends nothing.
+
+---
+
+# Hosting, final shape (after the ERP session's answers)
+
+- [x] Production ERP is `backend/deploy/`, project `delta-onlyoffice`,
+      `--env-file .env`. The old path in the docs was wrong; the script had
+      always read the real one off the container's labels.
+- [x] **No override file, no recreate by us.** A container cannot gain a
+      mount, and every directory nginx already mounts is under `/root`, so
+      the zero-recreate route would have given the CI key a path to the
+      ERP's `.env`. Rejected. The mount line and the template go into the
+      Delta-MVP repo; its own deploy recreates nginx as it routinely does.
+- [x] `server-setup.sh` now touches nothing the ERP runs on: deploy user
+      (proven unable to traverse `/root`), certificate, and an `nginx -t`
+      in a throwaway container cloned from delta-nginx's image, env, mounts
+      and network with both templates. Prints the two-line ERP change.
+- [x] Gate bypass: `SEO_ALLOW_PLACEHOLDER` downgrades the About failure to
+      a warning, set in the workflow by the owner's decision. Verified: with
+      it 0 failures, without it the gate still closes.
+- [x] Delta-MVP session asked to prepare (not merge) the PR, add an
+      `nginx -t` to its deploy.sh, and study a per-customer lead-capture API.
+
+Pushed back on: the bypass publishes invented milestones and credentials
+under Delta's name. Stated twice; the owner reaffirmed. Documented in the
+workflow comment, the check's own output, and docs/deploy.md.

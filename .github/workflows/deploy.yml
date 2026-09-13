@@ -50,10 +50,16 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      # The launch gate. This fails while content/about.js is placeholder,
-      # and that is deliberate: it is the only thing standing between
-      # invented milestone dates and a real business's domain.
+      # The launch gate. seo:check fails while content/about.js is
+      # placeholder. SEO_ALLOW_PLACEHOLDER downgrades that one failure to a
+      # warning — the owner's decision on 2026-09-13, made knowing it
+      # publishes invented milestone dates and credentials under the
+      # business's name. Every other check (canonicals, structured data,
+      # headings, og tags, assets) still fails the build. Delete the
+      # variable to restore the gate.
       - run: npm run seo:check
+        env:
+          SEO_ALLOW_PLACEHOLDER: '1'
 
       - name: Install deploy key
         env:
