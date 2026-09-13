@@ -52,33 +52,49 @@ leads and change `LEADS.intakeUrl` in `site.config.js`.
   origin, and a 429 from nginx's `limit_req` burst guard, which answers
   before Django.
 
-## What this site will do when wired
+## What this site does
 
-- Map our form fields: `name`→`name`, `phone`→`mobile` (stripped to ten
-  digits), `town`→`town`, `bill` label→`bill_range` key,
-  `message`→`message`; add `page_url` from `location.href`, `source` per
-  CTA, `leave_blank` empty.
-- On `201`: the existing success state. On anything else, including an
-  opaque network error: open WhatsApp with the same fields prefilled, so
-  a rate limit or an outage never loses the lead.
-- Track `quote` (API success) and `whatsapp` (fallback or direct tap) as
-  analytics events.
+`src/lib/leads.js`, used by `src/components/Contact.jsx`:
+
+- Maps the form fields: `name`→`name`, `phone`→`mobile`, `town`→`town`,
+  the `bill` label→`bill_range` key via `LEADS.bills`, `message`→`message`.
+  Adds `page_url` from `location.href`, `source` derived from the path
+  (`home`, `contact`, `calculator`, else the first segment) so none of the
+  nine pages carrying the form has to label itself, and an empty
+  `leave_blank`.
+- Normalises the mobile to ten digits, stripping `+91`/`91`/`0` **only
+  when the length proves it is a prefix**. A real Kerala mobile can itself
+  begin 91, so 9198765432 is a whole number and must not be cut.
+- Aborts after `LEADS.timeoutMs` (8 s) rather than leaving someone
+  watching a spinner.
+- On 201: the thank-you card. On anything else, including the opaque
+  failures: a card that says so plainly and offers a WhatsApp link with
+  the same details already composed. The link is **tapped, not opened** —
+  by the time the request has failed the original click is spent and a
+  popup blocker would swallow `window.open`.
+- Honeypot `leave_blank` is positioned off-screen, not `display:none`,
+  with `tabindex="-1"` and `autocomplete="off"`.
+
+Still to do: fire `quote` and `whatsapp` analytics events once analytics
+exists (see the audit, 4.2).
 
 Prerequisite ERP security fixes (spoofable-IP throttle, shared sign-in
-bucket, sliding window, a 91-prefix validation bug) were reported as
-merging and deploying on 13 September 2026.
+bucket, sliding window, a 91-prefix validation bug) were deployed ahead of
+the endpoint on 13 September 2026.
+
+---
 
 ---
 
 ## The original requirement (kept for the record)
 
-## The requirement, in the owner's words
+### In the owner's words
 
 > Lead capture from the website using REST API, for new client onboarding,
 > not for admin, but for each ERP customer who can just add their website
 > for leads.
 
-## What that means
+### What that means
 
 A multi-tenant public lead-intake API inside the ERP (Delta-MVP). Each ERP
 customer — a tenant, not an administrator — gets a way to connect their own
@@ -90,7 +106,7 @@ Delta's marketing site at `deltaenergysolution.com` would be the first
 consumer. Its form collects: name, phone, town, monthly KSEB bill range,
 optional message. Today it collects them and discards them.
 
-## What was asked of the Delta-MVP session
+### What was asked of the Delta-MVP session
 
 A feasibility study from the ERP repository only, no implementation:
 
@@ -149,20 +165,10 @@ daily cap; a Lead record with name, phone, town, bill range, message,
 status, and conversion into onboarding without burning a customer code;
 `limit_req` on the intake path in nginx.
 
-## Interim state of the marketing site's form
+### How it ended
 
-`src/components/Contact.jsx` validates two fields, sets a flag, and shows
-"We've got your details and will call you back within 24 hours." Nothing is
-sent anywhere. Every quote request submitted on the live site is lost until
-one of these happens:
-
-- **WhatsApp handoff** (about an hour): on submit, open `wa.me` with the
-  fields prefilled. No backend, no CORS, works on any host, lands in the
-  channel Delta already answers on. Can coexist with the API later.
-- **The API above** lands, and the form posts to it.
-- **A third-party form service** (Formspree, Web3Forms) as a stopgap.
-
-The owner chose to leave this as it stands for now.
+Both. The form posts to the API, and the WhatsApp handoff is its fallback,
+so an outage or a rate limit costs nothing.
 
 ## Related
 
