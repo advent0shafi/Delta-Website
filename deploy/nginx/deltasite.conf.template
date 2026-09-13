@@ -68,16 +68,25 @@ server {
         try_files $uri $uri/ $uri/index.html /index.html;
     }
 
-    # Filenames are content-hashed by Vite, so a year is safe.
+    # A release is whatever rsync delivered; nothing dotted belongs on the
+    # web. Declared before the other regex locations so a dotted .html file
+    # cannot be matched by the HTML rule first. The ACME location lives on
+    # :80, so this cannot shadow it.
+    location ~ /\. {
+        deny all;
+    }
+
+    # Filenames are content-hashed by Vite, so a year is safe. One header,
+    # set once: `expires` would emit a second Cache-Control beside this.
     location /assets/ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
+        add_header Cache-Control "public, max-age=31536000, immutable";
     }
 
     # Never cache the HTML. It carries the canonical tag and the JSON-LD,
-    # and a stale copy outlives the next deploy.
+    # and a stale copy outlives the next deploy. Reached by internal redirect
+    # for prerendered routes too: try_files matches the directory, the index
+    # module redirects to its index.html, and this location picks it up.
     location ~* \.html$ {
-        expires -1;
         add_header Cache-Control "no-cache";
     }
 

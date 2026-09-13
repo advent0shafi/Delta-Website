@@ -68,21 +68,41 @@ nothing is handed over.
 
 ### Step 2 — in the Delta-MVP repository
 
-Two changes, on a branch, merged only after step 1 has completed (the
-template names a certificate file that step 1 creates):
+The Delta-MVP session prepared branch `marketing-site-nginx` (local to that
+machine, not pushed). Two commits on top of its main, to be merged
+**separately, in this order**, each getting its own deploy:
 
-- `backend/deploy/docker-compose.yml`, under `services.nginx.volumes`:
-  ```yaml
-        - /srv/delta-site:/srv/delta-site:ro
-  ```
-- `backend/deploy/nginx/templates/deltasite.conf.template`, copied verbatim
-  from this repo's `deploy/nginx/deltasite.conf.template`.
+1. `cae0863` — `deploy.sh` runs `nginx -t` in a throwaway container before
+   `up -d --build`, and stops the deploy if it fails. Skipped with a warning
+   when frontend, backend or onlyoffice is not running, since `nginx -t`
+   resolves upstream names and a cold start would otherwise be blocked.
+   Changes no container config.
 
-Merging deploys it through the ERP's own pipeline. nginx is recreated inside
-that deploy, exactly as on any deploy that changes it. Recommended alongside,
-for the ERP's own protection: an `nginx -t` in a throwaway container before
-`up -d --build` in `deploy.sh`, since today no step there would catch a bad
-template before it stops nginx.
+   It must land first and on its own: `deploy.sh` does `git reset --hard`
+   on itself mid-run, and bash keeps executing the copy it already opened,
+   so the deploy that introduces the check runs without it.
+
+2. Once, on the server, from `/root/Delta-MVP/backend/deploy`:
+   ```bash
+   docker compose --env-file .env run --rm --no-deps nginx nginx -t
+   ```
+   Proves the check's exact command on real Docker. The ERP session has no
+   Docker where it runs and could not do this itself.
+
+3. Run this repo's `server-setup.sh` (step 1 above) if not already done.
+   The certificate must exist before the next merge.
+
+4. `e2e446e` — the mount line under `services.nginx.volumes`, this repo's
+   `deltasite.conf.template` copied verbatim (the ERP session re-copies it
+   after any change here; compare with `cmp`), and comment-only updates to
+   the ERP's own template header. This deploy recreates nginx, and the new
+   check now runs first.
+
+What the ERP session verified before handing over: its CI's compose check
+passes with the mount read-only; the image's envsubst leaves the template
+byte-identical; and a real nginx with both templates served the apex, the
+prerendered `/about/`, the `www` and `http` redirects, the ACME path, the
+right certificate per SNI, and left `app`, `api` and `office` unchanged.
 
 ### Step 3 — push to this repository's `main`
 
