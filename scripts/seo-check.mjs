@@ -346,6 +346,82 @@ async function checkAssets() {
       ok('ASSETS', 'robots.txt allows crawling and points at the sitemap')
     }
   }
+
+  await checkNotFoundPage(dir)
+}
+
+/* The 404 page. scripts/prerender.mjs writes it straight to dist/404.html,
+   separately from the ROUTES loop — it has no URL of its own to be
+   indexed under, so these assertions exist to catch it silently drifting
+   back into looking like a real, indexable page. */
+async function checkNotFoundPage(dir) {
+  const file = resolve(root, dir, '404.html')
+
+  if (!(await exists(file))) {
+    fail('ASSETS', `${dir}/404.html is missing`, 'Run `npm run build` — scripts/prerender.mjs writes it.')
+    return
+  }
+
+  const { size } = await stat(file)
+  if (size === 0) {
+    fail('ASSETS', `${dir}/404.html is empty`)
+    return
+  }
+  ok('ASSETS', `${dir}/404.html (${(size / 1024).toFixed(1)} kB)`)
+
+  const html = await readFile(file, 'utf8')
+
+  const h1s = (html.match(/<h1[\s>]/g) || []).length
+  if (h1s === 1) ok('ASSETS', '404.html has exactly one <h1>')
+  else fail('ASSETS', `404.html has ${h1s} <h1> elements, expected exactly 1`)
+
+  if (/noindex/.test(html)) {
+    ok('ASSETS', '404.html is marked noindex')
+  } else {
+    fail('ASSETS', '404.html has no noindex — it would compete with real pages in search')
+  }
+
+  if (html.includes('application/ld+json')) {
+    fail('ASSETS', '404.html carries JSON-LD — an error page must not claim to be a WebPage')
+  } else {
+    ok('ASSETS', '404.html carries no JSON-LD')
+  }
+
+  const sitemapFile = resolve(root, dir, 'sitemap.xml')
+  if (await exists(sitemapFile)) {
+    const sitemap = await readFile(sitemapFile, 'utf8')
+    if (sitemap.includes('404')) {
+      fail('ASSETS', 'sitemap.xml references the 404 page')
+    } else {
+      ok('ASSETS', 'sitemap.xml does not list the 404 page')
+    }
+  }
+
+  const llmsFile = resolve(root, dir, 'llms.txt')
+  if (await exists(llmsFile)) {
+    const llms = await readFile(llmsFile, 'utf8')
+    if (llms.includes('404')) {
+      fail('ASSETS', 'llms.txt references the 404 page')
+    } else {
+      ok('ASSETS', 'llms.txt does not list the 404 page')
+    }
+  }
+
+  const nginxFile = resolve(root, 'deploy/nginx/deltasite.conf.template')
+  if (await exists(nginxFile)) {
+    const conf = await readFile(nginxFile, 'utf8')
+    if (conf.includes('=404') && conf.includes('error_page 404')) {
+      ok('ASSETS', 'nginx template serves a real 404 (try_files =404, error_page 404)')
+    } else {
+      fail(
+        'ASSETS',
+        'nginx template does not serve a real 404',
+        'deploy/nginx/deltasite.conf.template needs `try_files ... =404;` and `error_page 404 /404.html;`'
+      )
+    }
+  } else {
+    fail('ASSETS', 'deploy/nginx/deltasite.conf.template is missing')
+  }
 }
 
 /* Minimal JPEG SOF walker — enough to read width/height without a dependency. */

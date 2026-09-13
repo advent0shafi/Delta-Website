@@ -10,35 +10,67 @@ export default function Hero() {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce && videoRef.current) videoRef.current.pause()
+
+    /* The video is 3.3 MB — about three quarters of the page's weight —
+       and preload="none" on the element (below) keeps the browser from
+       fetching a single byte of it up front. We load it in deliberately
+       once the browser is idle after first paint, so it never competes
+       with the fonts/CSS/JS that the above-the-fold content needs. Same
+       reduced-motion behaviour as before: it loads, but stays paused. */
+    const loadVideo = () => {
+      const v = videoRef.current
+      if (!v || v.src) return
+      v.src = '/hero.mp4'
+      v.load()
+      if (reduce) v.pause()
+    }
+    let idleId
+    let timeoutId
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(loadVideo, { timeout: 2000 })
+    } else {
+      timeoutId = window.setTimeout(loadVideo, 1000)
+    }
 
     const ctx = gsap.context(() => {
       if (reduce) {
-        gsap.set('.hero__rise', { opacity: 1, y: 0 })
-        gsap.set('.hero__line span', { yPercent: 0 })
+        gsap.set('.hero__rise', { y: 0 })
+        gsap.set('.hero__line span', { y: 0 })
         return
       }
+      /* Transform only, never opacity: the LCP text must stay painted at
+         rest the whole time. It used to `.from()` opacity:0 (on
+         .hero__rise) and yPercent:115 — a full mask below the line box, so
+         the headline had zero painted area — until the animation finished;
+         together those made the hero's own text an invisible LCP candidate
+         until JS had loaded, hydrated and animated it in. A small upward
+         slide reads the same without ever hiding the content. */
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      tl.from('.hero__line span', { yPercent: 115, duration: 1, stagger: 0.1 }, 0.1)
-        .from('.hero__rise', { opacity: 0, y: 22, duration: 0.8, stagger: 0.1 }, '-=0.5')
+      tl.from('.hero__line span', { y: 24, duration: 1, stagger: 0.1 }, 0.1)
+        .from('.hero__rise', { y: 22, duration: 0.8, stagger: 0.1 }, '-=0.5')
     }, root)
-    return () => ctx.revert()
+    return () => {
+      ctx.revert()
+      if (idleId !== undefined && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId)
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId)
+    }
   }, [])
 
   return (
     <section id="top" className="hero" ref={root} aria-labelledby="hero-title">
-      {/* poster + preload="metadata" so the 3.3 MB video no longer blocks LCP:
-          the browser paints the poster frame immediately and streams the rest. */}
+      {/* poster + preload="none" so the 3.3 MB video costs nothing up front:
+          the browser paints the poster frame immediately, and the `src` is
+          only assigned in the effect above, once the browser is idle after
+          first paint — see loadVideo(). */}
       <video
         ref={videoRef}
         className="hero__video"
-        src="/hero.mp4"
         poster="/hero-poster.jpg"
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         aria-hidden="true"
         tabIndex={-1}
       />

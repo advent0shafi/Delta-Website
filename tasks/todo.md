@@ -984,3 +984,165 @@ About content live; stock photos captioned as real installs and a wind-
 turbine hero; geography inconsistent with no Kozhikode page; one OG image
 for 13 pages; only 13 pages (no pricing page, no guides, no Malayalam);
 schema lacks breadcrumbs, founders, offers, dates; flat internal linking.
+
+
+---
+
+# Plan: audit Pass 1 — APPROVED 13 Sept 2026: batches A + B only
+
+Source: `docs/seo-audit-2026-09-13.md` §10 Pass 1. Explored first; three
+findings below change what the audit said. Nothing implemented yet.
+
+## What exploration changed
+
+1. **The hero text is not CSS-hidden.** `.hero__rise` has no `opacity` rule
+   in any stylesheet — it is visible in the prerendered HTML. GSAP's
+   `.from()` hides it at runtime, after hydration, which still pushes LCP
+   late because an `opacity:0` element stops being an LCP candidate and the
+   later paint replaces it. On `/about/` and `/subsidy/` the mechanism IS
+   plain CSS: `.reveal { opacity: 0 }` (`src/index.css:356`). Two different
+   fixes, not one.
+2. **Fonts are third-party and render-blocking.** No self-hosted fonts, no
+   `@font-face` anywhere. `index.html:58-63` loads a synchronous
+   `<link rel="stylesheet">` from `api.fontshare.com`, which then fetches
+   woff2 from `cdn.fontshare.com`. That is the 2,126 ms render-block on
+   mobile: two extra hosts to resolve before a single word can paint. The
+   audit's "preload the two font files" is not possible as written — their
+   URLs live inside Fontshare's CSS. Self-hosting replaces it.
+3. **A 404 route cannot go in `site.routes.js`.** Presence in `ROUTES` is
+   the only trigger for both the sitemap and `llms.txt`, with no opt-out
+   field (`gen-seo.mjs:278`), and `src/routes.jsx:49-53` throws if a page
+   exists without a `ROUTES` entry. So the 404 has to be prerendered by a
+   separate step and kept out of `ROUTES` entirely.
+
+Also confirmed: the Google listing resolves to postcode **676505**, the
+site says 676519. The mismatch in the audit is real, from the live link.
+
+## A — The 404 (the named ask)
+
+- [x] `src/pages/NotFoundPage.jsx` — one `<h1>`, a line of copy, links to
+      the five most useful pages, the phone and WhatsApp. Nav and Footer
+      come from `App.jsx` already.
+- [x] `src/routes.jsx` — catch-all `<Route path="*">` renders `NotFound`
+      instead of `Home`. Imported directly, never added to `PAGES`, so the
+      bidirectional validation at lines 40-53 stays satisfied.
+- [x] `scripts/prerender.mjs` — after the `ROUTES` loop, render one extra
+      document at a non-matching location and write `dist/404.html`. Its
+      head gets its own title and description, `<meta name="robots"
+      content="noindex, follow">`, and **no canonical**. Strip the JSON-LD
+      block entirely: an error page should not claim to be a WebPage in the
+      graph. Assert exactly one `<h1>` as the existing check does.
+- [x] `deploy/nginx/deltasite.conf.template` — `try_files $uri $uri/
+      $uri/index.html =404;` and `error_page 404 /404.html;`.
+- [x] `scripts/seo-check.mjs` — assert `dist/404.html` exists, has one
+      `<h1>`, carries `noindex`, has no JSON-LD, and is absent from
+      `sitemap.xml` and `llms.txt`.
+
+**Two-repo dependency.** The nginx line lives in the ERP repo, copied byte
+for byte. Bundle it with item E1 so there is one re-copy and one ERP
+deploy, not two.
+
+## B — The speed fix (largest measured win: mobile 51)
+
+- [x] Self-host Switzer. Download the four woff2 weights to
+      `public/fonts/`, add `@font-face` with `font-display: swap` in
+      `src/index.css`, `<link rel="preload" as="font" type="font/woff2"
+      crossorigin>` the two weights used above the fold, delete the
+      Fontshare `<link>` and both `preconnect`s. **Check the ITF Free Font
+      Licence permits self-hosting before doing this.**
+- [x] Hero: leave the animation, but keep the LCP element out of it. The
+      subtitle `p.hero__sub` is the measured LCP element on mobile; drop
+      `hero__rise` from it, or start the timeline from a visible state.
+- [x] `.reveal`: the first lead paragraph on `/about/`, `/subsidy/` and the
+      service pages is above the fold and CSS-hidden until JS. Remove
+      `.reveal` from `Prose.jsx`'s lead paragraph (`Prose.jsx:42`).
+      Everything below the fold keeps the effect.
+- [x] Video: `preload="none"`, start after first paint.
+- [x] Re-measure with Lighthouse and record before/after in the audit doc.
+
+### A + B: done 13 Sept 2026
+
+Verified before commit, in the main session, not taken on report:
+- `dist/404.html`: no canonical, no `og:url`, no JSON-LD, `noindex, follow`,
+  one `<h1>`, absent from sitemap.xml and llms.txt. Other pages keep theirs.
+- nginx: `try_files … =404`, `error_page 404 /404.html`, and the three
+  security headers present three times each — server block plus both
+  `add_header` locations, because a location-level `add_header` discards
+  every inherited one. HSTS deliberately without `includeSubDomains`, so
+  the ERP's hostnames are untouched.
+- Baseline captured before the change: `/about` 301s to `/about/` via
+  nginx's directory handling, not the fallback being removed, so slash-less
+  URLs survive. `/nope` and `/nope/` both returned 200 — the soft 404.
+- Fonts: four Switzer weights, 75 kB, self-hosted; zero `fontshare`
+  references left in source or build; two preloads (400 body, 500 headline).
+- **Screenshots with JavaScript disabled**: `/` and `/about/` both paint
+  their `<h1>` and lead paragraph. That is the whole point of batch B and
+  the one thing worth not trusting a report about.
+- `npm run seo:check`: 37 passed, 1 warning, 1 failure — the failure is the
+  pre-existing About placeholder gate, unchanged.
+
+Added beyond the brief: the deploy workflow now caches `public/fonts` keyed
+on the fetch script's hash, so Fontshare is not on the critical path of
+every deploy. A build that cannot reach it fails safely (the previous
+release keeps serving), but it should not be able to happen routinely.
+
+Still open from the audit: C (structured data), D (IndexNow, analytics,
+Search Console), E2 (docsun noindex), F (contextual links). E1 (security
+headers) shipped inside A's nginx change.
+## C — Structured data
+
+- [ ] Move `team` out of `ABOUT` into its own real export, exactly as
+      `PURPOSE` was. The founders are confirmed fact; `ABOUT.isPlaceholder`
+      currently gates them out of the graph along with the invented
+      milestones.
+- [ ] `gen-seo.mjs`: `Person` nodes for both founders, referenced from
+      Organization `founder`; `hasCredential` for the B-Class licence.
+- [ ] `GeoCoordinates` on LocalBusiness. **Needs the coordinates** — no
+      lat/lng exists in `site.config.js` and the short map link does not
+      expose them.
+- [ ] `ContactPoint` with `availableLanguage: ["en","ml"]`.
+- [ ] `BreadcrumbList` per route, added in `prerender.mjs`'s
+      `applyJsonLd()` — the only place per-route graph mutation happens.
+- [ ] `offers` with real price on each `Service`, from `SYSTEM_PRICES`.
+- [ ] `updated` field per route in `site.routes.js` → `dateModified` on
+      WebPage and per-route `<lastmod>`, replacing today's build date on
+      every URL.
+- [ ] `AREA.towns` and Kozhikode into `areaServed`.
+- [ ] `seo-check.mjs` assertions for each of the above.
+
+## D — Measurement and indexing
+
+- [ ] IndexNow: key file in `public/`, ping step at the end of
+      `.github/workflows/deploy.yml`. Bing-backed engines re-crawl in
+      minutes.
+- [ ] Analytics with `call`, `whatsapp` and `quote` events. **Provider is
+      the owner's decision.**
+- [ ] Search Console and Bing Webmaster. **Owner action** — I prepare the
+      DNS TXT record and the sitemap URL.
+
+## E — ERP repo (needs the Delta-MVP session)
+
+- [ ] E1. Security headers in the nginx template, bundled with A's
+      `try_files` change into one re-copy.
+- [ ] E2. `noindex` on the docsun marketing pages and a redirect from its
+      calculator to the apex one.
+
+## F — Contextual links
+
+- [ ] `Prose.jsx` renders body paragraphs as raw strings
+      (`Prose.jsx:57-61`), so no link can sit inside one today. Teach it a
+      minimal `[text](/path/)` syntax, then add two or three links per page
+      with descriptive anchors.
+
+## Owner's decisions, 13 Sept 2026
+
+1. **Scope: A + B.** C (structured data), D (indexing/analytics) and F
+   (contextual links) stay in the audit's Pass 1 for later. E1 (security
+   headers) rides along with A's nginx change since it is the same file.
+2. **Analytics: skipped for now.** Consequence to keep visible: nothing
+   done from here can be measured, including whether the speed fix moves
+   real-world traffic. The audit keeps it as an open critical item.
+3. **Postcode: 676505.** The Google listing is right; the site changes.
+   One line in `site.config.js`, and it flows into the structured data,
+   the contact block and llms.txt on the next build.
+4. Coordinates for `geo` not needed yet — batch C is deferred.

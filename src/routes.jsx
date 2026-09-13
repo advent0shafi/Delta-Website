@@ -12,6 +12,8 @@ import CalculatorPage from './pages/CalculatorPage'
 import NetMeteringPage from './pages/NetMeteringPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ContactPage from './pages/ContactPage'
+/* Not in PAGES — see the comment on the catch-all route below. */
+import NotFoundPage from './pages/NotFoundPage'
 
 /* `site.routes.js` holds the metadata the Node build scripts need — they
    cannot import JSX. This file is the browser half: it attaches a component
@@ -69,8 +71,12 @@ export default function AppRoutes() {
           </React.Fragment>
         )
       })}
-      {/* Anything else falls back to the homepage rather than a blank screen. */}
-      <Route path="*" element={<Home />} />
+      {/* Anything else renders the 404 page rather than the homepage or a
+          blank screen. NotFoundPage is imported directly above rather than
+          added to PAGES: PAGES is validated 1:1 against ROUTES (see the
+          throws above), and this page has no entry in site.routes.js on
+          purpose — it has no URL of its own to be indexed under. */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }

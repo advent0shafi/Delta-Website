@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "node scripts/fetch-fonts.mjs && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "seo:gen": "node scripts/gen-seo.mjs",
     "seo:check": "node scripts/seo-check.mjs",
-    "og": "node scripts/og-images.mjs"
+    "og": "node scripts/og-images.mjs",
+    "fonts": "node scripts/fetch-fonts.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.3.0",

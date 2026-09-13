@@ -241,6 +241,50 @@ async function main() {
       const h1s = (markup.match(/<h1[\s>]/g) || []).length
       written.push({ route, chars: markup.length, headings, h1s })
     }
+
+    /* The 404 document. It is deliberately not in ROUTES (see the comment
+       on the catch-all in src/routes.jsx) — it has no URL of its own to be
+       indexed under — so it is rendered once here rather than looped from
+       the route table, and written straight to dist/404.html for a static
+       host's error_page directive to serve. */
+    const notFoundRoute = {
+      path: '/404',
+      title: 'Page not found | Delta Energy Solutions',
+      description:
+        'The page you were looking for has moved or no longer exists. Find rooftop solar, the PM Surya Ghar subsidy, the savings calculator, or how to reach us.',
+    }
+    const notFoundMarkup = renderToString(
+      React.createElement(
+        StaticRouter,
+        { location: '/404' },
+        React.createElement(App)
+      )
+    )
+
+    let notFoundHtml = shell.replace(ROOT_RE, `<div id="root">${notFoundMarkup}</div>`)
+    notFoundHtml = applyHead(notFoundHtml, notFoundRoute)
+
+    /* An error page is not a real document: it must not claim a canonical
+       URL or an og:url, must not appear in the JSON-LD graph as a WebPage,
+       and must tell crawlers not to index it (but still follow its links —
+       they lead back to real pages). */
+    notFoundHtml = notFoundHtml
+      .replace(/[ \t]*<link rel="canonical"[^>]*>\r?\n?/, '')
+      .replace(/[ \t]*<meta property="og:url"[^>]*>\r?\n?/, '')
+      .replace(/(<meta name="robots" content=")[^"]*(")/, '$1noindex, follow$2')
+      .replace(/[ \t]*<script type="application\/ld\+json">[\s\S]*?<\/script>\r?\n?/, '')
+
+    const notFoundFile = resolve(root, 'dist', '404.html')
+    await writeFile(notFoundFile, notFoundHtml, 'utf8')
+
+    const notFoundHeadings = (notFoundMarkup.match(/<h[1-6][\s>]/g) || []).length
+    const notFoundH1s = (notFoundMarkup.match(/<h1[\s>]/g) || []).length
+    written.push({
+      route: notFoundRoute,
+      chars: notFoundMarkup.length,
+      headings: notFoundHeadings,
+      h1s: notFoundH1s,
+    })
   } finally {
     console.error = realError
   }
@@ -248,9 +292,12 @@ async function main() {
   await rm(TMP, { recursive: true, force: true })
 
   for (const { route, chars, headings, h1s } of written) {
+    /* dist/404.html, not the dist/404/index.html routeToFile() would give a
+       real route — it is not one. */
+    const file = route.path === '/404' ? '404.html' : routeToFile(route.path)
     console.log(
       `✓ prerender: ${String(chars).padStart(7)} chars, ${String(headings).padStart(2)} headings` +
-        `, ${h1s} h1 → dist/${routeToFile(route.path)}`
+        `, ${h1s} h1 → dist/${file}`
     )
   }
 

@@ -56,13 +56,13 @@ export const AREA = {
    launch gate in `npm run seo:check` and lets the telephone and email
    into the JSON-LD, where a fake one would have been worse than none.
 
-   NOTE — postcode discrepancy. The client's billing address gives
-   676519. Their own Google Business listing resolves to
-   "Valiya Varambu Rd, Down Hill, Malappuram, Kerala 676505". The
-   client's stated value is used here because it is their billing
-   address, but the two should be reconciled: a website and a Google
-   Business Profile disagreeing on the postcode weakens the NAP
-   consistency local search leans on.
+   Postcode: 676505, resolved 13 Sept 2026. The billing address said
+   676519 and the Google Business listing said 676505; following the
+   short map link confirms Google's value. The owner chose to match the
+   listing, which is the one search engines read: a site and a Business
+   Profile disagreeing on the postcode weakens the local-search signal
+   that depends on the two agreeing. If invoices need the other value,
+   that is a billing matter, not a web one.
    ------------------------------------------------------------- */
 
 export const CONTACT = {
@@ -74,7 +74,7 @@ export const CONTACT = {
   whatsappHref: 'https://wa.me/917510500080',
   email: 'deltampm@gmail.com',
   streetAddress: 'Valiyavaramb Bypass, Down Hill',
-  postalCode: '676519',
+  postalCode: '676505',
   /* GST identification number — 15 characters, and the leading 32 is
      Kerala's state code. Emitted as schema.org `taxID` and shown in the
      footer, which is normal practice for an Indian business and a real

@@ -17,6 +17,13 @@ dist
 dist-ssr
 *.local
 
+# Self-hosted Switzer font files, fetched by scripts/fetch-fonts.mjs. This
+# repo is public; the ITF Free Font Licence v2.0 (Section 02) permits
+# self-hosting the files on Delta's own server but forbids redistributing
+# them — and a public git repo is redistribution. `npm run build` (and
+# `npm run fonts`) fetch them fresh into public/fonts/ instead.
+public/fonts/
+
 # Editor / IDE
 .vscode/*
 !.vscode/extensions.json

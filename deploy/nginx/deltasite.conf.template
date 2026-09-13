@@ -1,5 +1,8 @@
 # Delta Energy Solutions — marketing site.
 #
+# This file is copied byte-for-byte into the Delta-MVP repo. After any
+# change here, re-copy it there too, or the two deploys drift apart.
+#
 # Static files only: no upstream, no proxy_pass. Nothing here touches the
 # app stack — frontend, backend, db and onlyoffice keep their own server
 # blocks and their own certificate.
@@ -59,13 +62,35 @@ server {
     root /srv/delta-site/current;
     index index.html;
 
+    # scripts/prerender.mjs writes dist/404.html separately from the routed
+    # pages — noindex'd, no canonical, no JSON-LD WebPage node — and rsync
+    # delivers it to the release root, so it is always there to serve.
+    error_page 404 /404.html;
+
+    # Security headers, server level so every response carries them.
+    #
+    # No includeSubDomains on HSTS: app/api/office live on other hostnames
+    # on this same nginx, as a separate application, and must not be forced
+    # onto HTTPS by a policy declared here.
+    #
+    # FOOTGUN: add_header in a location block discards every add_header
+    # inherited from the server block, it does not add to them. The
+    # location /assets/ and location ~* \.html$ blocks below both already
+    # set their own Cache-Control, which would otherwise silently drop
+    # these three — so they are repeated in both, not just declared once
+    # here.
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
     # Routes are prerendered as directories — /about/index.html,
     # /services/residential/index.html and so on. try_files has to reach
     # $uri/index.html BEFORE the SPA fallback, or a direct hit on /about/
     # serves the homepage shell and throws away the prerendered HTML that
-    # exists for crawlers in the first place.
+    # exists for crawlers in the first place. There is no SPA fallback any
+    # more: an unmatched path is a real 404, served by error_page above.
     location / {
-        try_files $uri $uri/ $uri/index.html /index.html;
+        try_files $uri $uri/ $uri/index.html =404;
     }
 
     # A release is whatever rsync delivered; nothing dotted belongs on the
@@ -80,6 +105,11 @@ server {
     # set once: `expires` would emit a second Cache-Control beside this.
     location /assets/ {
         add_header Cache-Control "public, max-age=31536000, immutable";
+        # Repeated: see the FOOTGUN comment above — add_header here replaces
+        # the server block's, it does not merge with it.
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     }
 
     # Never cache the HTML. It carries the canonical tag and the JSON-LD,
@@ -88,6 +118,11 @@ server {
     # module redirects to its index.html, and this location picks it up.
     location ~* \.html$ {
         add_header Cache-Control "no-cache";
+        # Repeated: see the FOOTGUN comment above — add_header here replaces
+        # the server block's, it does not merge with it.
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     }
 
     gzip on;

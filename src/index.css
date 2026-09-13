@@ -5,6 +5,43 @@
    Type: Switzer (single neo-grotesque, display + body)
    ============================================================ */
 
+/* Self-hosted Switzer. This used to be a synchronous stylesheet from
+   api.fontshare.com, which itself pulled the woff2 files from a second
+   host, cdn.fontshare.com — nothing above the fold could paint until both
+   resolved. scripts/fetch-fonts.mjs downloads the four weights into
+   public/fonts/ before every build (see that script for the licence terms
+   on why the files are gitignored rather than committed); these rules just
+   point at them locally. font-display: swap so text still paints in the
+   fallback font immediately rather than staying invisible. */
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* surfaces */
   --paper: #f4f1ea;
@@ -359,6 +396,21 @@ textarea {
   transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
 }
 .reveal[data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+/* The first section of every page must not use `.reveal`'s hidden rest
+   state — a hidden LCP element (opacity:0 until useReveal's ScrollTrigger
+   adds data-in, which only happens after JS hydrates) was measured costing
+   ~6s of LCP on mobile. `App.jsx` renders `<main id="main">`, adding
+   `page--sub` on every route except the homepage (see `.page--sub >
+   .section:first-child` above); `#main`'s first child covers both cases in
+   one rule — the homepage's hero-adjacent first section and every
+   sub-page's first `.section` (built by `Prose`/`SectionHeading`, whose
+   eyebrow, `<h1>` and lead paragraph all carry `.reveal`). Everything below
+   the fold is untouched and keeps the scroll-triggered reveal. */
+#main > :first-child .reveal {
   opacity: 1;
   transform: none;
 }

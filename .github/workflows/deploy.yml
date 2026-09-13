@@ -47,6 +47,16 @@ jobs:
           node-version: 20
           cache: npm
 
+      # The build downloads the Switzer woff2 files from Fontshare, because
+      # the ITF licence permits self-hosting but not redistribution, and
+      # this repo is public so they cannot be committed. Caching them keeps
+      # a third party off the critical path of every deploy: only a change
+      # to the fetch script re-downloads.
+      - uses: actions/cache@v4
+        with:
+          path: public/fonts
+          key: switzer-${{ hashFiles('scripts/fetch-fonts.mjs') }}
+
       - run: npm ci
       - run: npm run build
 
