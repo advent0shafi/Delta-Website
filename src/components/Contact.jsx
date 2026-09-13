@@ -1,20 +1,34 @@
 import React, { useState } from 'react'
 import { Button, Icons } from './common'
 import { useReveal } from '../lib/useReveal'
-import { CONTACT, AREA } from '../../site.config'
+import { submitLead, whatsappUrl } from '../lib/leads'
+import { CONTACT, AREA, LEADS } from '../../site.config'
 
-const BILLS = ['Under ₹500', '₹500–₹1,000', '₹1,000–₹2,000', '₹2,000–₹5,000', 'Above ₹5,000']
+/* The labels are the keys of LEADS.bills, so the list shown and the list
+   the API accepts are the same list. Adding a band in site.config.js adds
+   it here; there is no second place to forget. */
+const BILLS = Object.keys(LEADS.bills)
+
+const EMPTY = { name: '', phone: '', town: '', bill: '', message: '', leave_blank: '' }
 
 export default function Contact({ headingAs: Heading = 'h2' }) {
   const scope = useReveal()
-  const [sent, setSent] = useState(false)
-  const [form, setForm] = useState({ name: '', phone: '', town: '', bill: '', message: '' })
+  /* idle -> sending -> sent, or -> handoff when the API did not take it. */
+  const [status, setStatus] = useState('idle')
+  const [form, setForm] = useState(EMPTY)
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
+  const reset = () => { setStatus('idle'); setForm(EMPTY) }
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault()
-    if (!form.name || !form.phone) return
-    setSent(true)
+    if (status === 'sending') return
+    if (!form.name.trim() || !form.phone.trim()) return
+    setStatus('sending')
+    /* One branch, deliberately. A rejected origin, an unknown key and a
+       dead server all reach the browser as the same opaque failure, so
+       there is nothing to tell apart — either the lead is filed or it
+       goes to WhatsApp. */
+    setStatus((await submitLead(form)) ? 'sent' : 'handoff')
   }
 
   return (
@@ -68,7 +82,7 @@ export default function Contact({ headingAs: Heading = 'h2' }) {
         </div>
 
         <div className="contact__form-wrap reveal" data-delay="0.1">
-          {sent ? (
+          {status === 'sent' ? (
             <div className="contact__done" role="status">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
                 <circle cx="24" cy="24" r="22" stroke="var(--green)" strokeWidth="2.5" />
@@ -76,8 +90,29 @@ export default function Contact({ headingAs: Heading = 'h2' }) {
               </svg>
               <h3>Thanks, {form.name.split(' ')[0] || 'there'}!</h3>
               <p>We've got your details and will call you back within 24 hours.</p>
-              <Button as="button" variant="outline" onClick={() => { setSent(false); setForm({ name: '', phone: '', town: '', bill: '', message: '' }) }}>
+              <Button as="button" variant="outline" onClick={reset}>
                 Send another
+              </Button>
+            </div>
+          ) : status === 'handoff' ? (
+            /* Honest about what happened, and one tap from not losing the
+               enquiry. The link is tapped rather than opened for them: by
+               now the original click is spent and a popup blocker would
+               swallow window.open. */
+            <div className="contact__done" role="status">
+              <span className="contact__done-icon" aria-hidden="true">
+                <Icons.whatsapp width="48" height="48" />
+              </span>
+              <h3>Nearly there</h3>
+              <p>
+                That didn't go through just now. Send the same details on WhatsApp instead — they're
+                already filled in, you only need to press send.
+              </p>
+              <Button as="a" variant="green" arrow href={whatsappUrl(form)} target="_blank" rel="noopener">
+                Send on WhatsApp
+              </Button>
+              <Button as="button" variant="outline" onClick={reset}>
+                Start over
               </Button>
             </div>
           ) : (
@@ -105,8 +140,18 @@ export default function Contact({ headingAs: Heading = 'h2' }) {
                 <label htmlFor="c-msg">Message <em>(optional)</em></label>
                 <textarea id="c-msg" name="message" rows="3" value={form.message} onChange={set('message')} placeholder="Anything we should know about your roof or usage?" />
               </div>
-              <Button as="button" variant="green" arrow type="submit">
-                Request callback
+
+              {/* Honeypot. Off-screen rather than display:none, which bots
+                  check for, and named leave_blank rather than something
+                  like "company" that a browser would helpfully autofill —
+                  which would flag real people as bots. */}
+              <div className="contact__trap" aria-hidden="true">
+                <label htmlFor="c-lb">Leave this field empty</label>
+                <input id="c-lb" name="leave_blank" type="text" tabIndex={-1} autoComplete="off" value={form.leave_blank} onChange={set('leave_blank')} />
+              </div>
+
+              <Button as="button" variant="green" arrow type="submit" disabled={status === 'sending'}>
+                {status === 'sending' ? 'Sending…' : 'Request callback'}
               </Button>
             </form>
           )}

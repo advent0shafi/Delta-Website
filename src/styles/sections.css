@@ -1413,6 +1413,32 @@
   flex-direction: column;
   gap: 5px;
 }
+
+/* Honeypot. Positioned off-screen rather than display:none or
+   visibility:hidden, both of which a bot can test for and skip. Taken out
+   of the grid by the absolute positioning, so it costs no layout. */
+.contact__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* The WhatsApp mark on the fallback card, sized like the tick it replaces. */
+.contact__done-icon {
+  display: block;
+  color: var(--green);
+}
+.contact__done-icon svg {
+  display: block;
+}
+
+/* A button mid-request should look busy, not broken. */
+.contact__form .btn[disabled] {
+  opacity: 0.62;
+  cursor: progress;
+}
 @media (min-width: 720px) {
   .contact__form {
     gap: 15px;

@@ -93,6 +93,41 @@ export const CONTACT = {
   sameAs: [],
 }
 
+/* ---------- where the contact form sends leads ----------
+
+   The intake endpoint in Delta's own ERP (docsun), one key per website,
+   created under Settings -> Website leads. A submission becomes a lead
+   record in Delta's workspace.
+
+   `key` is PUBLISHABLE, not a secret. It is in the browser bundle of a
+   public static site, so treating it as one would be theatre. What
+   actually protects the endpoint sits on the server: the key only
+   accepts posts whose Origin is on its own allowlist, there is a
+   honeypot field, a per-key and per-real-IP rate limit, and a daily cap.
+   A leaked key lets someone file enquiries from this origin, which is
+   what the form already does. If it is ever abused, rotate it in the ERP
+   and change it here.
+
+   `bills` maps the labels the form shows to the keys the API accepts.
+   One object, so the two cannot drift apart; the API rejects an unknown
+   key with 422 rather than guessing. */
+
+export const LEADS = {
+  intakeUrl:
+    'https://api.deltaenergysolution.com/api/v2/intake/lk_qsyTYAF-8meZKLMlAOYTrUIzkmChJnCE/',
+  /* Label shown -> key sent. "" means the customer did not pick one. */
+  bills: {
+    'Under \u20b9500': 'under_500',
+    '\u20b9500\u2013\u20b91,000': '500_1000',
+    '\u20b91,000\u2013\u20b92,000': '1000_2000',
+    '\u20b92,000\u2013\u20b95,000': '2000_5000',
+    'Above \u20b95,000': 'over_5000',
+  },
+  /* Give up and hand the lead to WhatsApp rather than leave someone
+     watching a spinner on a slow connection. */
+  timeoutMs: 8000,
+}
+
 /* ---------- what we sell ----------
    Rendered by Services.jsx, emitted as schema.org Service nodes.
    `title` is split in two for the two-tone heading treatment;
