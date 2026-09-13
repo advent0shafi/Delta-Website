@@ -20,6 +20,7 @@ on:
       - 'docs/**'
       - 'tasks/**'
       - 'research/**'
+      - 'deploy/**'
       - '**.md'
   workflow_dispatch:
 

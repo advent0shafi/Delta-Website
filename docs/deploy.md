@@ -41,12 +41,22 @@ The argument is the public half of the GitHub Actions deploy key. It is kept
 out of this repository on purpose; whoever runs the script pastes it in.
 
 The script is idempotent and stops the moment the ERP stops answering. In
-order it: creates the `deploy` user; drops a `docker-compose.override.yml`
-beside the ERP's compose file so that file is never edited; installs an
-HTTP-only nginx block; recreates `delta-nginx` (the ERP blips for a second
-here, and only here); issues the `deltasite` certificate; installs the real
-block after `nginx -t` passes in a throwaway container; restarts nginx; and
-verifies that both the site and `app.` answer.
+order it: creates the `deploy` user; issues the `deltasite` certificate
+**before touching nginx**, because the ERP's port-80 block already answers
+the ACME challenge for any hostname (the script proves this end to end
+first); drops a `docker-compose.override.yml` beside the ERP's compose file
+so that file is never edited; installs the site's nginx block; runs
+`nginx -t` on the rendered config in a throwaway container on the compose
+network; recreates `delta-nginx` once; and verifies that the mount is inside
+the container, the site answers over TLS, and `app.` still answers 200.
+
+The ERP is affected in exactly one way: that single recreate, a second or
+two of refused connections on every hostname. OnlyOffice editing sessions
+drop and reconnect on their own. Run it when nobody is mid-document.
+
+The script reads the compose project name, tool version and config files off
+the running container rather than assuming them. Guessing a different
+project would create a second nginx fighting the first for port 443.
 
 The two secrets the workflow needs, `DEPLOY_SSH_KEY` and
 `DEPLOY_KNOWN_HOSTS`, are already set on the repository. The host key is
